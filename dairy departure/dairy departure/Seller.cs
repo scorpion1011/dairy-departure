@@ -16,5 +16,11 @@ namespace dairy_departure
         {
             InitializeComponent();
         }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            LogInForm f = (LogInForm)this.Parent;
+            f.Logout(this);
+        }
     }
 }
