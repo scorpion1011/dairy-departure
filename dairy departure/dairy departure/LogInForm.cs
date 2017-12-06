@@ -12,14 +12,14 @@ using System.Configuration;
 
 namespace dairy_departure
 {
-    public partial class Form1 : Form
+    public partial class LogInForm : Form
     {
         private object emp_pos;
         private object id_emp;
         private object name_emp;
         private object pos_name;
 
-        public Form1()
+        public LogInForm()
         {
             InitializeComponent();
         }
@@ -61,17 +61,23 @@ WHERE (((e.Username)=@username) AND ((e.Password)= @password))
 
                             switch (pos_name)
                             {
-                                case "Admin":
-                                    //this.Visible = false;
-                                    MessageBox.Show("hi Admin");
+                                case "Director":
+                                    SetLogVisibility(false);
+                                    Director dir = new Director();
+                                    this.Size = new System.Drawing.Size(675, 394);
+                                    this.Controls.Add(dir);
                                     break;
                                 case "Seller":
-                                    //this.Visible = false;
-                                    MessageBox.Show("hi Seller");
+                                    SetLogVisibility(false);
+                                    Seller sel = new Seller();
+                                    this.Size = new System.Drawing.Size(675, 394);
+                                    this.Controls.Add(sel);
                                     break;
                                 case "StoreKeeper":
-                                    //this.Visible = false;
-                                    MessageBox.Show("hi StoreKeeper");
+                                    SetLogVisibility(false);
+                                    Storekeeper keep = new Storekeeper();
+                                    this.Size = new System.Drawing.Size(675, 394);
+                                    this.Controls.Add(keep);
                                     break;
                             }
                         }
@@ -83,6 +89,16 @@ WHERE (((e.Username)=@username) AND ((e.Password)= @password))
                 }
 
             }
+        }
+
+        public void SetLogVisibility(bool visibility)
+        {
+            label1.Visible = visibility;
+            label2.Visible = visibility;
+            label3.Visible = visibility;
+            textBox1.Visible = visibility;
+            textBox2.Visible = visibility;
+            button1.Visible = visibility;
         }
     }
 }
