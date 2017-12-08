@@ -14,6 +14,10 @@ namespace dairy_departure
 {
     public partial class LogInForm : Form
     {
+        public string name;
+        public string manufacturer;
+        public string weight;
+        public string proc;
         private int emp_pos;
         private int id_emp;
         private string name_emp;
@@ -80,6 +84,7 @@ WHERE (((e.Username)=@username) AND ((e.Password)= @password))
 
         private void ShowUserControl(string controlType)
         {
+            this.Text = "Welcome, " + name_emp;
             switch (controlType)
             {
                 case "Director":
@@ -118,6 +123,7 @@ WHERE (((e.Username)=@username) AND ((e.Password)= @password))
             this.Controls.Remove(control);
             SetLogVisibility(true);
             this.Size = new System.Drawing.Size(377, 234);
+            this.Text = "Login";
         }
     }
 }

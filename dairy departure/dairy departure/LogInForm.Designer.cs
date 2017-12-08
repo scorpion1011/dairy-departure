@@ -116,7 +116,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Name = "LogInForm";
-            this.Text = "Log in";
+            this.Text = "Login";
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dairyDeparture1DataSet)).EndInit();
             this.ResumeLayout(false);
