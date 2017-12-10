@@ -40,6 +40,9 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ID_product = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID_supplies = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rest = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -83,7 +86,10 @@
             this.Column2,
             this.Column3,
             this.Column4,
-            this.Column5});
+            this.Column5,
+            this.ID_product,
+            this.ID_supplies,
+            this.Rest});
             this.dataGridView1.Location = new System.Drawing.Point(4, 101);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
@@ -140,14 +146,12 @@
             // 
             // Column4
             // 
-            this.Column4.Frozen = true;
             this.Column4.HeaderText = "Amount";
             this.Column4.Name = "Column4";
             this.Column4.Width = 75;
             // 
             // Column5
             // 
-            this.Column5.Frozen = true;
             this.Column5.HeaderText = "";
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
@@ -156,6 +160,26 @@
             this.Column5.Text = "X";
             this.Column5.UseColumnTextForButtonValue = true;
             this.Column5.Width = 25;
+            // 
+            // ID_product
+            // 
+            this.ID_product.HeaderText = "id_p";
+            this.ID_product.Name = "ID_product";
+            this.ID_product.ReadOnly = true;
+            this.ID_product.Visible = false;
+            // 
+            // ID_supplies
+            // 
+            this.ID_supplies.HeaderText = "id_s";
+            this.ID_supplies.Name = "ID_supplies";
+            this.ID_supplies.Visible = false;
+            // 
+            // Rest
+            // 
+            this.Rest.HeaderText = "left";
+            this.Rest.Name = "Rest";
+            this.Rest.ReadOnly = true;
+            this.Rest.Visible = false;
             // 
             // Seller
             // 
@@ -189,5 +213,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewButtonColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID_product;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID_supplies;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Rest;
     }
 }

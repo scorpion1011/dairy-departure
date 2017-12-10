@@ -12,7 +12,22 @@ namespace dairy_departure
 {
     public partial class Seller : UserControl
     {
-        
+        struct Good
+        {
+            public decimal price;
+            public int amount;
+            public int sup_id;
+
+            public Good(decimal price, int amount, int sup_id)
+            {
+                this.price = price;
+                this.amount = amount;
+                this.sup_id = sup_id;
+            }
+        }
+
+        Dictionary<int, List<Good>> products = new Dictionary<int, List<Seller.Good>>();
+
         public Seller()
         {
             InitializeComponent();
@@ -39,6 +54,16 @@ namespace dairy_departure
             {
                 dataGridView1.Rows.RemoveAt(dataGridView1.SelectedRows[0].Index);
             }
+        }
+
+        public void AddProduct(string manufacturer, string name, string proc, string weight, decimal price, int id_p, int id_s, int rest)
+        {
+            if (!products.Keys.Contains(id_p))
+            {
+                dataGridView1.Rows.Add(manufacturer, name, proc, weight, 1, id_p, id_s, rest);
+                products.Add(id_p, new List<Good>());
+            }
+            products[id_p].Add(new Good(price, rest, id_s));
         }
     }
 }
