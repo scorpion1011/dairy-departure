@@ -41,17 +41,34 @@ namespace dairy_departure
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Products prodF = new Products(this);
+            List<int> ids = new List<int> { };
+            int i = 0;
+            while (true)
+            {
+                try
+                {
+                    ids.Add(Int32.Parse(dataGridView1.Rows[i].Cells["ID_product"].Value.ToString()));
+                }
+                catch (Exception)
+                {
+                    break;
+                }
+                i++;
+            }
+            Products prodF = new Products(this, ids);
             prodF.ShowDialog();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var senderGrid = (DataGridView)sender;
 
+            var senderGrid = (DataGridView)sender;
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
             {
+                int id_to_rem = Int32.Parse(dataGridView1.Rows[dataGridView1.SelectedRows[0].Index].Cells["ID_product"].Value.ToString());
+                products.Remove(id_to_rem);
+
                 dataGridView1.Rows.RemoveAt(dataGridView1.SelectedRows[0].Index);
             }
         }
@@ -60,7 +77,7 @@ namespace dairy_departure
         {
             if (!products.Keys.Contains(id_p))
             {
-                dataGridView1.Rows.Add(manufacturer, name, proc, weight, 1, id_p, id_s, rest);
+                dataGridView1.Rows.Add(manufacturer, name, proc, weight, price, 1, id_p, id_s, rest);
                 products.Add(id_p, new List<Good>());
             }
             products[id_p].Add(new Good(price, rest, id_s));
