@@ -1,6 +1,6 @@
 ﻿namespace dairy_departure
 {
-    partial class Products
+    partial class Supplies
     {
         /// <summary>
         /// Required designer variable.
@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dairyDeparture1DataSet = new dairy_departure.DairyDeparture1DataSet();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productTableAdapter = new dairy_departure.DairyDeparture1DataSetTableAdapters.ProductTableAdapter();
             this.tableAdapterManager = new dairy_departure.DairyDeparture1DataSetTableAdapters.TableAdapterManager();
-            this.button1 = new System.Windows.Forms.Button();
             this.productDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,15 +47,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.productDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("PMingLiU-ExtB", 10F, System.Drawing.FontStyle.Bold);
+            this.button1.Location = new System.Drawing.Point(187, 259);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(92, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Add";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("PMingLiU-ExtB", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(152, 9);
+            this.label1.Location = new System.Drawing.Point(167, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(166, 19);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Products available:";
+            this.label1.Size = new System.Drawing.Size(143, 19);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Choose product:";
             // 
             // dairyDeparture1DataSet
             // 
@@ -85,17 +96,6 @@
             this.tableAdapterManager.SupplyTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = dairy_departure.DairyDeparture1DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("PMingLiU-ExtB", 10F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(187, 257);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(92, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // productDataGridView
             // 
             this.productDataGridView.AllowUserToAddRows = false;
@@ -114,30 +114,25 @@
             this.productDataGridView.MultiSelect = false;
             this.productDataGridView.Name = "productDataGridView";
             this.productDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.productDataGridView.Size = new System.Drawing.Size(457, 220);
-            this.productDataGridView.TabIndex = 4;
+            this.productDataGridView.Size = new System.Drawing.Size(463, 222);
+            this.productDataGridView.TabIndex = 7;
             // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "ID_product";
-            this.dataGridViewTextBoxColumn1.Frozen = true;
             this.dataGridViewTextBoxColumn1.HeaderText = "ID_product";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Visible = false;
             // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "Name_product";
-            this.dataGridViewTextBoxColumn2.Frozen = true;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Name_product";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
             // Manufacturer
             // 
-            this.Manufacturer.DataPropertyName = "Manufacturer";
-            this.Manufacturer.Frozen = true;
             this.Manufacturer.HeaderText = "Manufacturer";
             this.Manufacturer.Name = "Manufacturer";
             this.Manufacturer.ReadOnly = true;
@@ -145,7 +140,6 @@
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.DataPropertyName = "ID_manufacturer";
-            this.dataGridViewTextBoxColumn3.Frozen = true;
             this.dataGridViewTextBoxColumn3.HeaderText = "ID_manufacturer";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
@@ -154,30 +148,28 @@
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "Mass/volume";
-            this.dataGridViewTextBoxColumn4.Frozen = true;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Weight/volume";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Mass/volume";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "%-fat";
-            this.dataGridViewTextBoxColumn5.Frozen = true;
             this.dataGridViewTextBoxColumn5.HeaderText = "%-fat";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
-            // Products
+            // Supplies
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(481, 292);
+            this.ClientSize = new System.Drawing.Size(487, 302);
             this.Controls.Add(this.productDataGridView);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
-            this.Name = "Products";
-            this.Text = "Products";
-            this.Load += new System.EventHandler(this.Products_Load);
+            this.Name = "Supplies";
+            this.Text = "Supplies";
+            this.Load += new System.EventHandler(this.Supplies_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dairyDeparture1DataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productDataGridView)).EndInit();
@@ -187,13 +179,12 @@
         }
 
         #endregion
-
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private DairyDeparture1DataSet dairyDeparture1DataSet;
         private System.Windows.Forms.BindingSource productBindingSource;
         private DairyDeparture1DataSetTableAdapters.ProductTableAdapter productTableAdapter;
         private DairyDeparture1DataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView productDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;

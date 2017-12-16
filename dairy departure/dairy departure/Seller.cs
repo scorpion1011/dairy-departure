@@ -61,10 +61,8 @@ namespace dairy_departure
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
             var senderGrid = (DataGridView)sender;
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
-                e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
                 int id_to_rem = Int32.Parse(dataGridView1.Rows[dataGridView1.SelectedRows[0].Index].Cells["ID_product"].Value.ToString());
                 products.Remove(id_to_rem);
@@ -77,10 +75,31 @@ namespace dairy_departure
         {
             if (!products.Keys.Contains(id_p))
             {
-                dataGridView1.Rows.Add(manufacturer, name, proc, weight, price, 1, id_p, id_s, rest);
+                dataGridView1.Rows.Add(manufacturer, name, proc, weight, price, 1, 0, id_p, id_s, rest, price);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["Column4"].Tag = 1;
                 products.Add(id_p, new List<Good>());
             }
             products[id_p].Add(new Good(price, rest, id_s));
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] == dataGridView1.Columns["Column4"])
+            {
+                if (Int32.Parse(dataGridView1.SelectedRows[0].Cells["Column4"].Value.ToString()) > Int32.Parse(dataGridView1.SelectedRows[0].Cells["Rest"].Value.ToString()))
+                {
+                    MessageBox.Show("To many");
+                    dataGridView1.SelectedRows[0].Cells["Column4"].Value = dataGridView1.SelectedRows[0].Cells["Column4"].Tag;
+                }
+                else
+                {
+                    dataGridView1.SelectedRows[0].Cells["Column3"].Value =
+                        Int32.Parse(dataGridView1.SelectedRows[0].Cells["Column4"].Value.ToString()) * Int32.Parse(dataGridView1.SelectedRows[0].Cells["price_for_1"].Value.ToString());
+                    dataGridView1.SelectedRows[0].Cells["Column4"].Tag = Int32.Parse(dataGridView1.SelectedRows[0].Cells["Column4"].Value.ToString());
+                }
+            }
         }
     }
 }

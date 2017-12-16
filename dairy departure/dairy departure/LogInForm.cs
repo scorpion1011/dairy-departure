@@ -93,7 +93,7 @@ WHERE (((e.Username)=@username) AND ((e.Password)= @password))
                     {
                         dir = new Director();
                     }
-                    this.Size = new System.Drawing.Size(675, 394);
+                    this.Size = new System.Drawing.Size(675, 425);
                     this.Controls.Add(dir);
                     break;
                 case "Seller":
@@ -102,7 +102,7 @@ WHERE (((e.Username)=@username) AND ((e.Password)= @password))
                     {
                         sel = new Seller();
                     }
-                    this.Size = new System.Drawing.Size(675, 394);
+                    this.Size = new System.Drawing.Size(675, 425);
                     this.Controls.Add(sel);
                     break;
                 case "StoreKeeper":
@@ -111,7 +111,7 @@ WHERE (((e.Username)=@username) AND ((e.Password)= @password))
                     {
                         keep = new Storekeeper();
                     }
-                    this.Size = new System.Drawing.Size(675, 394);
+                    this.Size = new System.Drawing.Size(800, 425);
                     this.Controls.Add(keep);
                     break;
             }

@@ -63,6 +63,12 @@
     <Compile Include="LogInForm.Designer.cs">
       <DependentUpon>LogInForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PriceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PriceDialog.Designer.cs">
+      <DependentUpon>PriceDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Products.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,11 +89,20 @@
     <Compile Include="Storekeeper.Designer.cs">
       <DependentUpon>Storekeeper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Supplies.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Supplies.Designer.cs">
+      <DependentUpon>Supplies.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Director.resx">
       <DependentUpon>Director.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogInForm.resx">
       <DependentUpon>LogInForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PriceDialog.resx">
+      <DependentUpon>PriceDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Products.resx">
       <DependentUpon>Products.cs</DependentUpon>
@@ -106,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Storekeeper.resx">
       <DependentUpon>Storekeeper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Supplies.resx">
+      <DependentUpon>Supplies.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="DairyDeparture1DataSet.xsc">
       <DependentUpon>DairyDeparture1DataSet.xsd</DependentUpon>

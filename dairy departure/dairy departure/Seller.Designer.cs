@@ -43,6 +43,7 @@
             this.ID_product = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID_supplies = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rest = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.price_for_1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -89,15 +90,16 @@
             this.Column5,
             this.ID_product,
             this.ID_supplies,
-            this.Rest});
+            this.Rest,
+            this.price_for_1});
             this.dataGridView1.Location = new System.Drawing.Point(4, 101);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(630, 278);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             // 
             // button2
             // 
@@ -149,7 +151,6 @@
             // 
             this.Column4.HeaderText = "Amount";
             this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
             this.Column4.Width = 75;
             // 
             // Column5
@@ -157,7 +158,7 @@
             this.Column5.HeaderText = "";
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
-            this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Column5.Text = "X";
             this.Column5.UseColumnTextForButtonValue = true;
@@ -167,22 +168,25 @@
             // 
             this.ID_product.HeaderText = "id_p";
             this.ID_product.Name = "ID_product";
-            this.ID_product.ReadOnly = true;
             this.ID_product.Visible = false;
             // 
             // ID_supplies
             // 
             this.ID_supplies.HeaderText = "id_s";
             this.ID_supplies.Name = "ID_supplies";
-            this.ID_supplies.ReadOnly = true;
             this.ID_supplies.Visible = false;
             // 
             // Rest
             // 
             this.Rest.HeaderText = "left";
             this.Rest.Name = "Rest";
-            this.Rest.ReadOnly = true;
             this.Rest.Visible = false;
+            // 
+            // price_for_1
+            // 
+            this.price_for_1.HeaderText = "price_for_1";
+            this.price_for_1.Name = "price_for_1";
+            this.price_for_1.Visible = false;
             // 
             // Seller
             // 
@@ -219,5 +223,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ID_product;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID_supplies;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rest;
+        private System.Windows.Forms.DataGridViewTextBoxColumn price_for_1;
     }
 }
