@@ -79,27 +79,30 @@
             this.Date,
             this.X,
             this.ID_pr});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 27);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 108);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(773, 307);
+            this.dataGridView1.Size = new System.Drawing.Size(773, 271);
             this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // add_all_but
             // 
-            this.add_all_but.Location = new System.Drawing.Point(541, 340);
+            this.add_all_but.Enabled = false;
+            this.add_all_but.Location = new System.Drawing.Point(660, 27);
             this.add_all_but.Name = "add_all_but";
-            this.add_all_but.Size = new System.Drawing.Size(102, 27);
+            this.add_all_but.Size = new System.Drawing.Size(116, 75);
             this.add_all_but.TabIndex = 3;
-            this.add_all_but.Text = "Add all";
+            this.add_all_but.Text = "Save all in DataBase";
             this.add_all_but.UseVisualStyleBackColor = true;
+            this.add_all_but.Click += new System.EventHandler(this.add_all_but_Click);
             // 
             // add_supply_but
             // 
-            this.add_supply_but.Location = new System.Drawing.Point(16, 340);
+            this.add_supply_but.Location = new System.Drawing.Point(3, 27);
             this.add_supply_but.Name = "add_supply_but";
-            this.add_supply_but.Size = new System.Drawing.Size(102, 27);
+            this.add_supply_but.Size = new System.Drawing.Size(120, 75);
             this.add_supply_but.TabIndex = 4;
             this.add_supply_but.Text = "Add supply";
             this.add_supply_but.UseVisualStyleBackColor = true;
@@ -158,7 +161,7 @@
             // 
             // ID_pr
             // 
-            this.ID_pr.DataPropertyName = "Name_product";
+            this.ID_pr.DataPropertyName = "ID_product";
             this.ID_pr.HeaderText = "ID_pr";
             this.ID_pr.Name = "ID_pr";
             this.ID_pr.ReadOnly = true;

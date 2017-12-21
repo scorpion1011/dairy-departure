@@ -115,7 +115,6 @@ namespace dairy_departure
         private void button1_Click(object sender, EventArgs e)
         {
             int prod_id = Int32.Parse(productDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-            //int manuf_id = Int32.Parse(productDataGridView.SelectedRows[0].Cells[2].Value.ToString());
 
 
             Storekeeper f = (Storekeeper)this.parent;
@@ -133,7 +132,15 @@ namespace dairy_departure
                 f.AddProduct(manuf, name_pr, proc, weight, price, prod_id);
             }
 
+            this.parent.Controls["add_all_but"].Enabled = true;
+
             this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            NewProduct f = new NewProduct();
+            f.ShowDialog();
         }
     }
 }

@@ -80,25 +80,82 @@ namespace dairy_departure
                 products.Add(id_p, new List<Good>());
             }
             products[id_p].Add(new Good(price, rest, id_s));
+
         }
+
+        private bool doNotProcessEvent = false;
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-
-            if (senderGrid.Columns[e.ColumnIndex] == dataGridView1.Columns["Column4"])
+            
+            if (!doNotProcessEvent && senderGrid.Columns[e.ColumnIndex] == dataGridView1.Columns["Column4"])
             {
-                if (Int32.Parse(dataGridView1.SelectedRows[0].Cells["Column4"].Value.ToString()) > Int32.Parse(dataGridView1.SelectedRows[0].Cells["Rest"].Value.ToString()))
+                doNotProcessEvent = true;
+                int product_id = Int32.Parse(dataGridView1.SelectedRows[0].Cells["ID_product"].Value.ToString());
+                int targetAmount = Int32.Parse(dataGridView1.SelectedRows[0].Cells["Column4"].Value.ToString());
+                Dictionary<decimal, int> rows = new Dictionary<decimal, int> ( );
+                int addedAmount = 0;
+                //////////////////////////remove here?
+                foreach (Good good in products[product_id])
                 {
-                    MessageBox.Show("To many");
-                    dataGridView1.SelectedRows[0].Cells["Column4"].Value = dataGridView1.SelectedRows[0].Cells["Column4"].Tag;
+                    if (!rows.Keys.Contains(good.price))
+                    {
+                        rows.Add(good.price, 0);
+                    }
+                    rows[good.price] += Math.Min(good.amount, targetAmount - addedAmount);
+                    addedAmount += good.amount;
+                    if (addedAmount >= targetAmount)
+                    {
+                        break;
+                    }
                 }
-                else
+
+
+
+                if (rows.Count > 1)
                 {
-                    dataGridView1.SelectedRows[0].Cells["Column3"].Value =
-                        Int32.Parse(dataGridView1.SelectedRows[0].Cells["Column4"].Value.ToString()) * Int32.Parse(dataGridView1.SelectedRows[0].Cells["price_for_1"].Value.ToString());
-                    dataGridView1.SelectedRows[0].Cells["Column4"].Tag = Int32.Parse(dataGridView1.SelectedRows[0].Cells["Column4"].Value.ToString());
+                    bool cond = true;
+                    int index = dataGridView1.SelectedRows[0].Index;
+                    int i = 0;
+
+                    foreach (KeyValuePair<decimal, int> row in rows)
+                    {
+                        if (cond)
+                        {
+                            cond = false;
+                            dataGridView1.SelectedRows[0].Cells["Column4"].Value = row.Value;
+                        }
+                        else
+                        {
+                            dataGridView1.Rows.InsertCopy(index, index+i);
+                            dataGridView1.Rows[index + i].Cells["Column3"].Value = row.Key;
+                            dataGridView1.Rows[index + i].Cells["Column4"].Value = row.Value;
+                            dataGridView1.Rows[index + i].Cells["Manufacturer"].Value = dataGridView1.Rows[index].Cells["Manufacturer"].Value;
+                            dataGridView1.Rows[index + i].Cells["Product"].Value = dataGridView1.Rows[index].Cells["Product"].Value;
+                            dataGridView1.Rows[index + i].Cells["Column1"].Value = dataGridView1.Rows[index].Cells["Column1"].Value;
+                            dataGridView1.Rows[index + i].Cells["Column2"].Value = dataGridView1.Rows[index].Cells["Column2"].Value;
+                            dataGridView1.Rows[index + i].Cells["ID_product"].Value = dataGridView1.Rows[index].Cells["ID_product"].Value;
+                            dataGridView1.Rows[index + i].Cells["ID_supplies"].Value = dataGridView1.Rows[index].Cells["ID_supplies"].Value;
+                            dataGridView1.Rows[index + i].Cells["Rest"].Value = dataGridView1.Rows[index].Cells["Rest"].Value;
+                            dataGridView1.Rows[index + i].Cells["price_for_1"].Value = dataGridView1.Rows[index].Cells["price_for_1"].Value;
+
+                        }
+                        i++;
+                    }
                 }
+                doNotProcessEvent = false;
+                //if (Int32.Parse(dataGridView1.SelectedRows[0].Cells["Column4"].Value.ToString()) > )
+                //{
+                //    MessageBox.Show("To many");
+                //    dataGridView1.SelectedRows[0].Cells["Column4"].Value = dataGridView1.SelectedRows[0].Cells["Column4"].Tag;
+                //}
+                //else
+                //{
+                //    dataGridView1.SelectedRows[0].Cells["Column3"].Value =
+                //        Int32.Parse(dataGridView1.SelectedRows[0].Cells["Column4"].Value.ToString()) * Int32.Parse(dataGridView1.SelectedRows[0].Cells["price_for_1"].Value.ToString());
+                //    dataGridView1.SelectedRows[0].Cells["Column4"].Tag = Int32.Parse(dataGridView1.SelectedRows[0].Cells["Column4"].Value.ToString());
+                //}
             }
         }
     }

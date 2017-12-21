@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddFrom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddFrom.Designer.cs">
+      <DependentUpon>AddFrom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddManufacturer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddManufacturer.Designer.cs">
+      <DependentUpon>AddManufacturer.cs</DependentUpon>
+    </Compile>
     <Compile Include="DairyDeparture1DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -62,6 +74,12 @@
     </Compile>
     <Compile Include="LogInForm.Designer.cs">
       <DependentUpon>LogInForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewProduct.Designer.cs">
+      <DependentUpon>NewProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="PriceDialog.cs">
       <SubType>Form</SubType>
@@ -95,11 +113,20 @@
     <Compile Include="Supplies.Designer.cs">
       <DependentUpon>Supplies.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddFrom.resx">
+      <DependentUpon>AddFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddManufacturer.resx">
+      <DependentUpon>AddManufacturer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Director.resx">
       <DependentUpon>Director.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogInForm.resx">
       <DependentUpon>LogInForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewProduct.resx">
+      <DependentUpon>NewProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PriceDialog.resx">
       <DependentUpon>PriceDialog.cs</DependentUpon>
@@ -150,9 +177,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DairyDeparture1.accdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="DairyDeparture1.accdb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

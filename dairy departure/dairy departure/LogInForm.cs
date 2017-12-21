@@ -18,7 +18,7 @@ namespace dairy_departure
         public string manufacturer;
         public string weight;
         public string proc;
-        private int emp_pos;
+        public int emp_pos;
         private int id_emp;
         private string name_emp;
         private string pos_name;
