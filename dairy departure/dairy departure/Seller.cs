@@ -144,7 +144,9 @@ namespace dairy_departure
                         i++;
                     }
                 }
-                doNotProcessEvent = false;
+
+				//senderGrid.RefreshEdit();
+				doNotProcessEvent = false;
                 //if (Int32.Parse(dataGridView1.SelectedRows[0].Cells["Column4"].Value.ToString()) > )
                 //{
                 //    MessageBox.Show("To many");
@@ -158,5 +160,33 @@ namespace dairy_departure
                 //}
             }
         }
-    }
+
+		private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+		{
+			var senderGrid = sender as DataGridView;
+
+			if (senderGrid.Columns[e.ColumnIndex] == dataGridView1.Columns["Column4"])
+			{
+				int product_id = Int32.Parse(dataGridView1.SelectedRows[0].Cells["ID_product"].Value.ToString());
+				int targetAmount = Int32.Parse(e.FormattedValue.ToString());
+				Dictionary<decimal, int> rows = new Dictionary<decimal, int>();
+				int addedAmount = 0;
+				foreach (Good good in products[product_id])
+				{
+					if (!rows.Keys.Contains(good.price))
+					{
+						rows.Add(good.price, 0);
+					}
+					rows[good.price] += Math.Min(good.amount, targetAmount - addedAmount);
+					addedAmount += good.amount;
+					if (addedAmount >= targetAmount)
+					{
+						return;
+					}
+				}
+				e.Cancel = true;
+				MessageBox.Show("Too many. Max allowed amount is " + rows.Sum(x => x.Value) + ".");
+			}
+		}
+	}
 }
