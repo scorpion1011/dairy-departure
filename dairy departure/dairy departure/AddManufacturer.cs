@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -34,7 +36,25 @@ namespace dairy_departure
 
         private void button1_Click(object sender, EventArgs e)
         {
-            manufacturerBindingNavigatorSaveItem_Click(sender, e);
+            string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+
+                string sql = @"Insert into Manufacturer ([Name_manufacturer], [Country])
+                                    values (@Name_manufacturer, @Country)
+                ";
+                using (OleDbCommand comm = new OleDbCommand(sql, conn))
+                {
+                    comm.Parameters.AddWithValue("@Name_manufacturer", textBox1.Text);
+                    comm.Parameters.AddWithValue("@Country", textBox2.Text);
+                    comm.ExecuteNonQuery();
+                }
+            }
+
+            MessageBox.Show("Manufacturer successfully added");
+            this.Close();
         }
     }
 }

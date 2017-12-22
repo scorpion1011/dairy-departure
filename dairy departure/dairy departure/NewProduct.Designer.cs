@@ -41,10 +41,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.manufacturerЗапросBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.manufacturer_ЗапросTableAdapter = new dairy_departure.DairyDeparture1DataSetTableAdapters.Manufacturer_ЗапросTableAdapter();
             name_productLabel = new System.Windows.Forms.Label();
             iD_manufacturerLabel = new System.Windows.Forms.Label();
             mass_volumeLabel = new System.Windows.Forms.Label();
@@ -52,35 +54,8 @@
             shelfLifeLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dairyDeparture1DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.manufacturerЗапросBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dairyDeparture1DataSet
-            // 
-            this.dairyDeparture1DataSet.DataSetName = "DairyDeparture1DataSet";
-            this.dairyDeparture1DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // productBindingSource
-            // 
-            this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.dairyDeparture1DataSet;
-            // 
-            // productTableAdapter
-            // 
-            this.productTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.Employee_PositionTableAdapter = null;
-            this.tableAdapterManager.EmployeeTableAdapter = null;
-            this.tableAdapterManager.ManufacturerTableAdapter = null;
-            this.tableAdapterManager.PositionTableAdapter = null;
-            this.tableAdapterManager.ProductTableAdapter = this.productTableAdapter;
-            this.tableAdapterManager.Sales_planTableAdapter = null;
-            this.tableAdapterManager.SalesPlan_ProductTableAdapter = null;
-            this.tableAdapterManager.SellsTableAdapter = null;
-            this.tableAdapterManager.SupplyTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = dairy_departure.DairyDeparture1DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // name_productLabel
             // 
@@ -127,6 +102,34 @@
             shelfLifeLabel.TabIndex = 11;
             shelfLifeLabel.Text = "Shelf Life:";
             // 
+            // dairyDeparture1DataSet
+            // 
+            this.dairyDeparture1DataSet.DataSetName = "DairyDeparture1DataSet";
+            this.dairyDeparture1DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // productBindingSource
+            // 
+            this.productBindingSource.DataMember = "Product";
+            this.productBindingSource.DataSource = this.dairyDeparture1DataSet;
+            // 
+            // productTableAdapter
+            // 
+            this.productTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.Employee_PositionTableAdapter = null;
+            this.tableAdapterManager.EmployeeTableAdapter = null;
+            this.tableAdapterManager.ManufacturerTableAdapter = null;
+            this.tableAdapterManager.PositionTableAdapter = null;
+            this.tableAdapterManager.ProductTableAdapter = this.productTableAdapter;
+            this.tableAdapterManager.Sales_planTableAdapter = null;
+            this.tableAdapterManager.SalesPlan_ProductTableAdapter = null;
+            this.tableAdapterManager.SellsTableAdapter = null;
+            this.tableAdapterManager.SupplyTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = dairy_departure.DairyDeparture1DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(130, 146);
@@ -154,13 +157,6 @@
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 15;
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(105, 40);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 16;
-            // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(105, 66);
@@ -182,15 +178,34 @@
             this.textBox5.Size = new System.Drawing.Size(100, 20);
             this.textBox5.TabIndex = 19;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.DataSource = this.manufacturerЗапросBindingSource;
+            this.comboBox1.DisplayMember = "Info";
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(105, 39);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(100, 21);
+            this.comboBox1.TabIndex = 20;
+            // 
+            // manufacturerЗапросBindingSource
+            // 
+            this.manufacturerЗапросBindingSource.DataMember = "Manufacturer Запрос";
+            this.manufacturerЗапросBindingSource.DataSource = this.dairyDeparture1DataSet;
+            // 
+            // manufacturer_ЗапросTableAdapter
+            // 
+            this.manufacturer_ЗапросTableAdapter.ClearBeforeFill = true;
+            // 
             // NewProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(220, 193);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -204,6 +219,7 @@
             this.Load += new System.EventHandler(this.NewProduct_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dairyDeparture1DataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.manufacturerЗапросBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,9 +234,11 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.BindingSource manufacturerЗапросBindingSource;
+        private DairyDeparture1DataSetTableAdapters.Manufacturer_ЗапросTableAdapter manufacturer_ЗапросTableAdapter;
     }
 }

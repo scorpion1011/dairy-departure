@@ -31,8 +31,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.add_all_but = new System.Windows.Forms.Button();
-            this.add_supply_but = new System.Windows.Forms.Button();
             this.Manufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Prod_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.proc = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,6 +40,8 @@
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.X = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ID_pr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.add_all_but = new System.Windows.Forms.Button();
+            this.add_supply_but = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -86,27 +86,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(773, 271);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // add_all_but
-            // 
-            this.add_all_but.Enabled = false;
-            this.add_all_but.Location = new System.Drawing.Point(660, 27);
-            this.add_all_but.Name = "add_all_but";
-            this.add_all_but.Size = new System.Drawing.Size(116, 75);
-            this.add_all_but.TabIndex = 3;
-            this.add_all_but.Text = "Save all in DataBase";
-            this.add_all_but.UseVisualStyleBackColor = true;
-            this.add_all_but.Click += new System.EventHandler(this.add_all_but_Click);
-            // 
-            // add_supply_but
-            // 
-            this.add_supply_but.Location = new System.Drawing.Point(3, 27);
-            this.add_supply_but.Name = "add_supply_but";
-            this.add_supply_but.Size = new System.Drawing.Size(120, 75);
-            this.add_supply_but.TabIndex = 4;
-            this.add_supply_but.Text = "Add supply";
-            this.add_supply_but.UseVisualStyleBackColor = true;
-            this.add_supply_but.Click += new System.EventHandler(this.add_supply_but_Click);
             // 
             // Manufacturer
             // 
@@ -166,6 +145,27 @@
             this.ID_pr.Name = "ID_pr";
             this.ID_pr.ReadOnly = true;
             this.ID_pr.Visible = false;
+            // 
+            // add_all_but
+            // 
+            this.add_all_but.Enabled = false;
+            this.add_all_but.Location = new System.Drawing.Point(660, 27);
+            this.add_all_but.Name = "add_all_but";
+            this.add_all_but.Size = new System.Drawing.Size(116, 75);
+            this.add_all_but.TabIndex = 3;
+            this.add_all_but.Text = "Save all in DataBase";
+            this.add_all_but.UseVisualStyleBackColor = true;
+            this.add_all_but.Click += new System.EventHandler(this.add_all_but_Click);
+            // 
+            // add_supply_but
+            // 
+            this.add_supply_but.Location = new System.Drawing.Point(3, 27);
+            this.add_supply_but.Name = "add_supply_but";
+            this.add_supply_but.Size = new System.Drawing.Size(120, 75);
+            this.add_supply_but.TabIndex = 4;
+            this.add_supply_but.Text = "Add supply";
+            this.add_supply_but.UseVisualStyleBackColor = true;
+            this.add_supply_but.Click += new System.EventHandler(this.add_supply_but_Click);
             // 
             // Storekeeper
             // 
