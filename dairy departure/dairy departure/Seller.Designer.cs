@@ -32,18 +32,18 @@
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.button1 = new System.Windows.Forms.Button();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.button2 = new System.Windows.Forms.Button();
 			this.Manufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Column5 = new System.Windows.Forms.DataGridViewButtonColumn();
+			this.btnDel = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.ID_product = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ID_supplies = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Rest = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.price_for_1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.button2 = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
@@ -87,7 +87,7 @@
             this.Column2,
             this.Column3,
             this.Column4,
-            this.Column5,
+            this.btnDel,
             this.ID_product,
             this.ID_supplies,
             this.Rest,
@@ -101,6 +101,15 @@
 			this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
 			this.dataGridView1.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridView1_CellValidating);
 			this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(538, 29);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(96, 66);
+			this.button2.TabIndex = 3;
+			this.button2.Text = "Confirm";
+			this.button2.UseVisualStyleBackColor = true;
 			// 
 			// Manufacturer
 			// 
@@ -145,16 +154,16 @@
 			this.Column4.Name = "Column4";
 			this.Column4.Width = 75;
 			// 
-			// Column5
+			// btnDel
 			// 
-			this.Column5.HeaderText = "";
-			this.Column5.Name = "Column5";
-			this.Column5.ReadOnly = true;
-			this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-			this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.Column5.Text = "X";
-			this.Column5.UseColumnTextForButtonValue = true;
-			this.Column5.Width = 25;
+			this.btnDel.HeaderText = "";
+			this.btnDel.Name = "btnDel";
+			this.btnDel.ReadOnly = true;
+			this.btnDel.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+			this.btnDel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.btnDel.Text = "X";
+			this.btnDel.UseColumnTextForButtonValue = true;
+			this.btnDel.Width = 25;
 			// 
 			// ID_product
 			// 
@@ -179,15 +188,6 @@
 			this.price_for_1.HeaderText = "price_for_1";
 			this.price_for_1.Name = "price_for_1";
 			this.price_for_1.Visible = false;
-			// 
-			// button2
-			// 
-			this.button2.Location = new System.Drawing.Point(538, 29);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(96, 66);
-			this.button2.TabIndex = 3;
-			this.button2.Text = "Confirm";
-			this.button2.UseVisualStyleBackColor = true;
 			// 
 			// Seller
 			// 
@@ -214,16 +214,16 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Manufacturer;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Product;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewButtonColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID_product;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID_supplies;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Rest;
-        private System.Windows.Forms.DataGridViewTextBoxColumn price_for_1;
-    }
+		private System.Windows.Forms.DataGridViewTextBoxColumn Manufacturer;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Product;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+		private System.Windows.Forms.DataGridViewButtonColumn btnDel;
+		private System.Windows.Forms.DataGridViewTextBoxColumn ID_product;
+		private System.Windows.Forms.DataGridViewTextBoxColumn ID_supplies;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Rest;
+		private System.Windows.Forms.DataGridViewTextBoxColumn price_for_1;
+	}
 }

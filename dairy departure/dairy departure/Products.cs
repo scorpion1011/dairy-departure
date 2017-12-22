@@ -38,56 +38,15 @@ namespace dairy_departure
             this.productTableAdapter.Fill(this.dairyDeparture1DataSet.Product);
             
             int prod_id;
-            int i = 0;
-            while (true)
-            {
-                try
-                {
-                    prod_id = Int32.Parse(productDataGridView.Rows[i].Cells[0].Value.ToString());
-                    if (!isAvailable(prod_id))
-                    {
-                        productDataGridView.Rows.RemoveAt(i);
-                        i--;
-                    }
-                }
-                catch (Exception)
-                {
-                    break;
-                }
-                i++;
-            }
+			foreach(DataGridViewRow row in productDataGridView.Rows)
+			{
+				prod_id = Int32.Parse(row.Cells[0].Value.ToString());
+				if (ids.Contains(prod_id) || !isAvailable(prod_id))
+				{
+					productDataGridView.Rows.Remove(row);
+				}
+			}
             
-            i = 0;
-            
-            while (true)
-            {
-                try
-                {
-                    Int32.Parse(productDataGridView.Rows[i].Cells[0].Value.ToString());
-                }
-                catch (Exception)
-                {
-                    break;
-                }
-                int j = 0;
-                while (true)
-                {
-                    try
-                    {
-                        if (Int32.Parse(productDataGridView.Rows[i].Cells[0].Value.ToString()) == ids[j])
-                        {
-                            productDataGridView.Rows.RemoveAt(i);
-                        }
-                        j++;
-                    }
-                    catch (Exception)
-                    {
-                        break;
-                    }
-                }
-                i++;
-            }
-
             /////
             string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
             using (OleDbConnection conn = new OleDbConnection(connectionString))
@@ -124,9 +83,9 @@ namespace dairy_departure
                 conn.Open();
 
                 string sql = @"SELECT (select sum(sl.[Count]) from Sells sl where sl.ID_supply = s.ID_supply group by sl.ID_supply) AS Sold, sum(s.[Count]-IIF( ISNULL(Sold), 0, Sold)) AS [Left]
-FROM Supply AS s
-WHERE s.ID_Product = @ID_product;
-";
+								FROM Supply AS s
+								WHERE s.ID_Product = @ID_product;
+								";
                 using (OleDbCommand comm = new OleDbCommand(sql, conn))
                 {
                     comm.Parameters.AddWithValue("@ID_product", prod_id);
