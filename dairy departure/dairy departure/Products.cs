@@ -38,16 +38,16 @@ namespace dairy_departure
             this.productTableAdapter.Fill(this.dairyDeparture1DataSet.Product);
             
             int prod_id;
-			foreach(DataGridViewRow row in productDataGridView.Rows)
+			for (int i = productDataGridView.Rows.Count - 1; i >= 0; i--)
 			{
+				DataGridViewRow row = productDataGridView.Rows[i];
 				prod_id = Int32.Parse(row.Cells[0].Value.ToString());
 				if (ids.Contains(prod_id) || !isAvailable(prod_id))
 				{
 					productDataGridView.Rows.Remove(row);
 				}
 			}
-            
-            /////
+
             string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
@@ -71,7 +71,6 @@ namespace dairy_departure
                     }
                 }
             }
-            /////
         }
 
         private bool isAvailable(int prod_id)

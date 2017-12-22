@@ -37,8 +37,8 @@
 			this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnDel = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.ID_product = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ID_supplies = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -85,8 +85,8 @@
             this.Product,
             this.Column1,
             this.Column2,
-            this.Column3,
             this.Column4,
+            this.Column3,
             this.btnDel,
             this.ID_product,
             this.ID_supplies,
@@ -140,19 +140,18 @@
 			this.Column2.Name = "Column2";
 			this.Column2.ReadOnly = true;
 			// 
-			// Column3
-			// 
-			this.Column3.Frozen = true;
-			this.Column3.HeaderText = "Price";
-			this.Column3.Name = "Column3";
-			this.Column3.ReadOnly = true;
-			this.Column3.Width = 75;
-			// 
 			// Column4
 			// 
 			this.Column4.HeaderText = "Amount";
 			this.Column4.Name = "Column4";
 			this.Column4.Width = 75;
+			// 
+			// Column3
+			// 
+			this.Column3.HeaderText = "Price";
+			this.Column3.Name = "Column3";
+			this.Column3.ReadOnly = true;
+			this.Column3.Width = 75;
 			// 
 			// btnDel
 			// 
@@ -218,8 +217,8 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Product;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
 		private System.Windows.Forms.DataGridViewButtonColumn btnDel;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ID_product;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ID_supplies;
