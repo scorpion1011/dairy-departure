@@ -14,8 +14,10 @@ namespace dairy_departure
 {
     public partial class AddPosition : Form
     {
-        public AddPosition()
+        int id;
+        public AddPosition(int id)
         {
+            this.id = id;
             InitializeComponent();
         }
 

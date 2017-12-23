@@ -378,34 +378,68 @@ namespace dairy_departure
 		{
 			if (!employeeToolStripMenuItem.Enabled)
             {
-                AddEmployee f = new AddEmployee();
+                AddEmployee f = new AddEmployee(this, 0);
                 f.ShowDialog();
             }
             if (!positionsToolStripMenuItem.Enabled)
             {
-                AddPosition f = new AddPosition();
+                AddPosition f = new AddPosition(0);
                 f.ShowDialog();
             }
             if (!sellingPlansToolStripMenuItem.Enabled)
             {
-                AddPlan f = new AddPlan();
+                AddPlan f = new AddPlan(0);
                 f.ShowDialog();
             }
             if (!productsToolStripMenuItem.Enabled)
             {
-                AddProduct f = new AddProduct();
+                AddProduct f = new AddProduct(0);
                 f.ShowDialog();
             }
             if (!sellsToolStripMenuItem.Enabled)
             {
-                AddSell f = new AddSell();
+                AddSell f = new AddSell(0);
                 f.ShowDialog();
             }
             if (!suppliesToolStripMenuItem.Enabled)
             {
-                AddSupply f = new AddSupply();
+                AddSupply f = new AddSupply(0);
                 f.ShowDialog();
             }
         }
-	}
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!employeeToolStripMenuItem.Enabled)
+            {
+                AddEmployee f = new AddEmployee(this, dataGridView1.SelectedRows[0].Index);
+                f.ShowDialog();
+            }
+            if (!positionsToolStripMenuItem.Enabled)
+            {
+                AddPosition f = new AddPosition(dataGridView1.SelectedRows[0].Index);
+                f.ShowDialog();
+            }
+            if (!sellingPlansToolStripMenuItem.Enabled)
+            {
+                AddPlan f = new AddPlan(dataGridView1.SelectedRows[0].Index);
+                f.ShowDialog();
+            }
+            if (!productsToolStripMenuItem.Enabled)
+            {
+                AddProduct f = new AddProduct(dataGridView1.SelectedRows[0].Index);
+                f.ShowDialog();
+            }
+            if (!sellsToolStripMenuItem.Enabled)
+            {
+                AddSell f = new AddSell(dataGridView1.SelectedRows[0].Index);
+                f.ShowDialog();
+            }
+            if (!suppliesToolStripMenuItem.Enabled)
+            {
+                AddSupply f = new AddSupply(dataGridView1.SelectedRows[0].Index);
+                f.ShowDialog();
+            }
+        }
+    }
 }

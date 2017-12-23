@@ -14,8 +14,10 @@ namespace dairy_departure
 {
     public partial class AddPlan : Form
     {
-        public AddPlan()
+        int id;
+        public AddPlan(int id)
         {
+            this.id = id;
             InitializeComponent();
         }
 
