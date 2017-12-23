@@ -27,57 +27,19 @@ namespace dairy_departure
 
         private void Supplies_Load(object sender, EventArgs e)
         {
-            this.productTableAdapter.Fill(this.dairyDeparture1DataSet.Product);
-            //int prod_id;
-            //int i = 0;
-            //while (true)
-            //{
-            //    try
-            //    {
-            //        prod_id = Int32.Parse(productDataGridView.Rows[i].Cells[0].Value.ToString());
-            //        if (!isAvailable(prod_id))
-            //        {
-            //            productDataGridView.Rows.RemoveAt(i);
-            //            i--;
-            //        }
-            //    }
-            //    catch (Exception)
-            //    {
-            //        break;
-            //    }
-            //    i++;
-            //}
+			this.productTableAdapter.ClearBeforeFill = true;
+			this.productTableAdapter.Fill(this.dairyDeparture1DataSet.Product);
 
-            int i = 0;
-
-            while (true)
-            {
-                try
-                {
-                    Int32.Parse(productDataGridView.Rows[i].Cells[0].Value.ToString());
-                }
-                catch (Exception)
-                {
-                    break;
-                }
-                int j = 0;
-                while (true)
-                {
-                    try
-                    {
-                        if (Int32.Parse(productDataGridView.Rows[i].Cells[0].Value.ToString()) == ids[j])
-                        {
-                            productDataGridView.Rows.RemoveAt(i);
-                        }
-                        j++;
-                    }
-                    catch (Exception)
-                    {
-                        break;
-                    }
-                }
-                i++;
-            }
+			int prod_id;
+			for (int i = productDataGridView.Rows.Count - 1; i >= 0; i--)
+			{
+				DataGridViewRow row = productDataGridView.Rows[i];
+				prod_id = Int32.Parse(row.Cells[0].Value.ToString());
+				if (ids.Contains(prod_id))
+				{
+					productDataGridView.Rows.Remove(row);
+				}
+			}
 
             string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
             using (OleDbConnection conn = new OleDbConnection(connectionString))
@@ -89,9 +51,9 @@ namespace dairy_departure
                 {
                     for (int index = 0; index < productDataGridView.Rows.Count; index++)
                     {
-                        comm.Parameters.AddWithValue("@ID_manufacturer", Int32.Parse(productDataGridView.Rows[index].Cells[3].Value.ToString()));
+						comm.Parameters.AddWithValue("@ID_manufacturer", Int32.Parse(productDataGridView.Rows[index].Cells[3].Value.ToString()));
 
-                        using (OleDbDataReader reader = comm.ExecuteReader())
+						using (OleDbDataReader reader = comm.ExecuteReader())
                         {
 
                             if (reader.Read())
@@ -99,6 +61,7 @@ namespace dairy_departure
                                 productDataGridView.Rows[index].Cells[2].Value = reader.GetString(0);
                             }
                         }
+						comm.Parameters.RemoveAt("@ID_manufacturer");
                     }
                 }
             }
@@ -141,6 +104,7 @@ namespace dairy_departure
         {
             NewProduct f = new NewProduct();
             f.ShowDialog();
-        }
-    }
+			Supplies_Load(this, null);
+		}
+	}
 }

@@ -40,7 +40,9 @@ namespace dairy_departure
         {
             AddManufacturer f = new AddManufacturer();
             f.ShowDialog();
-        }
+			manufacturer_ЗапросTableAdapter.ClearBeforeFill = true;
+			manufacturer_ЗапросTableAdapter.Fill(dairyDeparture1DataSet.Manufacturer_Запрос);
+		}
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -74,5 +76,5 @@ namespace dairy_departure
                 MessageBox.Show("Invalid values");
             }
         }
-    }
+	}
 }
