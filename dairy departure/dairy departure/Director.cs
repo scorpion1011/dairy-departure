@@ -39,7 +39,6 @@ namespace dairy_departure
 
 			employeeToolStripMenuItem.Enabled = false;
 			positionsToolStripMenuItem.Enabled = true;
-			employeespositionsToolStripMenuItem.Enabled = true;
 			sellingPlansToolStripMenuItem.Enabled = true;
 			productsToolStripMenuItem.Enabled = true;
 			sellsToolStripMenuItem.Enabled = true;
@@ -50,13 +49,14 @@ namespace dairy_departure
             dataGridView1.Columns.Add("EmpName", "Name of employee");
             dataGridView1.Columns.Add("EmpLog", "Login of employee");
             dataGridView1.Columns.Add("EmpPas", "Password of employee");
+            dataGridView1.Columns.Add("EmpPos", "Position of employee");
 
             string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
                 conn.Open();
 
-                string sql = @"select * from Employee";
+                string sql = @"select E.*, P.Position_name  from [Employee] as E, Employee_Position as EP, [Position] as P where EP.ID_employee = E.ID_employee and P.ID_position = EP.ID_position";
                 using (OleDbCommand comm = new OleDbCommand(sql, conn))
                 {
                     using (OleDbDataReader reader = comm.ExecuteReader())
@@ -64,7 +64,7 @@ namespace dairy_departure
                         int i = 0;
                         while (reader.Read())
                         {
-                            dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                            dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
                             i++;
                         }
                     }
@@ -82,7 +82,6 @@ namespace dairy_departure
 
 			employeeToolStripMenuItem.Enabled = true;
 			positionsToolStripMenuItem.Enabled = false;
-			employeespositionsToolStripMenuItem.Enabled = true;
 			sellingPlansToolStripMenuItem.Enabled = true;
 			productsToolStripMenuItem.Enabled = true;
 			sellsToolStripMenuItem.Enabled = true;
@@ -123,7 +122,6 @@ namespace dairy_departure
 
 			employeeToolStripMenuItem.Enabled = true;
 			positionsToolStripMenuItem.Enabled = true;
-			employeespositionsToolStripMenuItem.Enabled = false;
 			sellingPlansToolStripMenuItem.Enabled = true;
 			productsToolStripMenuItem.Enabled = true;
 			sellsToolStripMenuItem.Enabled = true;
@@ -179,7 +177,6 @@ namespace dairy_departure
 
 			employeeToolStripMenuItem.Enabled = true;
 			positionsToolStripMenuItem.Enabled = true;
-			employeespositionsToolStripMenuItem.Enabled = true;
 			sellingPlansToolStripMenuItem.Enabled = false;
 			productsToolStripMenuItem.Enabled = true;
 			sellsToolStripMenuItem.Enabled = true;
@@ -203,7 +200,7 @@ namespace dairy_departure
 				conn.Open();
 
 				string sql = @"select Sp.[ID_plan], SpP.ID_product, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], SpP.Amount, Sp.[Date_from], Sp.[Date_to]
-								from Product as P, Sales_plan as Sp, SalesPlan_Product as SpP, Manufacturer as M
+								from Product as P, Selles_plan as Sp, SellesPlan_Product as SpP, Manufacturer as M
 								where Sp.ID_plan = SpP.ID_plan and P.ID_product = SpP.ID_product and P.ID_manufacturer = M.ID_manufacturer
 ";
 				using (OleDbCommand comm = new OleDbCommand(sql, conn))
@@ -230,7 +227,6 @@ namespace dairy_departure
 
 			employeeToolStripMenuItem.Enabled = true;
 			positionsToolStripMenuItem.Enabled = true;
-			employeespositionsToolStripMenuItem.Enabled = true;
 			sellingPlansToolStripMenuItem.Enabled = true;
 			productsToolStripMenuItem.Enabled = false;
 			sellsToolStripMenuItem.Enabled = true;
@@ -277,7 +273,6 @@ namespace dairy_departure
 
 			employeeToolStripMenuItem.Enabled = true;
 			positionsToolStripMenuItem.Enabled = true;
-			employeespositionsToolStripMenuItem.Enabled = true;
 			sellingPlansToolStripMenuItem.Enabled = true;
 			productsToolStripMenuItem.Enabled = true;
 			sellsToolStripMenuItem.Enabled = false;
@@ -334,7 +329,6 @@ namespace dairy_departure
 
 			employeeToolStripMenuItem.Enabled = true;
 			positionsToolStripMenuItem.Enabled = true;
-			employeespositionsToolStripMenuItem.Enabled = true;
 			sellingPlansToolStripMenuItem.Enabled = true;
 			productsToolStripMenuItem.Enabled = true;
 			sellsToolStripMenuItem.Enabled = true;
@@ -382,16 +376,36 @@ namespace dairy_departure
 
 		private void addToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			List<string> columns = new List<string> { };
-			for (int i = 0; i < dataGridView1.Columns.Count; i++)
-			{
-				if (dataGridView1.Columns[i].Visible)
-				{
-					columns.Add(dataGridView1.Columns[i].HeaderText + ":");
-				}
-			}
-			AddFrom prodF = new AddFrom(this, columns);
-			prodF.ShowDialog();
-		}
+			if (!employeeToolStripMenuItem.Enabled)
+            {
+                AddEmployee f = new AddEmployee();
+                f.ShowDialog();
+            }
+            if (!positionsToolStripMenuItem.Enabled)
+            {
+                AddPosition f = new AddPosition();
+                f.ShowDialog();
+            }
+            if (!sellingPlansToolStripMenuItem.Enabled)
+            {
+                AddPlan f = new AddPlan();
+                f.ShowDialog();
+            }
+            if (!productsToolStripMenuItem.Enabled)
+            {
+                AddProduct f = new AddProduct();
+                f.ShowDialog();
+            }
+            if (!sellsToolStripMenuItem.Enabled)
+            {
+                AddSell f = new AddSell();
+                f.ShowDialog();
+            }
+            if (!suppliesToolStripMenuItem.Enabled)
+            {
+                AddSupply f = new AddSupply();
+                f.ShowDialog();
+            }
+        }
 	}
 }

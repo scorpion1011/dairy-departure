@@ -19,7 +19,7 @@ namespace dairy_departure
         public string weight;
         public string proc;
         public int emp_pos;
-        private int id_emp;
+        public static int id_emp;
         private string name_emp;
         private string pos_name;
         private Director dir;

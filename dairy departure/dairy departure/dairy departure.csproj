@@ -46,17 +46,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddFrom.cs">
+    <Compile Include="AddPlan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddFrom.Designer.cs">
-      <DependentUpon>AddFrom.cs</DependentUpon>
+    <Compile Include="AddPlan.Designer.cs">
+      <DependentUpon>AddPlan.cs</DependentUpon>
     </Compile>
     <Compile Include="AddManufacturer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AddManufacturer.Designer.cs">
       <DependentUpon>AddManufacturer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEmployee.Designer.cs">
+      <DependentUpon>AddEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddPosition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddPosition.Designer.cs">
+      <DependentUpon>AddPosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddProduct.Designer.cs">
+      <DependentUpon>AddProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddSell.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddSell.Designer.cs">
+      <DependentUpon>AddSell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddSupply.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddSupply.Designer.cs">
+      <DependentUpon>AddSupply.cs</DependentUpon>
     </Compile>
     <Compile Include="DairyDeparture1DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -114,11 +144,26 @@
     <Compile Include="Supplies.Designer.cs">
       <DependentUpon>Supplies.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AddFrom.resx">
-      <DependentUpon>AddFrom.cs</DependentUpon>
+    <EmbeddedResource Include="AddPlan.resx">
+      <DependentUpon>AddPlan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddManufacturer.resx">
       <DependentUpon>AddManufacturer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEmployee.resx">
+      <DependentUpon>AddEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddPosition.resx">
+      <DependentUpon>AddPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddProduct.resx">
+      <DependentUpon>AddProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddSell.resx">
+      <DependentUpon>AddSell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddSupply.resx">
+      <DependentUpon>AddSupply.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Director.resx">
       <DependentUpon>Director.cs</DependentUpon>
