@@ -130,7 +130,8 @@ namespace dairy_departure
                 string sql = @"SELECT s.ID_supply,
                                         s.Price, 
                                         (select sum(sl.[Count]) from Sells sl where sl.ID_supply = s.ID_supply group by sl.ID_supply) as Sold, 
-                                        s.[Count]-IIF( ISNULL(Sold), 0, Sold) AS [Left]
+                                        s.[Count]-IIF( ISNULL(Sold), 0, Sold) AS [Left],
+										s.Date_Production
                                 FROM Supply AS s
                                 WHERE s.ID_Product = @ID_product
                                 and s.ID_supply not in (
@@ -150,7 +151,7 @@ namespace dairy_departure
 
                         while (reader.Read())
                         {
-                            f.AddProduct(manuf, name_pr, proc, weight, reader.GetDecimal(1), prod_id, reader.GetInt32(0), (int)reader.GetDouble(3));
+                            f.AddProduct(manuf, name_pr, proc, weight, reader.GetDecimal(1), prod_id, reader.GetInt32(0), (int)reader.GetDouble(3), reader.GetDateTime(4));
                         }
                     }
                 }

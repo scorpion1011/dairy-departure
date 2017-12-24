@@ -12,23 +12,39 @@ namespace dairy_departure
 {
     public partial class Seller : UserControl
     {
-        struct Good
-        {
-            public decimal price;
-            public int amount;
-            public int sup_id;
+		struct Good
+		{
+			public decimal price;
+			public decimal discount;
+			public int amount;
+			public int sup_id;
 
-            public Good(decimal price, int amount, int sup_id)
-            {
-                this.price = price;
-                this.amount = amount;
-                this.sup_id = sup_id;
-            }
-        }
+			public Good(decimal price, decimal discount, int amount, int sup_id)
+			{
+				this.price = price;
+				this.discount = discount;
+				this.amount = amount;
+				this.sup_id = sup_id;
+			}
+		}
+
+		struct Price
+		{
+			public decimal price;
+			public decimal discount;
+			public int amount;
+
+			public Price(decimal price, decimal discount, int amount)
+			{
+				this.price = price;
+				this.discount = discount;
+				this.amount = amount;
+			}
+		}
 
 		private bool doNotProcessEvent = false;
-
-		Dictionary<int, List<Good>> products = new Dictionary<int, List<Seller.Good>>();
+		private DiscountManager discountManager = new DiscountManager();
+		Dictionary<int, List<Good>> products = new Dictionary<int, List<Good>>();
 
         public Seller()
         {
@@ -39,8 +55,8 @@ namespace dairy_departure
 			dataGridView1.Rows[0].Tag = "Total";
 			dataGridView1.Rows[0].ReadOnly = true;
 			dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.LightGreen;
-			dataGridView1.Rows[0].Cells["Column4"].Value = "Total";
-			dataGridView1.Rows[0].Cells["Column3"].Value = 0;
+			dataGridView1.Rows[0].Cells["Discount"].Value = "Total";
+			dataGridView1.Rows[0].Cells["Sum"].Value = 0;
 			doNotProcessEvent = false;
 		}
 
@@ -79,16 +95,37 @@ namespace dairy_departure
 			}
         }
 
-        public void AddProduct(string manufacturer, string name, string proc, string weight, decimal price, int id_p, int id_s, int rest)
+        public void AddProduct(string manufacturer, string name, string proc, string weight, decimal price, int id_p, int id_s, int rest, DateTime expired)
         {
-            if (!products.Keys.Contains(id_p))
+			decimal discount = discountManager.Calculate(price, expired);
+
+			if (!products.Keys.Contains(id_p))
             {
-                dataGridView1.Rows.Insert(dataGridView1.Rows.Count - 1, manufacturer, name, proc, weight, 1, price, 0, id_p, id_s, rest, price);
+				doNotProcessEvent = true;
+
+				int position = dataGridView1.Rows.Count - 1;
+				dataGridView1.Rows.Insert(position, 1);
+
+
+				var cells = dataGridView1.Rows[position].Cells;
+				cells["Manufacturer"].Value = manufacturer;
+				cells["Product"].Value = name;
+				cells["Column1"].Value = proc;
+				cells["Column2"].Value = weight;
+				cells["Column4"].Value = 1;
+				cells["Column3"].Value = price;
+				cells["Discount"].Value = discount.ToString() + "%";
+				cells["Sum"].Value = discountManager.CalculatePrice(price, discount);
+				cells["ID_product"].Value = id_p;
+				cells["ID_supplies"].Value = id_s;
+
 				UpdateTotal();
 				dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["Column4"].Tag = 1;
                 products.Add(id_p, new List<Good>());
+
+				doNotProcessEvent = false;
             }
-            products[id_p].Add(new Good(price, rest, id_s));
+            products[id_p].Add(new Good(price, discount, rest, id_s));
 
         }
 
@@ -98,52 +135,70 @@ namespace dairy_departure
             
             if (!doNotProcessEvent && senderGrid.Columns[e.ColumnIndex] == dataGridView1.Columns["Column4"])
             {
+                doNotProcessEvent = true;
+
 				int productId = Int32.Parse(dataGridView1.SelectedRows[0].Cells["ID_product"].Value.ToString());
-				Dictionary<decimal, int> prices = GetProductPrices(productId);
+				Dictionary<decimal, Price> prices = GetProductPrices(productId);
 				int targetAmount = Int32.Parse(dataGridView1.SelectedRows[0].Cells["Column4"].Value.ToString());
 				RemoveChildren(productId);
-				if(NeedChildren(targetAmount, prices))
+				int index = dataGridView1.SelectedRows[0].Index;
+				decimal finalPrice = 0;
+				if (NeedChildren(targetAmount, prices))
 				{
-	                doNotProcessEvent = true;
 
-					int index = dataGridView1.SelectedRows[0].Index;
 					int i = 1;
 					int amount = 0;
 
 					dataGridView1.Rows[index].Cells["Column3"].Value = string.Empty;
+					dataGridView1.Rows[index].Cells["Discount"].Value = string.Empty;
 
-					foreach (KeyValuePair<decimal, int> price in prices)
+					foreach (KeyValuePair<decimal, Price> price in prices)
 					{
+						int curAmount = Math.Min(price.Value.amount, targetAmount - amount);
 						dataGridView1.Rows.Insert(index + i, 1);
 						dataGridView1.Rows[index + i].Tag = "Child";
 						dataGridView1.Rows[index + i].ReadOnly = true;
 						dataGridView1.Rows[index + i].DefaultCellStyle.BackColor = Color.LightGray;
 
 						dataGridView1.Rows[index + i].Cells["ID_product"].Value = productId;
-						dataGridView1.Rows[index + i].Cells["Column3"].Value = price.Key;
-						dataGridView1.Rows[index + i].Cells["Column4"].Value = Math.Min(price.Value, targetAmount - amount);
+						dataGridView1.Rows[index + i].Cells["Column3"].Value = price.Value.price;
+						dataGridView1.Rows[index + i].Cells["Column4"].Value = curAmount;
+						dataGridView1.Rows[index + i].Cells["Discount"].Value = price.Value.discount.ToString() + "%";
+						decimal sum = discountManager.CalculatePrice(price.Value.price * curAmount, price.Value.discount);
+						dataGridView1.Rows[index + i].Cells["Sum"].Value = sum;
 
-						amount += price.Value;
+						amount += price.Value.amount;
+						finalPrice += sum;
 						if (amount >= targetAmount)
 						{
 							break;
 						}
 						i++;
 					}
-					doNotProcessEvent = false;
 				}
+				else
+				{
+					dataGridView1.Rows[index].Cells["Column3"].Value = products[productId][0].price;
+					dataGridView1.Rows[index].Cells["Discount"].Value = products[productId][0].discount.ToString() + "%";
+					finalPrice = discountManager.CalculatePrice(targetAmount * products[productId][0].price, products[productId][0].discount);
+				}
+
+				dataGridView1.Rows[index].Cells["Sum"].Value = discountManager.Round(finalPrice);
+
+				doNotProcessEvent = false;
+
 				UpdateTotal();
 			}
         }
 
-		private bool NeedChildren(int targetAmount, Dictionary<decimal, int> prices)
+		private bool NeedChildren(int targetAmount, Dictionary<decimal, Price> prices)
 		{
 			int amount = 0, rows = 0;
 
-			foreach (KeyValuePair<decimal, int> price in prices)
+			foreach (KeyValuePair<decimal, Price> price in prices)
 			{
 				rows++;
-				amount += price.Value;
+				amount += price.Value.amount;
 				if (amount >= targetAmount)
 				{
 					break;
@@ -170,8 +225,8 @@ namespace dairy_departure
 
 			if (senderGrid.Columns[e.ColumnIndex] == dataGridView1.Columns["Column4"] && "Total" != GetTag(dataGridView1.SelectedRows[0].Tag) && "Child" != GetTag(dataGridView1.SelectedRows[0].Tag))
 			{
-				Dictionary<decimal, int> prices = GetProductPrices(Int32.Parse(dataGridView1.SelectedRows[0].Cells["ID_product"].Value.ToString()));
-				int totalAmount = prices.Sum(x => x.Value);
+				Dictionary<decimal, Price> prices = GetProductPrices(Int32.Parse(dataGridView1.SelectedRows[0].Cells["ID_product"].Value.ToString()));
+				int totalAmount = prices.Sum(x => x.Value.amount);
 				int targetAmount = Int32.Parse(e.FormattedValue.ToString());
 				if (totalAmount < targetAmount)
 				{
@@ -181,16 +236,18 @@ namespace dairy_departure
 			}
 		}
 
-		private Dictionary<decimal, int> GetProductPrices(int product_id)
+		private Dictionary<decimal, Price> GetProductPrices(int product_id)
 		{
-			Dictionary<decimal, int> prices = new Dictionary<decimal, int>();
+			Dictionary<decimal, Price> prices = new Dictionary<decimal, Price>();
 			foreach (Good good in this.products[product_id])
 			{
-				if (!prices.Keys.Contains(good.price))
+				decimal finalPrice = discountManager.CalculatePrice(good.price, good.discount);
+				if (!prices.Keys.Contains(finalPrice))
 				{
-					prices.Add(good.price, 0);
+					prices.Add(finalPrice, new Price(good.price, good.discount, good.amount));
 				}
-				prices[good.price] += good.amount;
+				Price price = prices[finalPrice];
+				price.amount += good.amount;
 			}
 			return prices;
 		}
@@ -210,11 +267,11 @@ namespace dairy_departure
 			{
 				if ("Total" != GetTag(row.Tag) && string.Empty != row.Cells["Column3"].Value.ToString())
 				{
-					total += Decimal.Parse(row.Cells["Column3"].Value.ToString()) * Int32.Parse(row.Cells["Column4"].Value.ToString());
+					total += Decimal.Parse(row.Cells["Sum"].Value.ToString());
 				}
 			}
 
-			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["Column3"].Value = total;
+			dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["Sum"].Value = total;
 
 			doNotProcessEvent = false;
 		}
