@@ -15,12 +15,12 @@ namespace dairy_departure
     public partial class Supplies : Form
     {
         Storekeeper parent;
-        List<int> ids;
         public static int  price = -1;
+        public static int amount = -1;
 
-        public Supplies(Storekeeper parent, List<int> ids)
+
+        public Supplies(Storekeeper parent)
         {
-            this.ids = ids;
             this.parent = parent;
             InitializeComponent();
         }
@@ -29,18 +29,7 @@ namespace dairy_departure
         {
 			this.productTableAdapter.ClearBeforeFill = true;
 			this.productTableAdapter.Fill(this.dairyDeparture1DataSet.Product);
-
-			int prod_id;
-			for (int i = productDataGridView.Rows.Count - 1; i >= 0; i--)
-			{
-				DataGridViewRow row = productDataGridView.Rows[i];
-				prod_id = Int32.Parse(row.Cells[0].Value.ToString());
-				if (ids.Contains(prod_id))
-				{
-					productDataGridView.Rows.Remove(row);
-				}
-			}
-
+            
             string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
@@ -78,25 +67,34 @@ namespace dairy_departure
         private void button1_Click(object sender, EventArgs e)
         {
             int prod_id = Int32.Parse(productDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-
-
-            Storekeeper f = (Storekeeper)this.parent;
-            string manuf = productDataGridView.SelectedRows[0].Cells[2].Value.ToString();
-            string name_pr = productDataGridView.SelectedRows[0].Cells[1].Value.ToString();
-            string proc = productDataGridView.SelectedRows[0].Cells[5].Value.ToString();
-            string weight = productDataGridView.SelectedRows[0].Cells[4].Value.ToString();
-            
-
             PriceDialog pr = new PriceDialog();
             pr.ShowDialog();
 
-            if (price != -1)
-            { 
-                f.AddProduct(manuf, name_pr, proc, weight, price, prod_id);
+            AmountDialog am = new AmountDialog();
+            am.ShowDialog();
+
+            if (price != -1 && amount != -1)
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string sql = @"Insert into Supply (ID_product, [Price], [Count], Date_Production, ID_employee_position)
+                                                    values (@ID_product, @Price, @Count, @Date_Production, @ID_employee_position)
+                ";
+                            using (OleDbCommand comm = new OleDbCommand(sql, conn))
+                            {
+                                comm.Parameters.AddWithValue("@ID_product", prod_id);
+                                comm.Parameters.AddWithValue("@Price", (decimal)price);
+                                comm.Parameters.AddWithValue("@Count", amount);
+                                comm.Parameters.AddWithValue("@Date_Production", DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year);
+                                comm.Parameters.AddWithValue("@ID_employee_position", ((LogInForm)this.parent.Parent).emp_pos);
+                                comm.ExecuteNonQuery();
+                            }
+                }
             }
-
-            this.parent.Controls["add_all_but"].Enabled = true;
-
             this.Close();
         }
 
