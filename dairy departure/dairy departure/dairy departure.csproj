@@ -88,6 +88,12 @@
     <Compile Include="AddSupply.Designer.cs">
       <DependentUpon>AddSupply.cs</DependentUpon>
     </Compile>
+    <Compile Include="AmountDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AmountDialog.Designer.cs">
+      <DependentUpon>AmountDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="DairyDeparture1DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -165,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddSupply.resx">
       <DependentUpon>AddSupply.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AmountDialog.resx">
+      <DependentUpon>AmountDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Director.resx">
       <DependentUpon>Director.cs</DependentUpon>
