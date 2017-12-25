@@ -52,16 +52,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(7, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 13);
+            this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Selecet Product:";
+            this.label1.Text = "Select Product:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 38);
+            this.label2.Location = new System.Drawing.Point(9, 38);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 1;
@@ -70,7 +70,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 67);
+            this.label3.Location = new System.Drawing.Point(9, 67);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 13);
             this.label3.TabIndex = 2;
@@ -79,7 +79,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 96);
+            this.label4.Location = new System.Drawing.Point(9, 96);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 3;
@@ -87,9 +87,9 @@
             // 
             // maskedTextBox2
             // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(105, 35);
+            this.maskedTextBox2.Location = new System.Drawing.Point(96, 35);
             this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(131, 20);
+            this.maskedTextBox2.Size = new System.Drawing.Size(140, 20);
             this.maskedTextBox2.TabIndex = 5;
             // 
             // button1
@@ -104,7 +104,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(15, 120);
+            this.button2.Location = new System.Drawing.Point(12, 120);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 8;
@@ -117,10 +117,11 @@
             this.comboBox2.DataSource = this.productЗапросBindingSource;
             this.comboBox2.DisplayMember = "Info";
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(105, 6);
+            this.comboBox2.Location = new System.Drawing.Point(84, 8);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(131, 21);
+            this.comboBox2.Size = new System.Drawing.Size(152, 21);
             this.comboBox2.TabIndex = 9;
+            this.comboBox2.ValueMember = "ID_product";
             // 
             // productЗапросBindingSource
             // 

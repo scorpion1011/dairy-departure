@@ -75,6 +75,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(122, 21);
             this.comboBox1.TabIndex = 17;
+            this.comboBox1.ValueMember = "Position_name";
             // 
             // positionInfoBindingSource
             // 

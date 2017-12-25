@@ -31,13 +31,17 @@ namespace dairy_departure
             f.Logout(this);
         }
 
-        private void employeeToolStripMenuItem_Click(object sender, EventArgs e)
+        public void employeeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-			dataGridView1.Rows.Clear();
+            dataGridView1.ReadOnly = false;
+            dataGridView1.Rows.Clear();
 			dataGridView1.Columns.Clear();
 			dataGridView1.Refresh();
 
-			employeeToolStripMenuItem.Enabled = false;
+            addToolStripMenuItem.Enabled = true;
+            editToolStripMenuItem.Enabled = true;
+            deleteToolStripMenuItem.Enabled = true;
+            employeeToolStripMenuItem.Enabled = false;
 			positionsToolStripMenuItem.Enabled = true;
 			sellingPlansToolStripMenuItem.Enabled = true;
 			productsToolStripMenuItem.Enabled = true;
@@ -49,6 +53,8 @@ namespace dairy_departure
             dataGridView1.Columns.Add("EmpName", "Name of employee");
             dataGridView1.Columns.Add("EmpLog", "Login of employee");
             dataGridView1.Columns.Add("EmpPas", "Password of employee");
+            dataGridView1.Columns.Add("PosID", "id");
+            dataGridView1.Columns["PosID"].Visible = false;
             dataGridView1.Columns.Add("EmpPos", "Position of employee");
 
             string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
@@ -56,7 +62,7 @@ namespace dairy_departure
             {
                 conn.Open();
 
-                string sql = @"select E.*, P.Position_name  from [Employee] as E, Employee_Position as EP, [Position] as P where EP.ID_employee = E.ID_employee and P.ID_position = EP.ID_position";
+                string sql = @"select E.ID_employee, E.Full_name, E.Username, E.Password, P.ID_position, P.Position_name  from [Employee] as E, Employee_Position as EP, [Position] as P where EP.ID_employee = E.ID_employee and P.ID_position = EP.ID_position and EP.Date_for is null and E.IsWorking = true";
                 using (OleDbCommand comm = new OleDbCommand(sql, conn))
                 {
                     using (OleDbDataReader reader = comm.ExecuteReader())
@@ -64,7 +70,7 @@ namespace dairy_departure
                         int i = 0;
                         while (reader.Read())
                         {
-                            dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4));
+                            dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4), reader.GetString(5));
                             i++;
                         }
                     }
@@ -74,13 +80,17 @@ namespace dairy_departure
             }
         }
 
-		private void positionsToolStripMenuItem_Click(object sender, EventArgs e)
+        public void positionsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			dataGridView1.Rows.Clear();
+            dataGridView1.ReadOnly = false;
+            dataGridView1.Rows.Clear();
 			dataGridView1.Columns.Clear();
 			dataGridView1.Refresh();
 
-			employeeToolStripMenuItem.Enabled = true;
+            addToolStripMenuItem.Enabled = true;
+            editToolStripMenuItem.Enabled = true;
+            deleteToolStripMenuItem.Enabled = true;
+            employeeToolStripMenuItem.Enabled = true;
 			positionsToolStripMenuItem.Enabled = false;
 			sellingPlansToolStripMenuItem.Enabled = true;
 			productsToolStripMenuItem.Enabled = true;
@@ -113,69 +123,17 @@ namespace dairy_departure
 				}
 			}
 		}
-
-		private void employeespositionsToolStripMenuItem_Click(object sender, EventArgs e)
+        public void sellingPlansToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+            dataGridView1.ReadOnly = false;
 			dataGridView1.Rows.Clear();
 			dataGridView1.Columns.Clear();
 			dataGridView1.Refresh();
 
-			employeeToolStripMenuItem.Enabled = true;
-			positionsToolStripMenuItem.Enabled = true;
-			sellingPlansToolStripMenuItem.Enabled = true;
-			productsToolStripMenuItem.Enabled = true;
-			sellsToolStripMenuItem.Enabled = true;
-			suppliesToolStripMenuItem.Enabled = true;
-
-			dataGridView1.Columns.Add("ID_employee_position", "id");
-			dataGridView1.Columns["ID_employee_position"].Visible = false;
-			dataGridView1.Columns.Add("EmpID", "ID of employee");
-			dataGridView1.Columns["EmpID"].Visible = false;
-			dataGridView1.Columns.Add("PosID", "ID of position");
-			dataGridView1.Columns["PosID"].Visible = false;
-			dataGridView1.Columns.Add("[EmpName]", "Name of employee");
-			dataGridView1.Columns.Add("[PosName]", "Name of position");
-			dataGridView1.Columns.Add("Datefrom", "Date of starting position");
-			dataGridView1.Columns.Add("Datefore", "Date of ending position");
-
-			string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
-			using (OleDbConnection conn = new OleDbConnection(connectionString))
-			{
-				conn.Open();
-
-				string sql = @"select EP.[ID_employee_position], E.[ID_employee], P.[ID_position], E.[Full_name], P.[Position_name], EP.[Date_from], EP.[Date_for]
-								from [Employee_Position] as EP, [Employee] as E, [Position] as P
-								where EP.[ID_employee] = E.[ID_employee] and EP.[ID_position] = P.[ID_position]";
-				using (OleDbCommand comm = new OleDbCommand(sql, conn))
-				{
-					using (OleDbDataReader reader = comm.ExecuteReader())
-					{
-						int i = 0;
-						while (reader.Read())
-						{
-							if (!reader.IsDBNull(6))
-							{
-								dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetString(4), reader.GetDateTime(5).Date, reader.GetDateTime(6).Date);
-							}
-							else
-							{
-								dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(3), reader.GetString(4), reader.GetDateTime(5).Date, null);
-							}
-								i++;
-						}
-					}
-
-				}
-			}
-		}
-
-		private void sellingPlansToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			dataGridView1.Rows.Clear();
-			dataGridView1.Columns.Clear();
-			dataGridView1.Refresh();
-
-			employeeToolStripMenuItem.Enabled = true;
+            addToolStripMenuItem.Enabled = true;
+            editToolStripMenuItem.Enabled = true;
+            deleteToolStripMenuItem.Enabled = true;
+            employeeToolStripMenuItem.Enabled = true;
 			positionsToolStripMenuItem.Enabled = true;
 			sellingPlansToolStripMenuItem.Enabled = false;
 			productsToolStripMenuItem.Enabled = true;
@@ -219,13 +177,17 @@ namespace dairy_departure
 			}
 		}
 
-		private void productsToolStripMenuItem_Click(object sender, EventArgs e)
+        public void productsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			dataGridView1.Rows.Clear();
+            dataGridView1.ReadOnly = false;
+            dataGridView1.Rows.Clear();
 			dataGridView1.Columns.Clear();
 			dataGridView1.Refresh();
 
-			employeeToolStripMenuItem.Enabled = true;
+            addToolStripMenuItem.Enabled = true;
+            editToolStripMenuItem.Enabled = true;
+            deleteToolStripMenuItem.Enabled = true;
+            employeeToolStripMenuItem.Enabled = true;
 			positionsToolStripMenuItem.Enabled = true;
 			sellingPlansToolStripMenuItem.Enabled = true;
 			productsToolStripMenuItem.Enabled = false;
@@ -234,7 +196,9 @@ namespace dairy_departure
 			
 			dataGridView1.Columns.Add("ID_product", "idpr");
 			dataGridView1.Columns["ID_product"].Visible = false;
-			dataGridView1.Columns.Add("Manufacturer", "Manufacturer");
+            dataGridView1.Columns.Add("ID_manufacturer", "idmn");
+            dataGridView1.Columns["ID_manufacturer"].Visible = false;
+            dataGridView1.Columns.Add("Manufacturer", "Manufacturer");
 			dataGridView1.Columns.Add("PrName", "Name of product");
 			dataGridView1.Columns.Add("Proc", "%");
 			dataGridView1.Columns.Add("Weight", "Weight/Volume");
@@ -245,7 +209,7 @@ namespace dairy_departure
 			{
 				conn.Open();
 
-				string sql = @"select P.ID_product, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], P.[ShelfLife]
+				string sql = @"select P.ID_product, M.ID_manufacturer, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], P.[ShelfLife]
 								from Product as P, Manufacturer as M
 								where P.ID_manufacturer = M.ID_manufacturer
 ";
@@ -256,7 +220,7 @@ namespace dairy_departure
 						int i = 0;
 						while (reader.Read())
 						{
-							dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4), reader.GetInt32(5));
+							dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4), reader.GetString(5), reader.GetInt32(6));
 							i++;
 						}
 					}
@@ -265,13 +229,17 @@ namespace dairy_departure
 			}
 		}
 
-		private void sellsToolStripMenuItem_Click(object sender, EventArgs e)
+        public void sellsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+            dataGridView1.ReadOnly = true;
 			dataGridView1.Rows.Clear();
 			dataGridView1.Columns.Clear();
 			dataGridView1.Refresh();
 
-			employeeToolStripMenuItem.Enabled = true;
+            addToolStripMenuItem.Enabled = false;
+            editToolStripMenuItem.Enabled = false;
+            deleteToolStripMenuItem.Enabled = false;
+            employeeToolStripMenuItem.Enabled = true;
 			positionsToolStripMenuItem.Enabled = true;
 			sellingPlansToolStripMenuItem.Enabled = true;
 			productsToolStripMenuItem.Enabled = true;
@@ -321,13 +289,17 @@ namespace dairy_departure
 			}
 		}
 
-		private void suppliesToolStripMenuItem_Click(object sender, EventArgs e)
+        public void suppliesToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			dataGridView1.Rows.Clear();
+            dataGridView1.ReadOnly = true;
+            dataGridView1.Rows.Clear();
 			dataGridView1.Columns.Clear();
 			dataGridView1.Refresh();
 
-			employeeToolStripMenuItem.Enabled = true;
+            addToolStripMenuItem.Enabled = false;
+            editToolStripMenuItem.Enabled = false;
+            deleteToolStripMenuItem.Enabled = false;
+            employeeToolStripMenuItem.Enabled = true;
 			positionsToolStripMenuItem.Enabled = true;
 			sellingPlansToolStripMenuItem.Enabled = true;
 			productsToolStripMenuItem.Enabled = true;
@@ -378,34 +350,34 @@ namespace dairy_departure
 		{
 			if (!employeeToolStripMenuItem.Enabled)
             {
-                AddEmployee f = new AddEmployee(this, 0);
+                AddEmployee f = new AddEmployee(this, -1);
                 f.ShowDialog();
             }
             if (!positionsToolStripMenuItem.Enabled)
             {
-                AddPosition f = new AddPosition(0);
+                AddPosition f = new AddPosition(this, -1);
                 f.ShowDialog();
             }
             if (!sellingPlansToolStripMenuItem.Enabled)
             {
-                AddPlan f = new AddPlan(0);
+                AddPlan f = new AddPlan(this, -1);
                 f.ShowDialog();
             }
             if (!productsToolStripMenuItem.Enabled)
             {
-                AddProduct f = new AddProduct(0);
+                AddProduct f = new AddProduct(this, -1);
                 f.ShowDialog();
             }
-            if (!sellsToolStripMenuItem.Enabled)
-            {
-                AddSell f = new AddSell(0);
-                f.ShowDialog();
-            }
-            if (!suppliesToolStripMenuItem.Enabled)
-            {
-                AddSupply f = new AddSupply(0);
-                f.ShowDialog();
-            }
+            //if (!sellsToolStripMenuItem.Enabled)
+            //{
+            //    AddSell f = new AddSell(-1);
+            //    f.ShowDialog();
+            //}
+            //if (!suppliesToolStripMenuItem.Enabled)
+            //{
+            //    AddSupply f = new AddSupply(-1);
+            //    f.ShowDialog();
+            //}
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
@@ -417,28 +389,127 @@ namespace dairy_departure
             }
             if (!positionsToolStripMenuItem.Enabled)
             {
-                AddPosition f = new AddPosition(dataGridView1.SelectedRows[0].Index);
+                AddPosition f = new AddPosition(this, dataGridView1.SelectedRows[0].Index);
                 f.ShowDialog();
             }
             if (!sellingPlansToolStripMenuItem.Enabled)
             {
-                AddPlan f = new AddPlan(dataGridView1.SelectedRows[0].Index);
+                AddPlan f = new AddPlan(this, dataGridView1.SelectedRows[0].Index);
                 f.ShowDialog();
             }
             if (!productsToolStripMenuItem.Enabled)
             {
-                AddProduct f = new AddProduct(dataGridView1.SelectedRows[0].Index);
+                AddProduct f = new AddProduct(this, dataGridView1.SelectedRows[0].Index);
                 f.ShowDialog();
             }
-            if (!sellsToolStripMenuItem.Enabled)
+            //if (!sellsToolStripMenuItem.Enabled)
+            //{
+            //    AddSell f = new AddSell(dataGridView1.SelectedRows[0].Index);
+            //    f.ShowDialog();
+            //}
+            //if (!suppliesToolStripMenuItem.Enabled)
+            //{
+            //    AddSupply f = new AddSupply(dataGridView1.SelectedRows[0].Index);
+            //    f.ShowDialog();
+            //}
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!employeeToolStripMenuItem.Enabled)
             {
-                AddSell f = new AddSell(dataGridView1.SelectedRows[0].Index);
-                f.ShowDialog();
+                string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = @"Update Employee_Position
+                                        set [Date_for] = @DateNow
+                                        where ID_employee = @id_e and Date_for is null;";
+                    string sql2 = @"Update Employee
+                                        set [IsWorking] = false
+                                        where ID_employee = @id_e;";
+
+                    //string sql2 = @"Delete from Employee
+                    //                    where ID_employee = @id_e;";
+
+                    using (OleDbCommand comm = new OleDbCommand(sql, conn))
+                    {
+                        comm.Parameters.AddWithValue("@DateNow", DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year);
+                        comm.Parameters.AddWithValue("@id_e", dataGridView1.SelectedRows[0].Cells["EmpID"].Value.ToString());
+                        comm.ExecuteNonQuery();
+
+                        comm.Parameters.RemoveAt("@DateNow");
+                        comm.Parameters.RemoveAt("@id_e");
+
+                        comm.CommandText = sql2;
+
+                        comm.Parameters.AddWithValue("@id_e", dataGridView1.SelectedRows[0].Cells["EmpID"].Value.ToString());
+                        comm.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Employee successfully deleted");
+                dataGridView1.Rows.Clear();
+                dataGridView1.Refresh();
+                employeeToolStripMenuItem_Click(this, e);
             }
-            if (!suppliesToolStripMenuItem.Enabled)
+            if (!positionsToolStripMenuItem.Enabled)
             {
-                AddSupply f = new AddSupply(dataGridView1.SelectedRows[0].Index);
-                f.ShowDialog();
+                string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = @"Delete from [Position]
+                                        where ID_position = @id_p;";
+                    using (OleDbCommand comm = new OleDbCommand(sql, conn))
+                    {
+                        comm.Parameters.AddWithValue("@id_p", dataGridView1.SelectedRows[0].Cells["ID_position"].Value.ToString());
+                        comm.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Position successfully deleted");
+                dataGridView1.Rows.Clear();
+                dataGridView1.Refresh();
+                positionsToolStripMenuItem_Click(this, e);
+            }
+            if (!sellingPlansToolStripMenuItem.Enabled)
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = @"Delete from SellesPlan_Product
+                                        where ID_plan = @planID and ID_product = @productID";
+                    using (OleDbCommand comm = new OleDbCommand(sql, conn))
+                    {
+                        
+                        comm.Parameters.AddWithValue("@planID", dataGridView1.SelectedRows[0].Cells["ID_plan"].Value.ToString());
+                        comm.Parameters.AddWithValue("@planID", dataGridView1.SelectedRows[0].Cells["ID_product"].Value.ToString());
+                        comm.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Plan successfully deleted");
+                sellingPlansToolStripMenuItem_Click(this, e);
+            }
+            if (!productsToolStripMenuItem.Enabled)
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = @"Delete from [Product]
+                                        where ID_product = @id_p;
+                    ";
+                    using (OleDbCommand comm = new OleDbCommand(sql, conn))
+                    {
+                        comm.Parameters.AddWithValue("@ID_product", dataGridView1.SelectedRows[0].Cells["ID_product"].Value.ToString());
+                        comm.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Product successfully deleted");
+                productsToolStripMenuItem_Click(this, e);
             }
         }
     }
