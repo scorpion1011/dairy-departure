@@ -135,7 +135,9 @@ namespace dairy_departure
                                 FROM Supply AS s
                                 WHERE s.ID_Product = @ID_product
                                 and s.ID_supply not in (
-                                select s1.ID_supply from Supply s1, Sells sl where s1.ID_Product = @ID_product and sl.ID_supply = s1.ID_supply group by s1.ID_supply having min(s1.[Count]) = sum(sl.[Count]))
+                                    select s1.ID_supply from Supply s1, Sells sl where s1.ID_Product = @ID_product and sl.ID_supply = s1.ID_supply group by s1.ID_supply having min(s1.[Count]) = sum(sl.[Count]))
+                                and s.ID_supply not in (
+                                    select s2.ID_supply from Supply s2, Product as p where s2.ID_Product = p.ID_product and p.ID_Product = @ID_product and s2.Date_Production + p.ShelfLife < Date())
                                 ORDER BY s.[Date_Production]; ";
                 using (OleDbCommand comm = new OleDbCommand(sql, conn))
                 {
