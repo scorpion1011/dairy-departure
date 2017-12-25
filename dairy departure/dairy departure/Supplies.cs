@@ -90,7 +90,7 @@ namespace dairy_departure
                                 comm.Parameters.AddWithValue("@Price", (decimal)price);
                                 comm.Parameters.AddWithValue("@Count", amount);
                                 comm.Parameters.AddWithValue("@Date_Production", DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year);
-                                comm.Parameters.AddWithValue("@ID_employee_position", ((LogInForm)this.parent.Parent).emp_pos);
+                                comm.Parameters.AddWithValue("@ID_employee_position", LogInForm.id_emp_pos);
                                 comm.ExecuteNonQuery();
                             }
                 }

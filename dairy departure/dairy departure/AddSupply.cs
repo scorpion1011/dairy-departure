@@ -46,7 +46,7 @@ namespace dairy_departure
                         comm.Parameters.AddWithValue("@Price", maskedTextBox1.Text);
                         comm.Parameters.AddWithValue("@Count", maskedTextBox2.Text);
                         comm.Parameters.AddWithValue("@Date_Production", dateTimePicker1.Value.Day + "." + dateTimePicker1.Value.Month + "." + dateTimePicker1.Value.Year);
-                        comm.Parameters.AddWithValue("@ID_employee_position", LogInForm.id_emp);
+                        comm.Parameters.AddWithValue("@ID_employee_position", LogInForm.id_emp_pos);
                         comm.ExecuteNonQuery();
                     }
                 }

@@ -25,5 +25,10 @@ namespace dairy_departure
 			return System.Math.Round(price, 2);
 		}
 
+		public string Format(decimal price)
+		{
+			return price.ToString("0.00");
+		}
+
 	}
 }

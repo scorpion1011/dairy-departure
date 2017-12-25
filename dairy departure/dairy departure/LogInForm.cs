@@ -18,8 +18,8 @@ namespace dairy_departure
         public string manufacturer;
         public string weight;
         public string proc;
-        public int emp_pos;
-        public static int id_emp;
+        public static int id_emp_pos;
+        public int id_emp;
         private string name_emp;
         private string pos_name;
         private Director dir;
@@ -53,7 +53,7 @@ WHERE (((e.Username)=@username) AND ((e.Password)= @password))
                     {
                         if (reader.Read())
                         {
-                            emp_pos = reader.GetInt32(3);
+							id_emp_pos = reader.GetInt32(3);
                             id_emp = reader.GetInt32(0);
                             name_emp = reader.GetString(1);
                             pos_name = reader.GetString(2);
