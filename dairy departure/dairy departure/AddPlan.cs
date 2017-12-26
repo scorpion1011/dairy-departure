@@ -32,7 +32,7 @@ namespace dairy_departure
             
             if (id != -1)
             {
-                DataGridViewRow row = ((DataGridView)(parent.Controls["dataGridView1"])).Rows[id];
+                DataGridViewRow row = (parent.Controls.Find("dataGridView1", true)[0] as DataGridView).Rows[id];
                 var j = comboBox2.SelectedValue;
                 comboBox2.SelectedValue = row.Cells["ID_product"].Value.ToString();
                 maskedTextBox2.Text = row.Cells["Amount"].Value.ToString();

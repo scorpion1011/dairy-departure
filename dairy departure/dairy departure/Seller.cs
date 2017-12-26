@@ -290,9 +290,7 @@ namespace dairy_departure
 
 		private void btnConfirm_Click(object sender, EventArgs e)
 		{
-			var confirmResult = MessageBox.Show("Are you sure to finish this sell??",
-									 "Confirm Sell!!",
-									 MessageBoxButtons.YesNo);
+			var confirmResult = MessageBox.Show("Are you sure to complete this sell?", "Confirm Sell", MessageBoxButtons.YesNo);
 			if (confirmResult == DialogResult.Yes)
 			{
 				string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
@@ -317,8 +315,9 @@ namespace dairy_departure
 						}
 					}
 				}
+				SellComplete sc = new SellComplete();
+				sc.ShowDialog();
 				ClearTable();
-				MessageBox.Show("Thanks. Print.");
 			}
 		}
 	}

@@ -106,6 +106,12 @@
       <DependentUpon>Director.cs</DependentUpon>
     </Compile>
     <Compile Include="DiscountManager.cs" />
+    <Compile Include="Filters\StatisticsSellsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filters\StatisticsSellsForm.Designer.cs">
+      <DependentUpon>StatisticsSellsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogInForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SellComplete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SellComplete.Designer.cs">
+      <DependentUpon>SellComplete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Seller.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -178,6 +190,9 @@
     <EmbeddedResource Include="Director.resx">
       <DependentUpon>Director.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Filters\StatisticsSellsForm.resx">
+      <DependentUpon>StatisticsSellsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogInForm.resx">
       <DependentUpon>LogInForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -199,6 +214,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SellComplete.resx">
+      <DependentUpon>SellComplete.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Seller.resx">
       <DependentUpon>Seller.cs</DependentUpon>
     </EmbeddedResource>
@@ -230,7 +248,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="DairyDeparture1.accdb" />

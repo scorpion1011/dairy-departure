@@ -30,7 +30,7 @@ namespace dairy_departure
 
             if (id != -1)
             {
-                DataGridViewRow row = ((DataGridView)(parent.Controls["dataGridView1"])).Rows[id];
+                DataGridViewRow row = (parent.Controls.Find("dataGridView1", true)[0] as DataGridView).Rows[id];
 
                 maskedTextBox1.Text = row.Cells["PrName"].Value.ToString();
                 
