@@ -49,11 +49,12 @@
 			// 
 			// dtpFromDate
 			// 
-			this.dtpFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+			this.dtpFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
 			this.dtpFromDate.Location = new System.Drawing.Point(76, 5);
 			this.dtpFromDate.Name = "dtpFromDate";
 			this.dtpFromDate.Size = new System.Drawing.Size(90, 20);
 			this.dtpFromDate.TabIndex = 1;
+			this.dtpFromDate.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
 			// 
 			// label2
 			// 
@@ -66,11 +67,12 @@
 			// 
 			// dtpToDate
 			// 
-			this.dtpToDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+			this.dtpToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
 			this.dtpToDate.Location = new System.Drawing.Point(221, 5);
 			this.dtpToDate.Name = "dtpToDate";
 			this.dtpToDate.Size = new System.Drawing.Size(90, 20);
 			this.dtpToDate.TabIndex = 3;
+			this.dtpToDate.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
 			// 
 			// label3
 			// 
@@ -85,6 +87,7 @@
 			// 
 			this.cbGroupBy.FormattingEnabled = true;
 			this.cbGroupBy.Items.AddRange(new object[] {
+            "",
             "Manufacturer",
             "Product",
             "Employer"});
@@ -101,15 +104,18 @@
 			this.btnFilter.TabIndex = 6;
 			this.btnFilter.Text = "Filter";
 			this.btnFilter.UseVisualStyleBackColor = true;
+			this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
 			// 
 			// btnClear
 			// 
+			this.btnClear.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnClear.Location = new System.Drawing.Point(617, 4);
 			this.btnClear.Name = "btnClear";
 			this.btnClear.Size = new System.Drawing.Size(75, 23);
 			this.btnClear.TabIndex = 7;
 			this.btnClear.Text = "Clear";
 			this.btnClear.UseVisualStyleBackColor = true;
+			this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
 			// 
 			// StatisticsSellsForm
 			// 

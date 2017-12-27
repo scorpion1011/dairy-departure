@@ -14,7 +14,9 @@ namespace dairy_departure
 {
     public partial class Director : UserControl
     {
-        public Director()
+		string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+
+		public Director()
         {
             InitializeComponent();
 			employeeToolStripMenuItem_Click(employeeToolStripMenuItem, null);
@@ -33,7 +35,7 @@ namespace dairy_departure
 
         public void employeeToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ClearDataGrid();
+			ClearGrid();
 
 			EnableMenuItems(sender);
 
@@ -46,7 +48,6 @@ namespace dairy_departure
 			dataGridView1.Columns["PosID"].Visible = false;
 			dataGridView1.Columns.Add("EmpPos", "Position of employee");
 
-			string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
 			using (OleDbConnection conn = new OleDbConnection(connectionString))
 			{
 				conn.Open();
@@ -101,7 +102,8 @@ namespace dairy_departure
 
 		public void positionsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ClearDataGrid();
+			hideFilterForm();
+			ClearGrid();
 			
 			EnableMenuItems(sender);
 
@@ -109,8 +111,9 @@ namespace dairy_departure
 			dataGridView1.Columns["ID_position"].Visible = false;
 			dataGridView1.Columns.Add("PosName", "Name of position");
 			dataGridView1.Columns.Add("Payment", "Payment per hour");
+			
 
-			string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+			
 			using (OleDbConnection conn = new OleDbConnection(connectionString))
 			{
 				conn.Open();
@@ -131,9 +134,11 @@ namespace dairy_departure
 				}
 			}
 		}
+
         public void sellingPlansToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ClearDataGrid();
+			hideFilterForm();
+			ClearGrid();
 
 			EnableMenuItems(sender);
 
@@ -149,7 +154,7 @@ namespace dairy_departure
 			dataGridView1.Columns.Add("DateFr", "Date from");
 			dataGridView1.Columns.Add("DateTo", "Date to");
 
-			string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+			
 			using (OleDbConnection conn = new OleDbConnection(connectionString))
 			{
 				conn.Open();
@@ -176,7 +181,8 @@ namespace dairy_departure
 
         public void productsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ClearDataGrid();
+			hideFilterForm();
+			ClearGrid();
 
 			EnableMenuItems(sender);
 
@@ -190,7 +196,7 @@ namespace dairy_departure
 			dataGridView1.Columns.Add("Weight", "Weight/Volume");
 			dataGridView1.Columns.Add("ShelfLife", "Shelf Life");
 
-			string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+			
 			using (OleDbConnection conn = new OleDbConnection(connectionString))
 			{
 				conn.Open();
@@ -289,7 +295,7 @@ namespace dairy_departure
 			{
 				if (!employeeToolStripMenuItem.Enabled)
 				{
-					string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+					
 
 					using (OleDbConnection conn = new OleDbConnection(connectionString))
 					{
@@ -326,7 +332,7 @@ namespace dairy_departure
 				}
 				if (!positionsToolStripMenuItem.Enabled)
 				{
-					string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+					
 
 					using (OleDbConnection conn = new OleDbConnection(connectionString))
 					{
@@ -346,7 +352,7 @@ namespace dairy_departure
 				}
 				if (!sellingPlansToolStripMenuItem.Enabled)
 				{
-					string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+					
 
 					using (OleDbConnection conn = new OleDbConnection(connectionString))
 					{
@@ -366,7 +372,7 @@ namespace dairy_departure
 				}
 				if (!productsToolStripMenuItem.Enabled)
 				{
-					string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+					
 					using (OleDbConnection conn = new OleDbConnection(connectionString))
 					{
 						conn.Open();
@@ -386,12 +392,14 @@ namespace dairy_departure
 
 		private void statisticsSellingPlansItem_Click(object sender, EventArgs e)
 		{
+			hideFilterForm();
 			EnableMenuItems(sender);
 		}
 
 		private void statisticsSuppliesItem_Click(object sender, EventArgs e)
 		{
-			ClearDataGrid();
+			hideFilterForm();
+			ClearGrid();
 
 			EnableMenuItems(sender);
 
@@ -410,7 +418,7 @@ namespace dairy_departure
 			dataGridView1.Columns["ID_employee"].Visible = false;
 			dataGridView1.Columns.Add("Employee", "Employee");
 
-			string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
+			
 			using (OleDbConnection conn = new OleDbConnection(connectionString))
 			{
 				conn.Open();
@@ -434,60 +442,19 @@ namespace dairy_departure
 			}
 		}
 
-		private void ClearDataGrid()
+		private void ClearGrid()
 		{
-			hideFilterForm();
-			dataGridView1.Rows.Clear();
 			dataGridView1.Columns.Clear();
+			dataGridView1.Rows.Clear();
 			dataGridView1.Refresh();
 		}
 
 		private void statisticsSellsItem_Click(object sender, EventArgs e)
 		{
-			ClearDataGrid();
-
+			hideFilterForm();
 			EnableMenuItems(sender);
 
-			dataGridView1.Columns.Add("ID_sell", "ID_sell");
-			dataGridView1.Columns["ID_sell"].Visible = false;
-			dataGridView1.Columns.Add("ID_product", "idpr");
-			dataGridView1.Columns["ID_product"].Visible = false;
-			dataGridView1.Columns.Add("ID_supply", "ID_supply");
-			dataGridView1.Columns["ID_supply"].Visible = false;
-			dataGridView1.Columns.Add("SellDate", "Date of selling");
-			dataGridView1.Columns.Add("Manufacturer", "Manufacturer");
-			dataGridView1.Columns.Add("PrName", "Name of product");
-			dataGridView1.Columns.Add("Proc", "%");
-			dataGridView1.Columns.Add("Weight", "Weight/Volume");
-			dataGridView1.Columns.Add("Discount", "Discount");
-			dataGridView1.Columns.Add("Amount", "Amount");
-			dataGridView1.Columns.Add("Price", "Price for 1 product");
-			dataGridView1.Columns.Add("ID_employee", "ID_employee");
-			dataGridView1.Columns["ID_employee"].Visible = false;
-			dataGridView1.Columns.Add("Employee", "Employee");
-
-			string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
-			using (OleDbConnection conn = new OleDbConnection(connectionString))
-			{
-				conn.Open();
-
-				string sql = @"select S.ID_sell, P.ID_product, Sp.ID_supply, S.Date_sell, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], S.[Discount], S.[Count], Sp.[Price], E.[ID_employee], E.[Full_name]
-								from Product as P, Manufacturer as M, Sells as S, Supply as Sp, Employee as E
-								where P.ID_manufacturer = M.ID_manufacturer and S.ID_supply = Sp.ID_supply and Sp.ID_product = P.ID_product";
-				using (OleDbCommand comm = new OleDbCommand(sql, conn))
-				{
-					using (OleDbDataReader reader = comm.ExecuteReader())
-					{
-						int i = 0;
-						while (reader.Read())
-						{
-							dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetDateTime(3), reader.GetString(4), reader.GetString(5), reader.GetInt32(6), reader.GetString(7), reader.GetInt32(8), reader.GetInt32(9), reader.GetDecimal(10), reader.GetInt32(11), reader.GetString(12));
-							i++;
-						}
-					}
-
-				}
-			}
+			FillInSellGrid();
 		}
 
 		private void filterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -539,5 +506,112 @@ namespace dairy_departure
 			}
 		}
 
+		public void FillInSellGrid()
+		{
+			ClearGrid();
+
+			string sql = @" FROM Product AS P, Manufacturer AS M, Sells AS S, Supply AS Sp, Employee AS E
+							WHERE P.ID_manufacturer = M.ID_manufacturer AND S.ID_supply = Sp.ID_supply AND Sp.ID_product = P.ID_product";
+
+			string dtpFromDate = GetFilterValue("StatisticsSellsForm", "dtpFromDate");
+			if (dtpFromDate != string.Empty)
+			{
+				sql += " AND S.Date_sell >= @dtpFromDate";
+			}
+			string dtpToDate = GetFilterValue("StatisticsSellsForm", "dtpToDate");
+			if (dtpToDate != string.Empty)
+			{
+				sql += " AND S.Date_sell <= @dtpFromDate";
+			}
+			string cbGroupBy = GetFilterValue("StatisticsSellsForm", "cbGroupBy");
+			switch (cbGroupBy)
+			{
+				case "Manufacturer":
+					sql = "SELECT M.Name_manufacturer, Round(AVG(S.[Discount]), 2), SUM(S.[Count]), SUM(Sp.[Price])"
+							+ sql
+							+ " GROUP BY M.ID_manufacturer, M.Name_manufacturer";
+					dataGridView1.Columns.Add("Manufacturer", "Manufacturer");
+					dataGridView1.Columns.Add("AvgDiscount", "AVG Discount");
+					dataGridView1.Columns.Add("TotalCount", "Total Count");
+					dataGridView1.Columns.Add("TotalPrice", "Total Price");
+					break;
+				case "Product":
+					sql = "SELECT P.Name_product, P.[%-fat], P.[Mass/volume], Round(AVG(S.[Discount]), 2), SUM(S.[Count]), SUM(Sp.[Price])"
+							+ sql
+							+ " GROUP BY P.ID_product, P.Name_product, P.[%-fat], P.[Mass/volume]";
+					dataGridView1.Columns.Add("PrName", "Name of product");
+					dataGridView1.Columns.Add("Proc", "%");
+					dataGridView1.Columns.Add("Weight", "Weight/Volume");
+					dataGridView1.Columns.Add("AvgDiscount", "AVG Discount");
+					dataGridView1.Columns.Add("TotalCount", "Total Count");
+					dataGridView1.Columns.Add("TotalPrice", "Total Price");
+					break;
+				case "Employer":
+					sql = "SELECT E.[Full_name], Round(AVG(S.[Discount]), 2), SUM(S.[Count]), SUM(Sp.[Price])"
+							+ sql
+							+ " GROUP BY E.ID_employee, E.[Full_name]";
+					dataGridView1.Columns.Add("Employee", "Employee");
+					dataGridView1.Columns.Add("AvgDiscount", "AVG Discount");
+					dataGridView1.Columns.Add("TotalCount", "Total Count");
+					dataGridView1.Columns.Add("TotalPrice", "Total Price");
+					break;
+				default:
+					sql = "SELECT S.Date_sell, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], S.[Discount], S.[Count], Sp.[Price], E.[Full_name]" + sql;
+					dataGridView1.Columns.Add("SellDate", "Date of selling");
+					dataGridView1.Columns.Add("Manufacturer", "Manufacturer");
+					dataGridView1.Columns.Add("PrName", "Name of product");
+					dataGridView1.Columns.Add("Proc", "%");
+					dataGridView1.Columns.Add("Weight", "Weight/Volume");
+					dataGridView1.Columns.Add("Discount", "Discount");
+					dataGridView1.Columns.Add("Amount", "Amount");
+					dataGridView1.Columns.Add("Price", "Price for 1 product");
+					dataGridView1.Columns.Add("Employee", "Employee");
+					break;
+			}
+
+			using (OleDbConnection conn = new OleDbConnection(connectionString))
+			{
+				conn.Open();
+
+				using (OleDbCommand comm = new OleDbCommand(sql, conn))
+				{
+					if (dtpFromDate != string.Empty)
+					{
+						comm.Parameters.AddWithValue("@dtpFromDate", dtpFromDate);
+					}
+					if (dtpToDate != string.Empty)
+					{
+						comm.Parameters.AddWithValue("@dtpToDate", dtpToDate);
+					}
+
+					using (OleDbDataReader reader = comm.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							object[] values = new object[reader.FieldCount];
+							for(int i = 0; i < reader.FieldCount; i++)
+							{
+								values[i] = reader.GetValue(i).ToString();
+							}
+							dataGridView1.Rows.Add(values);
+						}
+					}
+				}
+			}
+		}
+
+		private string GetFilterValue(string formName, string controlName)
+		{
+			Control[] controls = this.Controls.Find(formName, true);
+			if(controls.Count() > 0)
+			{
+				Control control = (controls[0] as Form).Controls[controlName];
+				if(control != null)
+				{
+					return control.Text.Trim();
+				}
+			}
+			return string.Empty;
+		}
 	}
 }

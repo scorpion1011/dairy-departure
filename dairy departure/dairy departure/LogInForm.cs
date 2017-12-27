@@ -42,9 +42,8 @@ namespace dairy_departure
             {
                 conn.Open();
                 string sql = @"SELECT e.ID_employee, e.Full_name, p.Position_name, ep.ID_employee_position
-FROM [Position] AS p INNER JOIN (Employee AS e INNER JOIN Employee_Position AS ep ON e.ID_employee = ep.ID_employee) ON p.ID_position = ep.ID_position
-WHERE (((e.Username)=@username) AND ((e.Password)= @password))
-";
+								FROM [Position] AS p INNER JOIN (Employee AS e INNER JOIN Employee_Position AS ep ON e.ID_employee = ep.ID_employee) ON p.ID_position = ep.ID_position
+								WHERE (((e.Username)=@username) AND ((e.Password)= @password))";
                 using (OleDbCommand comm = new OleDbCommand(sql, conn))
                 {
                     comm.Parameters.AddWithValue("@username", username);
@@ -93,7 +92,7 @@ WHERE (((e.Username)=@username) AND ((e.Password)= @password))
                     {
                         dir = new Director();
                     }
-                    this.Size = new System.Drawing.Size(675, 425);
+                    this.Size = new System.Drawing.Size(775, 525);
 					this.FormBorderStyle = FormBorderStyle.Sizable;
 					this.Controls.Add(dir);
                     break;
