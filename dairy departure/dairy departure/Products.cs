@@ -35,7 +35,8 @@ namespace dairy_departure
 
         private void Products_Load(object sender, EventArgs e)
         {
-            this.productTableAdapter.Fill(this.dairyDeparture1DataSet.Product);
+            // TODO: This line of code loads data into the 'dairyDeparture1DataSet.ProductsForSaleView' table. You can move, or remove it, as needed.
+            this.productsForSaleViewTableAdapter.Fill(this.dairyDeparture1DataSet.ProductsForSaleView);
             
             int prod_id;
 			for (int i = productDataGridView.Rows.Count - 1; i >= 0; i--)

@@ -30,21 +30,24 @@
         {
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
-            this.dairyDeparture1DataSet = new dairy_departure.DairyDeparture1DataSet();
-            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.productTableAdapter = new dairy_departure.DairyDeparture1DataSetTableAdapters.ProductTableAdapter();
-            this.tableAdapterManager = new dairy_departure.DairyDeparture1DataSetTableAdapters.TableAdapterManager();
             this.button1 = new System.Windows.Forms.Button();
             this.productDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Manufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dairyDeparture1DataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
+            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dairyDeparture1DataSet = new dairy_departure.DairyDeparture1DataSet();
+            this.productTableAdapter = new dairy_departure.DairyDeparture1DataSetTableAdapters.ProductTableAdapter();
+            this.tableAdapterManager = new dairy_departure.DairyDeparture1DataSetTableAdapters.TableAdapterManager();
+            this.productsForSaleViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.productsForSaleViewTableAdapter = new dairy_departure.DairyDeparture1DataSetTableAdapters.ProductsForSaleViewTableAdapter();
+            this.iDproductDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameproductDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.namemanufacturerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iDmanufacturerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.massvolumeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fatDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.productDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dairyDeparture1DataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productsForSaleViewBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -56,34 +59,6 @@
             this.label1.Size = new System.Drawing.Size(166, 19);
             this.label1.TabIndex = 0;
             this.label1.Text = "Products available:";
-            // 
-            // dairyDeparture1DataSet
-            // 
-            this.dairyDeparture1DataSet.DataSetName = "DairyDeparture1DataSet";
-            this.dairyDeparture1DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // productBindingSource
-            // 
-            this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.dairyDeparture1DataSet;
-            // 
-            // productTableAdapter
-            // 
-            this.productTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.Employee_PositionTableAdapter = null;
-            this.tableAdapterManager.EmployeeTableAdapter = null;
-            this.tableAdapterManager.ManufacturerTableAdapter = null;
-            this.tableAdapterManager.PositionTableAdapter = null;
-            this.tableAdapterManager.ProductTableAdapter = this.productTableAdapter;
-            this.tableAdapterManager.Sales_planTableAdapter = null;
-            this.tableAdapterManager.SalesPlan_ProductTableAdapter = null;
-            this.tableAdapterManager.SellsTableAdapter = null;
-            this.tableAdapterManager.SupplyTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = dairy_departure.DairyDeparture1DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // button1
             // 
@@ -103,69 +78,101 @@
             this.productDataGridView.AutoGenerateColumns = false;
             this.productDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.productDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.Manufacturer,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5});
-            this.productDataGridView.DataSource = this.productBindingSource;
+            this.iDproductDataGridViewTextBoxColumn,
+            this.nameproductDataGridViewTextBoxColumn,
+            this.namemanufacturerDataGridViewTextBoxColumn,
+            this.iDmanufacturerDataGridViewTextBoxColumn,
+            this.massvolumeDataGridViewTextBoxColumn,
+            this.fatDataGridViewTextBoxColumn});
+            this.productDataGridView.DataSource = this.productsForSaleViewBindingSource;
             this.productDataGridView.Location = new System.Drawing.Point(12, 31);
             this.productDataGridView.MultiSelect = false;
             this.productDataGridView.Name = "productDataGridView";
+            this.productDataGridView.ReadOnly = true;
             this.productDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.productDataGridView.Size = new System.Drawing.Size(457, 220);
             this.productDataGridView.TabIndex = 4;
             // 
-            // dataGridViewTextBoxColumn1
+            // productBindingSource
             // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "ID_product";
-            this.dataGridViewTextBoxColumn1.Frozen = true;
-            this.dataGridViewTextBoxColumn1.HeaderText = "ID_product";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Visible = false;
+            this.productBindingSource.DataMember = "Product";
+            this.productBindingSource.DataSource = this.dairyDeparture1DataSet;
             // 
-            // dataGridViewTextBoxColumn2
+            // dairyDeparture1DataSet
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Name_product";
-            this.dataGridViewTextBoxColumn2.Frozen = true;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dairyDeparture1DataSet.DataSetName = "DairyDeparture1DataSet";
+            this.dairyDeparture1DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // Manufacturer
+            // productTableAdapter
             // 
-            this.Manufacturer.DataPropertyName = "Manufacturer";
-            this.Manufacturer.Frozen = true;
-            this.Manufacturer.HeaderText = "Manufacturer";
-            this.Manufacturer.Name = "Manufacturer";
-            this.Manufacturer.ReadOnly = true;
+            this.productTableAdapter.ClearBeforeFill = true;
             // 
-            // dataGridViewTextBoxColumn3
+            // tableAdapterManager
             // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "ID_manufacturer";
-            this.dataGridViewTextBoxColumn3.Frozen = true;
-            this.dataGridViewTextBoxColumn3.HeaderText = "ID_manufacturer";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Visible = false;
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.Employee_PositionTableAdapter = null;
+            this.tableAdapterManager.EmployeeTableAdapter = null;
+            this.tableAdapterManager.ManufacturerTableAdapter = null;
+            this.tableAdapterManager.PositionTableAdapter = null;
+            this.tableAdapterManager.ProductTableAdapter = this.productTableAdapter;
+            this.tableAdapterManager.Sales_planTableAdapter = null;
+            this.tableAdapterManager.SalesPlan_ProductTableAdapter = null;
+            this.tableAdapterManager.SellsTableAdapter = null;
+            this.tableAdapterManager.SupplyTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = dairy_departure.DairyDeparture1DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // dataGridViewTextBoxColumn4
+            // productsForSaleViewBindingSource
             // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Mass/volume";
-            this.dataGridViewTextBoxColumn4.Frozen = true;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Weight/volume";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.productsForSaleViewBindingSource.DataMember = "ProductsForSaleView";
+            this.productsForSaleViewBindingSource.DataSource = this.dairyDeparture1DataSet;
             // 
-            // dataGridViewTextBoxColumn5
+            // productsForSaleViewTableAdapter
             // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "%-fat";
-            this.dataGridViewTextBoxColumn5.Frozen = true;
-            this.dataGridViewTextBoxColumn5.HeaderText = "%-fat";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.productsForSaleViewTableAdapter.ClearBeforeFill = true;
+            // 
+            // iDproductDataGridViewTextBoxColumn
+            // 
+            this.iDproductDataGridViewTextBoxColumn.DataPropertyName = "ID_product";
+            this.iDproductDataGridViewTextBoxColumn.HeaderText = "ID_product";
+            this.iDproductDataGridViewTextBoxColumn.Name = "iDproductDataGridViewTextBoxColumn";
+            this.iDproductDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iDproductDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // nameproductDataGridViewTextBoxColumn
+            // 
+            this.nameproductDataGridViewTextBoxColumn.DataPropertyName = "Name_product";
+            this.nameproductDataGridViewTextBoxColumn.HeaderText = "Product";
+            this.nameproductDataGridViewTextBoxColumn.Name = "nameproductDataGridViewTextBoxColumn";
+            this.nameproductDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // namemanufacturerDataGridViewTextBoxColumn
+            // 
+            this.namemanufacturerDataGridViewTextBoxColumn.DataPropertyName = "Name_manufacturer";
+            this.namemanufacturerDataGridViewTextBoxColumn.HeaderText = "Manufacturer";
+            this.namemanufacturerDataGridViewTextBoxColumn.Name = "namemanufacturerDataGridViewTextBoxColumn";
+            this.namemanufacturerDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // iDmanufacturerDataGridViewTextBoxColumn
+            // 
+            this.iDmanufacturerDataGridViewTextBoxColumn.DataPropertyName = "ID_manufacturer";
+            this.iDmanufacturerDataGridViewTextBoxColumn.HeaderText = "ID_manufacturer";
+            this.iDmanufacturerDataGridViewTextBoxColumn.Name = "iDmanufacturerDataGridViewTextBoxColumn";
+            this.iDmanufacturerDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iDmanufacturerDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // massvolumeDataGridViewTextBoxColumn
+            // 
+            this.massvolumeDataGridViewTextBoxColumn.DataPropertyName = "Mass/volume";
+            this.massvolumeDataGridViewTextBoxColumn.HeaderText = "Mass/volume";
+            this.massvolumeDataGridViewTextBoxColumn.Name = "massvolumeDataGridViewTextBoxColumn";
+            this.massvolumeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fatDataGridViewTextBoxColumn
+            // 
+            this.fatDataGridViewTextBoxColumn.DataPropertyName = "%-fat";
+            this.fatDataGridViewTextBoxColumn.HeaderText = "%-fat";
+            this.fatDataGridViewTextBoxColumn.Name = "fatDataGridViewTextBoxColumn";
+            this.fatDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // Products
             // 
@@ -178,9 +185,10 @@
             this.Name = "Products";
             this.Text = "Products";
             this.Load += new System.EventHandler(this.Products_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dairyDeparture1DataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dairyDeparture1DataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productsForSaleViewBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,11 +203,13 @@
         private DairyDeparture1DataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView productDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Manufacturer;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.BindingSource productsForSaleViewBindingSource;
+        private DairyDeparture1DataSetTableAdapters.ProductsForSaleViewTableAdapter productsForSaleViewTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDproductDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameproductDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn namemanufacturerDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDmanufacturerDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn massvolumeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fatDataGridViewTextBoxColumn;
     }
 }

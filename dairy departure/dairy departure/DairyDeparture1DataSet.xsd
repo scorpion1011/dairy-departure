@@ -652,6 +652,27 @@
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ProductsForSaleViewTableAdapter" GeneratorDataComponentClassName="ProductsForSaleViewTableAdapter" Name="ProductsForSaleView" UserDataComponentName="ProductsForSaleViewTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="DairyDepartureConnectionString (Settings)" DbObjectName="ProductsForSaleView" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ID_product, ID_manufacturer, Name_product, Name_manufacturer, [Mass/volume], [%-fat] FROM ProductsForSaleView</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID_product" DataSetColumn="ID_product" />
+              <Mapping SourceColumn="ID_manufacturer" DataSetColumn="ID_manufacturer" />
+              <Mapping SourceColumn="Name_product" DataSetColumn="Name_product" />
+              <Mapping SourceColumn="Name_manufacturer" DataSetColumn="Name_manufacturer" />
+              <Mapping SourceColumn="Mass/volume" DataSetColumn="Mass/volume" />
+              <Mapping SourceColumn="%-fat" DataSetColumn="%-fat" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
@@ -660,7 +681,7 @@
   <xs:element name="DairyDeparture1DataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="DairyDeparture1DataSet" msprop:Generator_UserDSName="DairyDeparture1DataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Employee" msprop:Generator_TableClassName="EmployeeDataTable" msprop:Generator_TableVarName="tableEmployee" msprop:Generator_RowChangedName="EmployeeRowChanged" msprop:Generator_TablePropName="Employee" msprop:Generator_RowDeletingName="EmployeeRowDeleting" msprop:Generator_RowChangingName="EmployeeRowChanging" msprop:Generator_RowEvHandlerName="EmployeeRowChangeEventHandler" msprop:Generator_RowDeletedName="EmployeeRowDeleted" msprop:Generator_RowClassName="EmployeeRow" msprop:Generator_UserTableName="Employee" msprop:Generator_RowEvArgName="EmployeeRowChangeEvent">
+        <xs:element name="Employee" msprop:Generator_TableClassName="EmployeeDataTable" msprop:Generator_TableVarName="tableEmployee" msprop:Generator_TablePropName="Employee" msprop:Generator_RowDeletingName="EmployeeRowDeleting" msprop:Generator_RowChangingName="EmployeeRowChanging" msprop:Generator_RowEvHandlerName="EmployeeRowChangeEventHandler" msprop:Generator_RowDeletedName="EmployeeRowDeleted" msprop:Generator_UserTableName="Employee" msprop:Generator_RowChangedName="EmployeeRowChanged" msprop:Generator_RowEvArgName="EmployeeRowChangeEvent" msprop:Generator_RowClassName="EmployeeRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_employee" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_employee" msprop:Generator_ColumnPropNameInRow="ID_employee" msprop:Generator_ColumnPropNameInTable="ID_employeeColumn" msprop:Generator_UserColumnName="ID_employee" type="xs:int" />
@@ -688,7 +709,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Employee_Position" msprop:Generator_TableClassName="Employee_PositionDataTable" msprop:Generator_TableVarName="tableEmployee_Position" msprop:Generator_RowChangedName="Employee_PositionRowChanged" msprop:Generator_TablePropName="Employee_Position" msprop:Generator_RowDeletingName="Employee_PositionRowDeleting" msprop:Generator_RowChangingName="Employee_PositionRowChanging" msprop:Generator_RowEvHandlerName="Employee_PositionRowChangeEventHandler" msprop:Generator_RowDeletedName="Employee_PositionRowDeleted" msprop:Generator_RowClassName="Employee_PositionRow" msprop:Generator_UserTableName="Employee_Position" msprop:Generator_RowEvArgName="Employee_PositionRowChangeEvent">
+        <xs:element name="Employee_Position" msprop:Generator_TableClassName="Employee_PositionDataTable" msprop:Generator_TableVarName="tableEmployee_Position" msprop:Generator_TablePropName="Employee_Position" msprop:Generator_RowDeletingName="Employee_PositionRowDeleting" msprop:Generator_RowChangingName="Employee_PositionRowChanging" msprop:Generator_RowEvHandlerName="Employee_PositionRowChangeEventHandler" msprop:Generator_RowDeletedName="Employee_PositionRowDeleted" msprop:Generator_UserTableName="Employee_Position" msprop:Generator_RowChangedName="Employee_PositionRowChanged" msprop:Generator_RowEvArgName="Employee_PositionRowChangeEvent" msprop:Generator_RowClassName="Employee_PositionRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_employee_position" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_employee_position" msprop:Generator_ColumnPropNameInRow="ID_employee_position" msprop:Generator_ColumnPropNameInTable="ID_employee_positionColumn" msprop:Generator_UserColumnName="ID_employee_position" type="xs:int" />
@@ -699,7 +720,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Manufacturer" msprop:Generator_TableClassName="ManufacturerDataTable" msprop:Generator_TableVarName="tableManufacturer" msprop:Generator_RowChangedName="ManufacturerRowChanged" msprop:Generator_TablePropName="Manufacturer" msprop:Generator_RowDeletingName="ManufacturerRowDeleting" msprop:Generator_RowChangingName="ManufacturerRowChanging" msprop:Generator_RowEvHandlerName="ManufacturerRowChangeEventHandler" msprop:Generator_RowDeletedName="ManufacturerRowDeleted" msprop:Generator_RowClassName="ManufacturerRow" msprop:Generator_UserTableName="Manufacturer" msprop:Generator_RowEvArgName="ManufacturerRowChangeEvent">
+        <xs:element name="Manufacturer" msprop:Generator_TableClassName="ManufacturerDataTable" msprop:Generator_TableVarName="tableManufacturer" msprop:Generator_TablePropName="Manufacturer" msprop:Generator_RowDeletingName="ManufacturerRowDeleting" msprop:Generator_RowChangingName="ManufacturerRowChanging" msprop:Generator_RowEvHandlerName="ManufacturerRowChangeEventHandler" msprop:Generator_RowDeletedName="ManufacturerRowDeleted" msprop:Generator_UserTableName="Manufacturer" msprop:Generator_RowChangedName="ManufacturerRowChanged" msprop:Generator_RowEvArgName="ManufacturerRowChangeEvent" msprop:Generator_RowClassName="ManufacturerRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_manufacturer" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_manufacturer" msprop:Generator_ColumnPropNameInRow="ID_manufacturer" msprop:Generator_ColumnPropNameInTable="ID_manufacturerColumn" msprop:Generator_UserColumnName="ID_manufacturer" type="xs:int" />
@@ -720,7 +741,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Position" msprop:Generator_TableClassName="PositionDataTable" msprop:Generator_TableVarName="tablePosition" msprop:Generator_RowChangedName="PositionRowChanged" msprop:Generator_TablePropName="Position" msprop:Generator_RowDeletingName="PositionRowDeleting" msprop:Generator_RowChangingName="PositionRowChanging" msprop:Generator_RowEvHandlerName="PositionRowChangeEventHandler" msprop:Generator_RowDeletedName="PositionRowDeleted" msprop:Generator_RowClassName="PositionRow" msprop:Generator_UserTableName="Position" msprop:Generator_RowEvArgName="PositionRowChangeEvent">
+        <xs:element name="Position" msprop:Generator_TableClassName="PositionDataTable" msprop:Generator_TableVarName="tablePosition" msprop:Generator_TablePropName="Position" msprop:Generator_RowDeletingName="PositionRowDeleting" msprop:Generator_RowChangingName="PositionRowChanging" msprop:Generator_RowEvHandlerName="PositionRowChangeEventHandler" msprop:Generator_RowDeletedName="PositionRowDeleted" msprop:Generator_UserTableName="Position" msprop:Generator_RowChangedName="PositionRowChanged" msprop:Generator_RowEvArgName="PositionRowChangeEvent" msprop:Generator_RowClassName="PositionRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_position" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_position" msprop:Generator_ColumnPropNameInRow="ID_position" msprop:Generator_ColumnPropNameInTable="ID_positionColumn" msprop:Generator_UserColumnName="ID_position" type="xs:int" />
@@ -735,7 +756,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Product" msprop:Generator_TableClassName="ProductDataTable" msprop:Generator_TableVarName="tableProduct" msprop:Generator_RowChangedName="ProductRowChanged" msprop:Generator_TablePropName="Product" msprop:Generator_RowDeletingName="ProductRowDeleting" msprop:Generator_RowChangingName="ProductRowChanging" msprop:Generator_RowEvHandlerName="ProductRowChangeEventHandler" msprop:Generator_RowDeletedName="ProductRowDeleted" msprop:Generator_RowClassName="ProductRow" msprop:Generator_UserTableName="Product" msprop:Generator_RowEvArgName="ProductRowChangeEvent">
+        <xs:element name="Product" msprop:Generator_TableClassName="ProductDataTable" msprop:Generator_TableVarName="tableProduct" msprop:Generator_TablePropName="Product" msprop:Generator_RowDeletingName="ProductRowDeleting" msprop:Generator_RowChangingName="ProductRowChanging" msprop:Generator_RowEvHandlerName="ProductRowChangeEventHandler" msprop:Generator_RowDeletedName="ProductRowDeleted" msprop:Generator_UserTableName="Product" msprop:Generator_RowChangedName="ProductRowChanged" msprop:Generator_RowEvArgName="ProductRowChangeEvent" msprop:Generator_RowClassName="ProductRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_product" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_product" msprop:Generator_ColumnPropNameInRow="ID_product" msprop:Generator_ColumnPropNameInTable="ID_productColumn" msprop:Generator_UserColumnName="ID_product" type="xs:int" />
@@ -759,7 +780,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Sales_plan" msprop:Generator_TableClassName="Sales_planDataTable" msprop:Generator_TableVarName="tableSales_plan" msprop:Generator_RowChangedName="Sales_planRowChanged" msprop:Generator_TablePropName="Sales_plan" msprop:Generator_RowDeletingName="Sales_planRowDeleting" msprop:Generator_RowChangingName="Sales_planRowChanging" msprop:Generator_RowEvHandlerName="Sales_planRowChangeEventHandler" msprop:Generator_RowDeletedName="Sales_planRowDeleted" msprop:Generator_RowClassName="Sales_planRow" msprop:Generator_UserTableName="Sales_plan" msprop:Generator_RowEvArgName="Sales_planRowChangeEvent">
+        <xs:element name="Sales_plan" msprop:Generator_TableClassName="Sales_planDataTable" msprop:Generator_TableVarName="tableSales_plan" msprop:Generator_TablePropName="Sales_plan" msprop:Generator_RowDeletingName="Sales_planRowDeleting" msprop:Generator_RowChangingName="Sales_planRowChanging" msprop:Generator_RowEvHandlerName="Sales_planRowChangeEventHandler" msprop:Generator_RowDeletedName="Sales_planRowDeleted" msprop:Generator_UserTableName="Sales_plan" msprop:Generator_RowChangedName="Sales_planRowChanged" msprop:Generator_RowEvArgName="Sales_planRowChangeEvent" msprop:Generator_RowClassName="Sales_planRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_plan" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_plan" msprop:Generator_ColumnPropNameInRow="ID_plan" msprop:Generator_ColumnPropNameInTable="ID_planColumn" msprop:Generator_UserColumnName="ID_plan" type="xs:int" />
@@ -768,7 +789,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="SalesPlan_Product" msprop:Generator_TableClassName="SalesPlan_ProductDataTable" msprop:Generator_TableVarName="tableSalesPlan_Product" msprop:Generator_RowChangedName="SalesPlan_ProductRowChanged" msprop:Generator_TablePropName="SalesPlan_Product" msprop:Generator_RowDeletingName="SalesPlan_ProductRowDeleting" msprop:Generator_RowChangingName="SalesPlan_ProductRowChanging" msprop:Generator_RowEvHandlerName="SalesPlan_ProductRowChangeEventHandler" msprop:Generator_RowDeletedName="SalesPlan_ProductRowDeleted" msprop:Generator_RowClassName="SalesPlan_ProductRow" msprop:Generator_UserTableName="SalesPlan_Product" msprop:Generator_RowEvArgName="SalesPlan_ProductRowChangeEvent">
+        <xs:element name="SalesPlan_Product" msprop:Generator_TableClassName="SalesPlan_ProductDataTable" msprop:Generator_TableVarName="tableSalesPlan_Product" msprop:Generator_TablePropName="SalesPlan_Product" msprop:Generator_RowDeletingName="SalesPlan_ProductRowDeleting" msprop:Generator_RowChangingName="SalesPlan_ProductRowChanging" msprop:Generator_RowEvHandlerName="SalesPlan_ProductRowChangeEventHandler" msprop:Generator_RowDeletedName="SalesPlan_ProductRowDeleted" msprop:Generator_UserTableName="SalesPlan_Product" msprop:Generator_RowChangedName="SalesPlan_ProductRowChanged" msprop:Generator_RowEvArgName="SalesPlan_ProductRowChangeEvent" msprop:Generator_RowClassName="SalesPlan_ProductRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_plan" msprop:Generator_ColumnVarNameInTable="columnID_plan" msprop:Generator_ColumnPropNameInRow="ID_plan" msprop:Generator_ColumnPropNameInTable="ID_planColumn" msprop:Generator_UserColumnName="ID_plan" type="xs:int" />
@@ -777,7 +798,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Sells" msprop:Generator_TableClassName="SellsDataTable" msprop:Generator_TableVarName="tableSells" msprop:Generator_RowChangedName="SellsRowChanged" msprop:Generator_TablePropName="Sells" msprop:Generator_RowDeletingName="SellsRowDeleting" msprop:Generator_RowChangingName="SellsRowChanging" msprop:Generator_RowEvHandlerName="SellsRowChangeEventHandler" msprop:Generator_RowDeletedName="SellsRowDeleted" msprop:Generator_RowClassName="SellsRow" msprop:Generator_UserTableName="Sells" msprop:Generator_RowEvArgName="SellsRowChangeEvent">
+        <xs:element name="Sells" msprop:Generator_TableClassName="SellsDataTable" msprop:Generator_TableVarName="tableSells" msprop:Generator_TablePropName="Sells" msprop:Generator_RowDeletingName="SellsRowDeleting" msprop:Generator_RowChangingName="SellsRowChanging" msprop:Generator_RowEvHandlerName="SellsRowChangeEventHandler" msprop:Generator_RowDeletedName="SellsRowDeleted" msprop:Generator_UserTableName="Sells" msprop:Generator_RowChangedName="SellsRowChanged" msprop:Generator_RowEvArgName="SellsRowChangeEvent" msprop:Generator_RowClassName="SellsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_sell" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_sell" msprop:Generator_ColumnPropNameInRow="ID_sell" msprop:Generator_ColumnPropNameInTable="ID_sellColumn" msprop:Generator_UserColumnName="ID_sell" type="xs:int" />
@@ -789,7 +810,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Supply" msprop:Generator_TableClassName="SupplyDataTable" msprop:Generator_TableVarName="tableSupply" msprop:Generator_RowChangedName="SupplyRowChanged" msprop:Generator_TablePropName="Supply" msprop:Generator_RowDeletingName="SupplyRowDeleting" msprop:Generator_RowChangingName="SupplyRowChanging" msprop:Generator_RowEvHandlerName="SupplyRowChangeEventHandler" msprop:Generator_RowDeletedName="SupplyRowDeleted" msprop:Generator_RowClassName="SupplyRow" msprop:Generator_UserTableName="Supply" msprop:Generator_RowEvArgName="SupplyRowChangeEvent">
+        <xs:element name="Supply" msprop:Generator_TableClassName="SupplyDataTable" msprop:Generator_TableVarName="tableSupply" msprop:Generator_TablePropName="Supply" msprop:Generator_RowDeletingName="SupplyRowDeleting" msprop:Generator_RowChangingName="SupplyRowChanging" msprop:Generator_RowEvHandlerName="SupplyRowChangeEventHandler" msprop:Generator_RowDeletedName="SupplyRowDeleted" msprop:Generator_UserTableName="Supply" msprop:Generator_RowChangedName="SupplyRowChanged" msprop:Generator_RowEvArgName="SupplyRowChangeEvent" msprop:Generator_RowClassName="SupplyRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_supply" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_supply" msprop:Generator_ColumnPropNameInRow="ID_supply" msprop:Generator_ColumnPropNameInTable="ID_supplyColumn" msprop:Generator_UserColumnName="ID_supply" type="xs:int" />
@@ -801,7 +822,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Employee_Position_View" msprop:Generator_TableClassName="Employee_Position_ViewDataTable" msprop:Generator_TableVarName="tableEmployee_Position_View" msprop:Generator_RowChangedName="Employee_Position_ViewRowChanged" msprop:Generator_TablePropName="Employee_Position_View" msprop:Generator_RowDeletingName="Employee_Position_ViewRowDeleting" msprop:Generator_RowChangingName="Employee_Position_ViewRowChanging" msprop:Generator_RowEvHandlerName="Employee_Position_ViewRowChangeEventHandler" msprop:Generator_RowDeletedName="Employee_Position_ViewRowDeleted" msprop:Generator_RowClassName="Employee_Position_ViewRow" msprop:Generator_UserTableName="Employee_Position_View" msprop:Generator_RowEvArgName="Employee_Position_ViewRowChangeEvent">
+        <xs:element name="Employee_Position_View" msprop:Generator_TableClassName="Employee_Position_ViewDataTable" msprop:Generator_TableVarName="tableEmployee_Position_View" msprop:Generator_TablePropName="Employee_Position_View" msprop:Generator_RowDeletingName="Employee_Position_ViewRowDeleting" msprop:Generator_RowChangingName="Employee_Position_ViewRowChanging" msprop:Generator_RowEvHandlerName="Employee_Position_ViewRowChangeEventHandler" msprop:Generator_RowDeletedName="Employee_Position_ViewRowDeleted" msprop:Generator_UserTableName="Employee_Position_View" msprop:Generator_RowChangedName="Employee_Position_ViewRowChanged" msprop:Generator_RowEvArgName="Employee_Position_ViewRowChangeEvent" msprop:Generator_RowClassName="Employee_Position_ViewRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_employee_position" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_employee_position" msprop:Generator_ColumnPropNameInRow="ID_employee_position" msprop:Generator_ColumnPropNameInTable="ID_employee_positionColumn" msprop:Generator_UserColumnName="ID_employee_position" type="xs:int" minOccurs="0" />
@@ -824,7 +845,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Supply_Product_View" msprop:Generator_TableClassName="Supply_Product_ViewDataTable" msprop:Generator_TableVarName="tableSupply_Product_View" msprop:Generator_RowChangedName="Supply_Product_ViewRowChanged" msprop:Generator_TablePropName="Supply_Product_View" msprop:Generator_RowDeletingName="Supply_Product_ViewRowDeleting" msprop:Generator_RowChangingName="Supply_Product_ViewRowChanging" msprop:Generator_RowEvHandlerName="Supply_Product_ViewRowChangeEventHandler" msprop:Generator_RowDeletedName="Supply_Product_ViewRowDeleted" msprop:Generator_RowClassName="Supply_Product_ViewRow" msprop:Generator_UserTableName="Supply_Product_View" msprop:Generator_RowEvArgName="Supply_Product_ViewRowChangeEvent">
+        <xs:element name="Supply_Product_View" msprop:Generator_TableClassName="Supply_Product_ViewDataTable" msprop:Generator_TableVarName="tableSupply_Product_View" msprop:Generator_TablePropName="Supply_Product_View" msprop:Generator_RowDeletingName="Supply_Product_ViewRowDeleting" msprop:Generator_RowChangingName="Supply_Product_ViewRowChanging" msprop:Generator_RowEvHandlerName="Supply_Product_ViewRowChangeEventHandler" msprop:Generator_RowDeletedName="Supply_Product_ViewRowDeleted" msprop:Generator_UserTableName="Supply_Product_View" msprop:Generator_RowChangedName="Supply_Product_ViewRowChanged" msprop:Generator_RowEvArgName="Supply_Product_ViewRowChangeEvent" msprop:Generator_RowClassName="Supply_Product_ViewRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_supply" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_supply" msprop:Generator_ColumnPropNameInRow="ID_supply" msprop:Generator_ColumnPropNameInTable="ID_supplyColumn" msprop:Generator_UserColumnName="ID_supply" type="xs:int" />
@@ -838,7 +859,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Manufacturer_x0020_Запрос" msprop:Generator_TableClassName="Manufacturer_ЗапросDataTable" msprop:Generator_TableVarName="tableManufacturer_Запрос" msprop:Generator_RowChangedName="Manufacturer_ЗапросRowChanged" msprop:Generator_TablePropName="Manufacturer_Запрос" msprop:Generator_RowDeletingName="Manufacturer_ЗапросRowDeleting" msprop:Generator_RowChangingName="Manufacturer_ЗапросRowChanging" msprop:Generator_RowEvHandlerName="Manufacturer_ЗапросRowChangeEventHandler" msprop:Generator_RowDeletedName="Manufacturer_ЗапросRowDeleted" msprop:Generator_RowClassName="Manufacturer_ЗапросRow" msprop:Generator_UserTableName="Manufacturer Запрос" msprop:Generator_RowEvArgName="Manufacturer_ЗапросRowChangeEvent">
+        <xs:element name="Manufacturer_x0020_Запрос" msprop:Generator_TableClassName="Manufacturer_ЗапросDataTable" msprop:Generator_TableVarName="tableManufacturer_Запрос" msprop:Generator_TablePropName="Manufacturer_Запрос" msprop:Generator_RowDeletingName="Manufacturer_ЗапросRowDeleting" msprop:Generator_RowChangingName="Manufacturer_ЗапросRowChanging" msprop:Generator_RowEvHandlerName="Manufacturer_ЗапросRowChangeEventHandler" msprop:Generator_RowDeletedName="Manufacturer_ЗапросRowDeleted" msprop:Generator_UserTableName="Manufacturer Запрос" msprop:Generator_RowChangedName="Manufacturer_ЗапросRowChanged" msprop:Generator_RowEvArgName="Manufacturer_ЗапросRowChangeEvent" msprop:Generator_RowClassName="Manufacturer_ЗапросRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_manufacturer" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_manufacturer" msprop:Generator_ColumnPropNameInRow="ID_manufacturer" msprop:Generator_ColumnPropNameInTable="ID_manufacturerColumn" msprop:Generator_UserColumnName="ID_manufacturer" type="xs:int" />
@@ -852,7 +873,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PositionInfo" msprop:Generator_TableClassName="PositionInfoDataTable" msprop:Generator_TableVarName="tablePositionInfo" msprop:Generator_TablePropName="PositionInfo" msprop:Generator_RowDeletingName="PositionInfoRowDeleting" msprop:Generator_RowChangingName="PositionInfoRowChanging" msprop:Generator_RowEvHandlerName="PositionInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="PositionInfoRowDeleted" msprop:Generator_UserTableName="PositionInfo" msprop:Generator_RowChangedName="PositionInfoRowChanged" msprop:Generator_RowEvArgName="PositionInfoRowChangeEvent" msprop:Generator_RowClassName="PositionInfoRow">
+        <xs:element name="PositionInfo" msprop:Generator_TableClassName="PositionInfoDataTable" msprop:Generator_TableVarName="tablePositionInfo" msprop:Generator_RowChangedName="PositionInfoRowChanged" msprop:Generator_TablePropName="PositionInfo" msprop:Generator_RowDeletingName="PositionInfoRowDeleting" msprop:Generator_RowChangingName="PositionInfoRowChanging" msprop:Generator_RowEvHandlerName="PositionInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="PositionInfoRowDeleted" msprop:Generator_RowClassName="PositionInfoRow" msprop:Generator_UserTableName="PositionInfo" msprop:Generator_RowEvArgName="PositionInfoRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_position" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_position" msprop:Generator_ColumnPropNameInRow="ID_position" msprop:Generator_ColumnPropNameInTable="ID_positionColumn" msprop:Generator_UserColumnName="ID_position" type="xs:int" />
@@ -866,7 +887,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Product_x0020_Запрос" msprop:Generator_TableClassName="Product_ЗапросDataTable" msprop:Generator_TableVarName="tableProduct_Запрос" msprop:Generator_RowChangedName="Product_ЗапросRowChanged" msprop:Generator_TablePropName="Product_Запрос" msprop:Generator_RowDeletingName="Product_ЗапросRowDeleting" msprop:Generator_RowChangingName="Product_ЗапросRowChanging" msprop:Generator_RowEvHandlerName="Product_ЗапросRowChangeEventHandler" msprop:Generator_RowDeletedName="Product_ЗапросRowDeleted" msprop:Generator_RowClassName="Product_ЗапросRow" msprop:Generator_UserTableName="Product Запрос" msprop:Generator_RowEvArgName="Product_ЗапросRowChangeEvent">
+        <xs:element name="Product_x0020_Запрос" msprop:Generator_TableClassName="Product_ЗапросDataTable" msprop:Generator_TableVarName="tableProduct_Запрос" msprop:Generator_TablePropName="Product_Запрос" msprop:Generator_RowDeletingName="Product_ЗапросRowDeleting" msprop:Generator_RowChangingName="Product_ЗапросRowChanging" msprop:Generator_RowEvHandlerName="Product_ЗапросRowChangeEventHandler" msprop:Generator_RowDeletedName="Product_ЗапросRowDeleted" msprop:Generator_UserTableName="Product Запрос" msprop:Generator_RowChangedName="Product_ЗапросRowChanged" msprop:Generator_RowEvArgName="Product_ЗапросRowChangeEvent" msprop:Generator_RowClassName="Product_ЗапросRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_product" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_product" msprop:Generator_ColumnPropNameInRow="ID_product" msprop:Generator_ColumnPropNameInTable="ID_productColumn" msprop:Generator_UserColumnName="ID_product" type="xs:int" />
@@ -877,6 +898,36 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ProductsForSaleView" msprop:Generator_TableClassName="ProductsForSaleViewDataTable" msprop:Generator_TableVarName="tableProductsForSaleView" msprop:Generator_TablePropName="ProductsForSaleView" msprop:Generator_RowDeletingName="ProductsForSaleViewRowDeleting" msprop:Generator_RowChangingName="ProductsForSaleViewRowChanging" msprop:Generator_RowEvHandlerName="ProductsForSaleViewRowChangeEventHandler" msprop:Generator_RowDeletedName="ProductsForSaleViewRowDeleted" msprop:Generator_UserTableName="ProductsForSaleView" msprop:Generator_RowChangedName="ProductsForSaleViewRowChanged" msprop:Generator_RowEvArgName="ProductsForSaleViewRowChangeEvent" msprop:Generator_RowClassName="ProductsForSaleViewRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID_product" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_product" msprop:Generator_ColumnPropNameInRow="ID_product" msprop:Generator_ColumnPropNameInTable="ID_productColumn" msprop:Generator_UserColumnName="ID_product" type="xs:int" minOccurs="0" />
+              <xs:element name="ID_manufacturer" msprop:Generator_ColumnVarNameInTable="columnID_manufacturer" msprop:Generator_ColumnPropNameInRow="ID_manufacturer" msprop:Generator_ColumnPropNameInTable="ID_manufacturerColumn" msprop:Generator_UserColumnName="ID_manufacturer" type="xs:int" minOccurs="0" />
+              <xs:element name="Name_product" msprop:Generator_ColumnVarNameInTable="columnName_product" msprop:Generator_ColumnPropNameInRow="Name_product" msprop:Generator_ColumnPropNameInTable="Name_productColumn" msprop:Generator_UserColumnName="Name_product" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Name_manufacturer" msprop:Generator_ColumnVarNameInTable="columnName_manufacturer" msprop:Generator_ColumnPropNameInRow="Name_manufacturer" msprop:Generator_ColumnPropNameInTable="Name_manufacturerColumn" msprop:Generator_UserColumnName="Name_manufacturer" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Mass_x002F_volume" msprop:Generator_ColumnVarNameInTable="_columnMass_volume" msprop:Generator_ColumnPropNameInRow="_Mass_volume" msprop:Generator_ColumnPropNameInTable="_Mass_volumeColumn" msprop:Generator_UserColumnName="Mass/volume" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="_x0025_-fat" msprop:Generator_ColumnVarNameInTable="_column__fat" msprop:Generator_ColumnPropNameInRow="___fat" msprop:Generator_ColumnPropNameInTable="___fatColumn" msprop:Generator_UserColumnName="%-fat" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -938,15 +989,15 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="EmployeeEmployee_Position" msdata:parent="Employee" msdata:child="Employee_Position" msdata:parentkey="ID_employee" msdata:childkey="ID_employee" msprop:Generator_UserChildTable="Employee_Position" msprop:Generator_ChildPropName="GetEmployee_PositionRows" msprop:Generator_UserRelationName="EmployeeEmployee_Position" msprop:Generator_RelationVarName="relationEmployeeEmployee_Position" msprop:Generator_UserParentTable="Employee" msprop:Generator_ParentPropName="EmployeeRow" />
-      <msdata:Relationship name="PositionEmployee_Position" msdata:parent="Position" msdata:child="Employee_Position" msdata:parentkey="ID_position" msdata:childkey="ID_position" msprop:Generator_UserChildTable="Employee_Position" msprop:Generator_ChildPropName="GetEmployee_PositionRows" msprop:Generator_UserRelationName="PositionEmployee_Position" msprop:Generator_ParentPropName="PositionRow" msprop:Generator_RelationVarName="relationPositionEmployee_Position" msprop:Generator_UserParentTable="Position" />
-      <msdata:Relationship name="ManufacturerProduct" msdata:parent="Manufacturer" msdata:child="Product" msdata:parentkey="ID_manufacturer" msdata:childkey="ID_manufacturer" msprop:Generator_UserChildTable="Product" msprop:Generator_ChildPropName="GetProductRows" msprop:Generator_UserRelationName="ManufacturerProduct" msprop:Generator_RelationVarName="relationManufacturerProduct" msprop:Generator_UserParentTable="Manufacturer" msprop:Generator_ParentPropName="ManufacturerRow" />
-      <msdata:Relationship name="ProductSalesPlan_Product" msdata:parent="Product" msdata:child="SalesPlan_Product" msdata:parentkey="ID_product" msdata:childkey="ID_product" msprop:Generator_UserChildTable="SalesPlan_Product" msprop:Generator_ChildPropName="GetSalesPlan_ProductRows" msprop:Generator_UserRelationName="ProductSalesPlan_Product" msprop:Generator_RelationVarName="relationProductSalesPlan_Product" msprop:Generator_UserParentTable="Product" msprop:Generator_ParentPropName="ProductRow" />
-      <msdata:Relationship name="Sales_planSalesPlan_Product" msdata:parent="Sales_plan" msdata:child="SalesPlan_Product" msdata:parentkey="ID_plan" msdata:childkey="ID_plan" msprop:Generator_UserChildTable="SalesPlan_Product" msprop:Generator_ChildPropName="GetSalesPlan_ProductRows" msprop:Generator_UserRelationName="Sales_planSalesPlan_Product" msprop:Generator_RelationVarName="relationSales_planSalesPlan_Product" msprop:Generator_UserParentTable="Sales_plan" msprop:Generator_ParentPropName="Sales_planRow" />
-      <msdata:Relationship name="Employee_PositionSells" msdata:parent="Employee_Position" msdata:child="Sells" msdata:parentkey="ID_employee_position" msdata:childkey="ID_employee_position" msprop:Generator_UserChildTable="Sells" msprop:Generator_ChildPropName="GetSellsRows" msprop:Generator_UserRelationName="Employee_PositionSells" msprop:Generator_RelationVarName="relationEmployee_PositionSells" msprop:Generator_UserParentTable="Employee_Position" msprop:Generator_ParentPropName="Employee_PositionRow" />
-      <msdata:Relationship name="SupplySells" msdata:parent="Supply" msdata:child="Sells" msdata:parentkey="ID_supply" msdata:childkey="ID_supply" msprop:Generator_UserChildTable="Sells" msprop:Generator_ChildPropName="GetSellsRows" msprop:Generator_UserRelationName="SupplySells" msprop:Generator_ParentPropName="SupplyRow" msprop:Generator_RelationVarName="relationSupplySells" msprop:Generator_UserParentTable="Supply" />
-      <msdata:Relationship name="Employee_PositionSupply" msdata:parent="Employee_Position" msdata:child="Supply" msdata:parentkey="ID_employee_position" msdata:childkey="ID_employee_position" msprop:Generator_UserChildTable="Supply" msprop:Generator_ChildPropName="GetSupplyRows" msprop:Generator_UserRelationName="Employee_PositionSupply" msprop:Generator_RelationVarName="relationEmployee_PositionSupply" msprop:Generator_UserParentTable="Employee_Position" msprop:Generator_ParentPropName="Employee_PositionRow" />
-      <msdata:Relationship name="ProductSupply" msdata:parent="Product" msdata:child="Supply" msdata:parentkey="ID_product" msdata:childkey="ID_product" msprop:Generator_UserChildTable="Supply" msprop:Generator_ChildPropName="GetSupplyRows" msprop:Generator_UserRelationName="ProductSupply" msprop:Generator_RelationVarName="relationProductSupply" msprop:Generator_UserParentTable="Product" msprop:Generator_ParentPropName="ProductRow" />
+      <msdata:Relationship name="EmployeeEmployee_Position" msdata:parent="Employee" msdata:child="Employee_Position" msdata:parentkey="ID_employee" msdata:childkey="ID_employee" msprop:Generator_UserChildTable="Employee_Position" msprop:Generator_ChildPropName="GetEmployee_PositionRows" msprop:Generator_UserRelationName="EmployeeEmployee_Position" msprop:Generator_ParentPropName="EmployeeRow" msprop:Generator_RelationVarName="relationEmployeeEmployee_Position" msprop:Generator_UserParentTable="Employee" />
+      <msdata:Relationship name="PositionEmployee_Position" msdata:parent="Position" msdata:child="Employee_Position" msdata:parentkey="ID_position" msdata:childkey="ID_position" msprop:Generator_UserChildTable="Employee_Position" msprop:Generator_ChildPropName="GetEmployee_PositionRows" msprop:Generator_UserRelationName="PositionEmployee_Position" msprop:Generator_RelationVarName="relationPositionEmployee_Position" msprop:Generator_UserParentTable="Position" msprop:Generator_ParentPropName="PositionRow" />
+      <msdata:Relationship name="ManufacturerProduct" msdata:parent="Manufacturer" msdata:child="Product" msdata:parentkey="ID_manufacturer" msdata:childkey="ID_manufacturer" msprop:Generator_UserChildTable="Product" msprop:Generator_ChildPropName="GetProductRows" msprop:Generator_UserRelationName="ManufacturerProduct" msprop:Generator_ParentPropName="ManufacturerRow" msprop:Generator_RelationVarName="relationManufacturerProduct" msprop:Generator_UserParentTable="Manufacturer" />
+      <msdata:Relationship name="ProductSalesPlan_Product" msdata:parent="Product" msdata:child="SalesPlan_Product" msdata:parentkey="ID_product" msdata:childkey="ID_product" msprop:Generator_UserChildTable="SalesPlan_Product" msprop:Generator_ChildPropName="GetSalesPlan_ProductRows" msprop:Generator_UserRelationName="ProductSalesPlan_Product" msprop:Generator_ParentPropName="ProductRow" msprop:Generator_RelationVarName="relationProductSalesPlan_Product" msprop:Generator_UserParentTable="Product" />
+      <msdata:Relationship name="Sales_planSalesPlan_Product" msdata:parent="Sales_plan" msdata:child="SalesPlan_Product" msdata:parentkey="ID_plan" msdata:childkey="ID_plan" msprop:Generator_UserChildTable="SalesPlan_Product" msprop:Generator_ChildPropName="GetSalesPlan_ProductRows" msprop:Generator_UserRelationName="Sales_planSalesPlan_Product" msprop:Generator_ParentPropName="Sales_planRow" msprop:Generator_RelationVarName="relationSales_planSalesPlan_Product" msprop:Generator_UserParentTable="Sales_plan" />
+      <msdata:Relationship name="Employee_PositionSells" msdata:parent="Employee_Position" msdata:child="Sells" msdata:parentkey="ID_employee_position" msdata:childkey="ID_employee_position" msprop:Generator_UserChildTable="Sells" msprop:Generator_ChildPropName="GetSellsRows" msprop:Generator_UserRelationName="Employee_PositionSells" msprop:Generator_ParentPropName="Employee_PositionRow" msprop:Generator_RelationVarName="relationEmployee_PositionSells" msprop:Generator_UserParentTable="Employee_Position" />
+      <msdata:Relationship name="SupplySells" msdata:parent="Supply" msdata:child="Sells" msdata:parentkey="ID_supply" msdata:childkey="ID_supply" msprop:Generator_UserChildTable="Sells" msprop:Generator_ChildPropName="GetSellsRows" msprop:Generator_UserRelationName="SupplySells" msprop:Generator_RelationVarName="relationSupplySells" msprop:Generator_UserParentTable="Supply" msprop:Generator_ParentPropName="SupplyRow" />
+      <msdata:Relationship name="Employee_PositionSupply" msdata:parent="Employee_Position" msdata:child="Supply" msdata:parentkey="ID_employee_position" msdata:childkey="ID_employee_position" msprop:Generator_UserChildTable="Supply" msprop:Generator_ChildPropName="GetSupplyRows" msprop:Generator_UserRelationName="Employee_PositionSupply" msprop:Generator_ParentPropName="Employee_PositionRow" msprop:Generator_RelationVarName="relationEmployee_PositionSupply" msprop:Generator_UserParentTable="Employee_Position" />
+      <msdata:Relationship name="ProductSupply" msdata:parent="Product" msdata:child="Supply" msdata:parentkey="ID_product" msdata:childkey="ID_product" msprop:Generator_UserChildTable="Supply" msprop:Generator_ChildPropName="GetSupplyRows" msprop:Generator_UserRelationName="ProductSupply" msprop:Generator_ParentPropName="ProductRow" msprop:Generator_RelationVarName="relationProductSupply" msprop:Generator_UserParentTable="Product" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>
