@@ -471,10 +471,12 @@ namespace dairy_departure
 				}
 				if (!employeeToolStripMenuItem.Enabled)
 				{
-				}
+                    showFilterForm(new Filters.EmployeeFilter());
+                }
 				if (!positionsToolStripMenuItem.Enabled)
 				{
-				}
+                    showFilterForm(new Filters.PositionFilter());
+                }
 				if (!sellingPlansToolStripMenuItem.Enabled)
 				{
 				}
@@ -490,11 +492,19 @@ namespace dairy_departure
 			}
 		}
 
-		private void showFilterForm(Form sf)
+        private void showSearchForm(Form sf)
+        {
+            //sf = new Filters.StatisticsSellsForm();
+            sf.TopLevel = false;
+            pnSearch.Controls.Add(sf);
+            sf.Show();
+        }
+
+        private void showFilterForm(Form sf)
 		{
-			sf = new Filters.StatisticsSellsForm();
-			sf.TopLevel = false;
-			pnFilter.Controls.Add(sf);
+            //sf = new Filters.StatisticsSellsForm();
+            sf.TopLevel = false;
+            pnFilter.Controls.Add(sf);
 			sf.Show();
 		}
 
@@ -600,7 +610,87 @@ namespace dairy_departure
 			}
 		}
 
-		private string GetFilterValue(string formName, string controlName)
+        public void FillInEmployeeGrid()
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
+
+            string sql = @"select e.ID_employee, e.[Full_name], e.[Username], e.[Password], p.ID_position, p.[Position_name]
+from [Employee] as e, [Position] as p, [Employee_Position] as ep
+where e.ID_employee = ep.ID_employee and p.ID_position = ep.ID_position and EP.Date_for is null and E.IsWorking = true";
+
+            string cbGroupBy = GetFilterValue("EmployeeFilter", "cbGroupBy");
+            if (cbGroupBy != string.Empty)
+            {
+                sql += " and p.Position_name = '" + cbGroupBy + "'";
+            }
+
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+
+                using (OleDbCommand comm = new OleDbCommand(sql, conn))
+                {
+                    using (OleDbDataReader reader = comm.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            object[] values = new object[reader.FieldCount];
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                values[i] = reader.GetValue(i).ToString();
+                            }
+                            dataGridView1.Rows.Add(values);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void FillInPositionGrid()
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
+
+            string sql = @"select [ID_position], [Position_name], [Payment_per_hour]
+                            from [Position] as p
+                            where 1 = 1 
+                            ";
+
+            string dtpFrom = GetFilterValue("PositionFilter", "textBox1");
+            if (dtpFrom != string.Empty)
+            {
+                sql += " and Payment_per_hour >= " + dtpFrom;
+            }
+            string dtpTo = GetFilterValue("PositionFilter", "textBox2");
+            if (dtpTo != string.Empty)
+            {
+                sql += " and Payment_per_hour <= " + dtpTo;
+            }
+
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+
+                using (OleDbCommand comm = new OleDbCommand(sql, conn))
+                {
+                    using (OleDbDataReader reader = comm.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            object[] values = new object[reader.FieldCount];
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                values[i] = reader.GetValue(i).ToString();
+                            }
+                            dataGridView1.Rows.Add(values);
+                        }
+                    }
+                }
+            }
+        }
+
+        private string GetFilterValue(string formName, string controlName)
 		{
 			Control[] controls = this.Controls.Find(formName, true);
 			if(controls.Count() > 0)
@@ -613,5 +703,19 @@ namespace dairy_departure
 			}
 			return string.Empty;
 		}
-	}
+
+        private void searchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pnSearch.Controls.Count > 0)
+            {
+                pnSearch.Controls.Clear();
+            }
+            else
+            {
+                
+                showSearchForm(new SearchForm());
+                
+            }
+        }
+    }
 }
