@@ -35,40 +35,19 @@ namespace dairy_departure
 
         public void employeeToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ClearGrid();
-
-			EnableMenuItems(sender);
-
-			dataGridView1.Columns.Add("EmpID", "id");
-			dataGridView1.Columns["EmpID"].Visible = false;
-			dataGridView1.Columns.Add("EmpName", "Name of employee");
-			dataGridView1.Columns.Add("EmpLog", "Login of employee");
-			dataGridView1.Columns.Add("EmpPas", "Password of employee");
-			dataGridView1.Columns.Add("PosID", "id");
-			dataGridView1.Columns["PosID"].Visible = false;
-			dataGridView1.Columns.Add("EmpPos", "Position of employee");
-
-			using (OleDbConnection conn = new OleDbConnection(connectionString))
-			{
-				conn.Open();
-
-				string sql = @"select E.ID_employee, E.Full_name, E.Username, E.Password, P.ID_position, P.Position_name  from [Employee] as E, Employee_Position as EP, [Position] as P where EP.ID_employee = E.ID_employee and P.ID_position = EP.ID_position and EP.Date_for is null and E.IsWorking = true";
-				using (OleDbCommand comm = new OleDbCommand(sql, conn))
-				{
-					using (OleDbDataReader reader = comm.ExecuteReader())
-					{
-						int i = 0;
-						while (reader.Read())
-						{
-							dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4), reader.GetString(5));
-							i++;
-						}
-					}
-					conn.Close();
-
-				}
-			}
-		}
+            hideFilterForm();
+            ClearGrid();
+            EnableMenuItems(sender);
+            dataGridView1.Columns.Add("EmpID", "id");
+            dataGridView1.Columns["EmpID"].Visible = false;
+            dataGridView1.Columns.Add("EmpName", "Name of employee");
+            dataGridView1.Columns.Add("EmpLog", "Login of employee");
+            dataGridView1.Columns.Add("EmpPas", "Password of employee");
+            dataGridView1.Columns.Add("PosID", "id");
+            dataGridView1.Columns["PosID"].Visible = false;
+            dataGridView1.Columns.Add("EmpPos", "Position of employee");
+            FillInEmployeeGrid();
+        }
 
 		private void EnableMenuItems(object sender)
 		{
@@ -103,37 +82,14 @@ namespace dairy_departure
 		public void positionsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			hideFilterForm();
-			ClearGrid();
-			
-			EnableMenuItems(sender);
-
+            ClearGrid();
+            EnableMenuItems(sender);
 			dataGridView1.Columns.Add("ID_position", "id");
 			dataGridView1.Columns["ID_position"].Visible = false;
 			dataGridView1.Columns.Add("PosName", "Name of position");
 			dataGridView1.Columns.Add("Payment", "Payment per hour");
-			
-
-			
-			using (OleDbConnection conn = new OleDbConnection(connectionString))
-			{
-				conn.Open();
-
-				string sql = @"select * from [Position]";
-				using (OleDbCommand comm = new OleDbCommand(sql, conn))
-				{
-					using (OleDbDataReader reader = comm.ExecuteReader())
-					{
-						int i = 0;
-						while (reader.Read())
-						{
-							dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetString(1), reader.GetDecimal(2));
-							i++;
-						}
-					}
-
-				}
-			}
-		}
+            FillInPositionGrid();
+        }
 
         public void sellingPlansToolStripMenuItem_Click(object sender, EventArgs e)
 		{
