@@ -50,6 +50,7 @@
             this.diagramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnSearch = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
@@ -173,7 +174,8 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem,
             this.gridToolStripMenuItem,
-            this.diagramToolStripMenuItem});
+            this.diagramToolStripMenuItem,
+            this.exportToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 24);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Size = new System.Drawing.Size(722, 24);
@@ -258,6 +260,13 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(722, 430);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.exportToolStripMenuItem.Text = "Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            // 
             // Director
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -301,5 +310,6 @@
         private System.Windows.Forms.ToolStripMenuItem diagramToolStripMenuItem;
         private System.Windows.Forms.Panel pnSearch;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
     }
 }

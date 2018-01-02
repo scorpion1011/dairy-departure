@@ -86,7 +86,7 @@ ORDER BY (cccc.AMONT + cccc.[Time]) / 2;";
             decimal lifeProcent = (decimal)((DateTime.Today - production).TotalDays / shelfLife * 30);
 
 
-            return planProcent + lifeProcent;
+            return Math.Round(planProcent + lifeProcent);
         }
 
 		public decimal CalculatePrice(decimal price, decimal discount)

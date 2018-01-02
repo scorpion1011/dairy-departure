@@ -12,9 +12,12 @@ namespace dairy_departure
 {
 	public partial class SellComplete : Form
 	{
-		public SellComplete()
+        DataGridView dataGridView1;
+
+        public SellComplete(DataGridView dataGridView1)
 		{
-			InitializeComponent();
+            this.dataGridView1 = dataGridView1;
+            InitializeComponent();
 		}
 
 		private void btnClose_Click(object sender, EventArgs e)
@@ -24,7 +27,8 @@ namespace dairy_departure
 
 		private void btnPrint_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show("Todo");
-		}
+            Export export = new Export();
+            export.ExportDocument(dataGridView1);
+        }
 	}
 }

@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Data.OleDb;
+using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
+using System.Diagnostics;
+using MigraDoc.Rendering;
+using MigraDoc.DocumentObjectModel.Shapes.Charts;
 
 namespace dairy_departure
 {
@@ -765,18 +770,18 @@ where e.ID_employee = ep.ID_employee and p.ID_position = ep.ID_position and EP.D
 							dataGridView1.Rows[i].Cells["ProcCompl"].Value = proc;
 							if (proc > 100)
 							{
-								dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.MediumAquamarine;
+								dataGridView1.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.MediumAquamarine;
 							}
 							else if (proc < 30)
 							{
-								dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Salmon;
+								dataGridView1.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Salmon;
 							}
 						}
 					}
 				}
 				if (DateTime.Now > DateTime.Parse(dataGridView1.Rows[i].Cells["DateTo"].Value.ToString()) || DateTime.Now < DateTime.Parse(dataGridView1.Rows[i].Cells["DateFr"].Value.ToString()))
 				{
-					dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
+					dataGridView1.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
 				}
 				if (procFrom != string.Empty)
 				{
@@ -968,6 +973,12 @@ where e.ID_employee = ep.ID_employee and p.ID_position = ep.ID_position and EP.D
                 showSearchForm(new SearchForm());
                 
             }
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Export export = new Export();
+            export.ExportDocument(dataGridView1);
         }
     }
 }

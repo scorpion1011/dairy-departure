@@ -315,10 +315,11 @@ namespace dairy_departure
 						}
 					}
 				}
-				SellComplete sc = new SellComplete();
+				SellComplete sc = new SellComplete(dataGridView1);
 				sc.ShowDialog();
 				ClearTable();
-			}
+
+            }
 		}
 	}
 
