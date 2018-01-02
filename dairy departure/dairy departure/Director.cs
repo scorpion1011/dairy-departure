@@ -420,8 +420,8 @@ namespace dairy_departure
 			switch (cbGroupBy)
 			{
 				case "Manufacturer":
-					sql = "SELECT M.Name_manufacturer, Round(AVG(S.[Discount]), 2), SUM(S.[Count]), SUM(Sp.[Price])"
-							+ sql
+					sql = "SELECT M.Name_manufacturer, Round(AVG(S.[Discount]), 2), SUM(S.[Count]), sum(Sp.[Price]*Sp.[Count]*S.[Discount]/100)"
+                            + sql
 							+ " GROUP BY M.ID_manufacturer, M.Name_manufacturer";
 					dataGridView1.Columns.Add("Manufacturer", "Manufacturer");
 					dataGridView1.Columns.Add("AvgDiscount", "AVG Discount");
@@ -429,8 +429,8 @@ namespace dairy_departure
 					dataGridView1.Columns.Add("TotalPrice", "Total Price");
 					break;
 				case "Product":
-					sql = "SELECT P.Name_product, P.[%-fat], P.[Mass/volume], Round(AVG(S.[Discount]), 2), SUM(S.[Count]), SUM(Sp.[Price])"
-							+ sql
+					sql = "SELECT P.Name_product, P.[%-fat], P.[Mass/volume], Round(AVG(S.[Discount]), 2), SUM(S.[Count]), sum(Sp.[Price]*Sp.[Count]*S.[Discount]/100)"
+                            + sql
 							+ " GROUP BY P.ID_product, P.Name_product, P.[%-fat], P.[Mass/volume]";
 					dataGridView1.Columns.Add("PrName", "Name of product");
 					dataGridView1.Columns.Add("Proc", "%");
@@ -440,8 +440,8 @@ namespace dairy_departure
 					dataGridView1.Columns.Add("TotalPrice", "Total Price");
 					break;
 				case "Employer":
-					sql = "SELECT E.[Full_name], Round(AVG(S.[Discount]), 2), SUM(S.[Count]), SUM(Sp.[Price])"
-							+ sql
+					sql = "SELECT E.[Full_name], Round(AVG(S.[Discount]), 2), SUM(S.[Count]), sum(Sp.[Price]*Sp.[Count]*S.[Discount]/100)"
+                            + sql
 							+ " GROUP BY E.ID_employee, E.[Full_name]";
 					dataGridView1.Columns.Add("Employee", "Employee");
 					dataGridView1.Columns.Add("AvgDiscount", "AVG Discount");
@@ -449,7 +449,7 @@ namespace dairy_departure
 					dataGridView1.Columns.Add("TotalPrice", "Total Price");
 					break;
 				default:
-					sql = "SELECT S.Date_sell, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], S.[Discount], S.[Count], Sp.[Price], E.[Full_name]" + sql;
+					sql = "SELECT S.Date_sell, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], S.[Discount], S.[Count], Sp.[Price], E.[Full_name], S.[ID_sell]" + sql;
 					dataGridView1.Columns.Add("SellDate", "Date of selling");
 					dataGridView1.Columns.Add("Manufacturer", "Manufacturer");
 					dataGridView1.Columns.Add("PrName", "Name of product");
@@ -459,7 +459,13 @@ namespace dairy_departure
 					dataGridView1.Columns.Add("Amount", "Amount");
 					dataGridView1.Columns.Add("Price", "Price for 1 product");
 					dataGridView1.Columns.Add("Employee", "Employee");
-					break;
+                    DataGridViewButtonColumn bcol = new DataGridViewButtonColumn();
+                    bcol.HeaderText = "View discount info";
+                    bcol.Text = "Info";
+                    bcol.Name = "DiscountInfo";
+                    dataGridView1.Columns.Add(bcol);
+
+                    break;
 			}
 
 			using (OleDbConnection conn = new OleDbConnection(connectionString))
@@ -482,7 +488,7 @@ namespace dairy_departure
 						while (reader.Read())
 						{
 							object[] values = new object[reader.FieldCount];
-							for(int i = 0; i < reader.FieldCount; i++)
+							for(int i = 0; i < reader.FieldCount - 1; i++)
 							{
 								object value = reader.GetValue(i);
 								if (value is DateTime)
@@ -494,8 +500,14 @@ namespace dairy_departure
 									values[i] = value.ToString();
 								}
 							}
-							dataGridView1.Rows.Add(values);
-						}
+                            dataGridView1.Rows.Add(values);
+                            if (dataGridView1.Columns.Contains("DiscountInfo"))
+                            {
+                                DataGridViewCell cell = dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["DiscountInfo"];
+                                cell.Tag = reader.GetInt32(9);
+                                cell.Value = "View";
+                            }
+                        }
 					}
 				}
 			}
@@ -816,8 +828,8 @@ where e.ID_employee = ep.ID_employee and p.ID_position = ep.ID_position and EP.D
 		public void FillInSupplyStatisticGrid()
 		{
 			ClearGrid();
-			string sql = @" from Product as P, Manufacturer as M, Supply as Sp, Employee as E
-								where P.ID_manufacturer = M.ID_manufacturer and Sp.ID_product = P.ID_product";
+			string sql = @" from Product as P, Manufacturer as M, Supply as Sp, Employee as E, Employee_Position as Ep
+								where P.ID_manufacturer = M.ID_manufacturer and Sp.ID_product = P.ID_product and Ep.ID_employee = E.ID_employee and Sp.ID_employee_position = Ep.ID_employee_position";
 
 			string dtpFromDate = GetFilterValue("SupplyStatistic", "dtpFromDate");
 			if (dtpFromDate != string.Empty)
@@ -833,16 +845,16 @@ where e.ID_employee = ep.ID_employee and p.ID_position = ep.ID_position and EP.D
 			switch (cbGroupBy)
 			{
 				case "Manufacturer":
-					sql = "SELECT M.Name_manufacturer, Sum(Sp.[Count]), SUM(Sp.[Price])"
-							+ sql
+					sql = "SELECT M.Name_manufacturer, Sum(Sp.[Count]), sum(Sp.[Price]*Sp.[Count])"
+                            + sql
 							+ " GROUP BY M.ID_manufacturer, M.Name_manufacturer";
 					dataGridView1.Columns.Add("Manufacturer", "Manufacturer");
 					dataGridView1.Columns.Add("TotalCount", "Total Count");
 					dataGridView1.Columns.Add("TotalPrice", "Total Price");
 					break;
 				case "Product":
-					sql = "SELECT P.Name_product, P.[%-fat], P.[Mass/volume], Sum(Sp.[Count]), SUM(Sp.[Price])"
-							+ sql
+					sql = "SELECT P.Name_product, P.[%-fat], P.[Mass/volume], Sum(Sp.[Count]), sum(Sp.[Price]*Sp.[Count])"
+                            + sql
 							+ " GROUP BY P.ID_product, P.Name_product, P.[%-fat], P.[Mass/volume]";
 					dataGridView1.Columns.Add("PrName", "Name of product");
 					dataGridView1.Columns.Add("Proc", "%");
@@ -851,8 +863,8 @@ where e.ID_employee = ep.ID_employee and p.ID_position = ep.ID_position and EP.D
 					dataGridView1.Columns.Add("TotalPrice", "Total Price");
 					break;
 				case "Employer":
-					sql = "SELECT E.[Full_name], Sum(Sp.[Count]), SUM(Sp.[Price])"
-							+ sql
+					sql = "SELECT E.[Full_name], Sum(Sp.[Count]), sum(Sp.[Price]*Sp.[Count])"
+                            + sql
 							+ " GROUP BY E.ID_employee, E.[Full_name]";
 					dataGridView1.Columns.Add("Employee", "Employee");
 					dataGridView1.Columns.Add("TotalCount", "Total Count");
@@ -979,6 +991,29 @@ where e.ID_employee = ep.ID_employee and p.ID_position = ep.ID_position and EP.D
         {
             Export export = new Export();
             export.ExportDocument(dataGridView1);
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.Columns["DiscountInfo"] != null && e.ColumnIndex == dataGridView1.Columns["DiscountInfo"].Index)
+            {
+                string idSell = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index].Cells["DiscountInfo"].Tag.ToString();
+                DiscountManager manager = new DiscountManager();
+                List<string> info = manager.Information(Int32.Parse(idSell));
+
+                string message = @" Discount  Details:
+                    Date of selling : {0}
+                    Product : {1}
+
+                    Shelf Life : {2}
+                    Date Of Production : {3}
+                    % of corruption : {4}
+
+                    Fired Plan Information : {5}
+                    % of Completing plan : {6}
+                ";
+                MessageBox.Show(String.Format(message, info[0], info[1], info[2], info[3], info[4], info[5], info[6]));
+            }
         }
     }
 }

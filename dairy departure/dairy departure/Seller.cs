@@ -85,7 +85,7 @@ namespace dairy_departure
 
         public void AddProduct(string manufacturer, string name, string proc, string weight, decimal price, int id_p, int id_s, int rest, DateTime prodaction)
         {
-			decimal discount = discountManager.Calculate(prodaction, id_p);
+			decimal discount = discountManager.Calculate(prodaction, id_p, DateTime.Now);
 
 			if (!products.Keys.Contains(id_p))
             {

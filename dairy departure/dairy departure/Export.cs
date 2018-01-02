@@ -52,7 +52,7 @@ namespace dairy_departure
 
             for (int i = 0; i < dataGridView.ColumnCount; i++)
             {
-                if (dataGridView.Columns[i].Visible && dataGridView.Columns[i].Name != "btnDel")
+                if (dataGridView.Columns[i].Visible && dataGridView.Columns[i].Name != "btnDel" && dataGridView.Columns[i].Name != "DiscountInfo")
                 {
                     table.AddColumn(60);
                 }
@@ -66,7 +66,7 @@ namespace dairy_departure
             int j = 0;
             for (int i = 0; i < dataGridView.ColumnCount; i++)
             {
-                if (dataGridView.Columns[i].Visible && dataGridView.Columns[i].Name != "btnDel")
+                if (dataGridView.Columns[i].Visible && dataGridView.Columns[i].Name != "btnDel" && dataGridView.Columns[i].Name != "DiscountInfo")
                 {
                     cell = row.Cells[j];
                     cell.AddParagraph(dataGridView.Columns[i].HeaderText);
@@ -80,7 +80,7 @@ namespace dairy_departure
                 row = table.AddRow();
                 for (int k = 0; m < j; k++)
                 {
-                    if (dataGridView.Columns[k].Visible && dataGridView.Columns[k].Name != "btnDel")
+                    if (dataGridView.Columns[k].Visible && dataGridView.Columns[k].Name != "btnDel" && dataGridView.Columns[k].Name != "DiscountInfo")
                     {
                         if (dataGridView.Rows[i].Cells[k].Value == null)
                         {

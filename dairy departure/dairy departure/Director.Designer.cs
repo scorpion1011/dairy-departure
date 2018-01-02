@@ -48,9 +48,9 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.diagramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnSearch = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
@@ -82,6 +82,7 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(716, 364);
             this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // menuStrip1
             // 
@@ -147,21 +148,21 @@
             // statisticsSellingPlansItem
             // 
             this.statisticsSellingPlansItem.Name = "statisticsSellingPlansItem";
-            this.statisticsSellingPlansItem.Size = new System.Drawing.Size(140, 22);
+            this.statisticsSellingPlansItem.Size = new System.Drawing.Size(152, 22);
             this.statisticsSellingPlansItem.Text = "Selling plans";
             this.statisticsSellingPlansItem.Click += new System.EventHandler(this.statisticsSellingPlansItem_Click);
             // 
             // statisticsSellsItem
             // 
             this.statisticsSellsItem.Name = "statisticsSellsItem";
-            this.statisticsSellsItem.Size = new System.Drawing.Size(140, 22);
+            this.statisticsSellsItem.Size = new System.Drawing.Size(152, 22);
             this.statisticsSellsItem.Text = "Sells";
             this.statisticsSellsItem.Click += new System.EventHandler(this.statisticsSellsItem_Click);
             // 
             // statisticsSuppliesItem
             // 
             this.statisticsSuppliesItem.Name = "statisticsSuppliesItem";
-            this.statisticsSuppliesItem.Size = new System.Drawing.Size(140, 22);
+            this.statisticsSuppliesItem.Size = new System.Drawing.Size(152, 22);
             this.statisticsSuppliesItem.Text = "Supplies";
             this.statisticsSuppliesItem.Click += new System.EventHandler(this.statisticsSuppliesItem_Click);
             // 
@@ -229,6 +230,13 @@
             this.diagramToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.diagramToolStripMenuItem.Text = "Diagram";
             // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.exportToolStripMenuItem.Text = "Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            // 
             // pnSearch
             // 
             this.pnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -259,13 +267,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(722, 430);
             this.tableLayoutPanel1.TabIndex = 4;
-            // 
-            // exportToolStripMenuItem
-            // 
-            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.exportToolStripMenuItem.Text = "Export";
-            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // Director
             // 
