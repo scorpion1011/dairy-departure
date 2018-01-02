@@ -313,47 +313,9 @@ namespace dairy_departure
 		private void statisticsSuppliesItem_Click(object sender, EventArgs e)
 		{
 			hideFilterForm();
-			ClearGrid();
-
 			EnableMenuItems(sender);
 
-			dataGridView1.Columns.Add("ID_supply", "ID_supply");
-			dataGridView1.Columns["ID_supply"].Visible = false;
-			dataGridView1.Columns.Add("ID_product", "idpr");
-			dataGridView1.Columns["ID_product"].Visible = false;
-			dataGridView1.Columns.Add("Manufacturer", "Manufacturer");
-			dataGridView1.Columns.Add("PrName", "Name of product");
-			dataGridView1.Columns.Add("Proc", "%");
-			dataGridView1.Columns.Add("Weight", "Weight/Volume");
-			dataGridView1.Columns.Add("Price", "Price for 1 product");
-			dataGridView1.Columns.Add("Amount", "Amount");
-			dataGridView1.Columns.Add("Date", "Date of production");
-			dataGridView1.Columns.Add("ID_employee", "ID_employee");
-			dataGridView1.Columns["ID_employee"].Visible = false;
-			dataGridView1.Columns.Add("Employee", "Employee");
-
-			
-			using (OleDbConnection conn = new OleDbConnection(connectionString))
-			{
-				conn.Open();
-
-				string sql = @"select Sp.ID_supply, P.ID_product, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], Sp.[Price], SP.[Count], Date_Production, E.[ID_employee], E.[Full_name]
-								from Product as P, Manufacturer as M, Supply as Sp, Employee as E
-								where P.ID_manufacturer = M.ID_manufacturer and Sp.ID_product = P.ID_product";
-				using (OleDbCommand comm = new OleDbCommand(sql, conn))
-				{
-					using (OleDbDataReader reader = comm.ExecuteReader())
-					{
-						int i = 0;
-						while (reader.Read())
-						{
-							dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4), reader.GetString(5), reader.GetDecimal(6), reader.GetInt32(7), reader.GetDateTime(8), reader.GetInt32(9), reader.GetString(10));
-							i++;
-						}
-					}
-
-				}
-			}
+			FillInSupplyStatisticGrid();
 		}
 
 		private void ClearGrid()
@@ -405,6 +367,7 @@ namespace dairy_departure
 				}
 				if (!statisticsSuppliesItem.Enabled)
 				{
+					showFilterForm(new Filters.SupplyStatistic());
 				}
 			}
 		}
@@ -780,21 +743,9 @@ where e.ID_employee = ep.ID_employee and p.ID_position = ep.ID_position and EP.D
 
 				sql = @" select iif((Sum(sl.[Count])/MIN(SpP.Amount)*100) is null, 0, (Sum(sl.[Count])/MIN(SpP.Amount)*100)) AS Procent 
 						from Selles_plan as sp, SellesPlan_Product as spp, Sells as sl, Supply as s
-						where sp.ID_plan = spp.ID_plan and sp.ID_plan = @plan and spp.ID_product = @product and sl.ID_supply = s.ID_supply and s.ID_product = @product and sl.Date_sell > sp.Date_from and sl.Date_sell < sp.Date_to
-						having 1 = 1 ";
+						where sp.ID_plan = spp.ID_plan and sp.ID_plan = @plan and spp.ID_product = @product and sl.ID_supply = s.ID_supply and s.ID_product = @product and sl.Date_sell > sp.Date_from and sl.Date_sell < sp.Date_to";
 
-				if (procFrom != string.Empty)
-				{
-					sql += " and Sum(sl.[Count])/MIN(SpP.Amount)*100 >= @procFrom";
-				}
-				if (procTo != string.Empty)
-				{
-					sql += " and iif((Sum(sl.[Count])/MIN(SpP.Amount)*100) is null, 0, (Sum(sl.[Count])/MIN(SpP.Amount)*100)) <= " + procTo;
-				}
-				if (completedOff)
-				{
-					sql += " and iif((Sum(sl.[Count])/MIN(SpP.Amount)*100) is null, 0, (Sum(sl.[Count])/MIN(SpP.Amount)*100)) < 100";
-				}
+				
 				using (OleDbConnection conn = new OleDbConnection(connectionString))
 				{
 					conn.Open();
@@ -803,7 +754,7 @@ where e.ID_employee = ep.ID_employee and p.ID_position = ep.ID_position and EP.D
 					{
 						comm.Parameters.AddWithValue("@plan", planID);
 						comm.Parameters.AddWithValue("@product", productID);
-						comm.Parameters.AddWithValue("@procFrom", procFrom);
+						//comm.Parameters.AddWithValue("@procFrom", procFrom);
 						using (OleDbDataReader reader = comm.ExecuteReader())
 						{
 							double proc = -1;
@@ -827,7 +778,168 @@ where e.ID_employee = ep.ID_employee and p.ID_position = ep.ID_position and EP.D
 				{
 					dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
 				}
+				if (procFrom != string.Empty)
+				{
+					if (Int32.Parse(dataGridView1.Rows[i].Cells["ProcCompl"].Value.ToString()) < Int32.Parse(procFrom))
+					{
+						dataGridView1.Rows.RemoveAt(i);
+						i--;
+						continue;
+					}
+				}
+				if (procTo != string.Empty)
+				{
+					if (Int32.Parse(dataGridView1.Rows[i].Cells["ProcCompl"].Value.ToString()) > Int32.Parse(procTo))
+					{
+						dataGridView1.Rows.RemoveAt(i);
+						i--;
+						continue;
+					}
+				}
+				if (completedOff)
+				{
+					if (Int32.Parse(dataGridView1.Rows[i].Cells["ProcCompl"].Value.ToString()) > 100)
+					{
+						dataGridView1.Rows.RemoveAt(i);
+						i--;
+						continue;
+					}
+				}
 			}
+		}
+
+		public void FillInSupplyStatisticGrid()
+		{
+			ClearGrid();
+			string sql = @" from Product as P, Manufacturer as M, Supply as Sp, Employee as E
+								where P.ID_manufacturer = M.ID_manufacturer and Sp.ID_product = P.ID_product";
+
+			string dtpFromDate = GetFilterValue("SupplyStatistic", "dtpFromDate");
+			if (dtpFromDate != string.Empty)
+			{
+				sql += " AND Sp.Date_production >= @dtpFromDate";
+			}
+			string dtpToDate = GetFilterValue("SupplyStatistic", "dtpToDate");
+			if (dtpToDate != string.Empty)
+			{
+				sql += " AND Sp.Date_production <= @dtpToDate";
+			}
+			string cbGroupBy = GetFilterValue("SupplyStatistic", "cbGroupBy");
+			switch (cbGroupBy)
+			{
+				case "Manufacturer":
+					sql = "SELECT M.Name_manufacturer, Sum(Sp.[Count]), SUM(Sp.[Price])"
+							+ sql
+							+ " GROUP BY M.ID_manufacturer, M.Name_manufacturer";
+					dataGridView1.Columns.Add("Manufacturer", "Manufacturer");
+					dataGridView1.Columns.Add("TotalCount", "Total Count");
+					dataGridView1.Columns.Add("TotalPrice", "Total Price");
+					break;
+				case "Product":
+					sql = "SELECT P.Name_product, P.[%-fat], P.[Mass/volume], Sum(Sp.[Count]), SUM(Sp.[Price])"
+							+ sql
+							+ " GROUP BY P.ID_product, P.Name_product, P.[%-fat], P.[Mass/volume]";
+					dataGridView1.Columns.Add("PrName", "Name of product");
+					dataGridView1.Columns.Add("Proc", "%");
+					dataGridView1.Columns.Add("Weight", "Weight/Volume");
+					dataGridView1.Columns.Add("TotalCount", "Total Count");
+					dataGridView1.Columns.Add("TotalPrice", "Total Price");
+					break;
+				case "Employer":
+					sql = "SELECT E.[Full_name], Sum(Sp.[Count]), SUM(Sp.[Price])"
+							+ sql
+							+ " GROUP BY E.ID_employee, E.[Full_name]";
+					dataGridView1.Columns.Add("Employee", "Employee");
+					dataGridView1.Columns.Add("TotalCount", "Total Count");
+					dataGridView1.Columns.Add("TotalPrice", "Total Price");
+					break;
+				default:
+					sql = "select M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], Sp.[Price], SP.[Count], Date_Production, E.[Full_name]" + sql;
+					dataGridView1.Columns.Add("Manufacturer", "Manufacturer");
+					dataGridView1.Columns.Add("PrName", "Name of product");
+					dataGridView1.Columns.Add("Proc", "%");
+					dataGridView1.Columns.Add("Weight", "Weight/Volume");
+					dataGridView1.Columns.Add("Price", "Price for 1 product");
+					dataGridView1.Columns.Add("Count", "Count");
+					dataGridView1.Columns.Add("Date", "Date of production");
+					dataGridView1.Columns.Add("Employee", "Employee");
+					break;
+			}
+
+			using (OleDbConnection conn = new OleDbConnection(connectionString))
+			{
+				conn.Open();
+
+				using (OleDbCommand comm = new OleDbCommand(sql, conn))
+				{
+					if (dtpFromDate != string.Empty)
+					{
+						comm.Parameters.AddWithValue("@dtpFromDate", Convert.ToDateTime(dtpFromDate));
+					}
+					if (dtpToDate != string.Empty)
+					{
+						comm.Parameters.AddWithValue("@dtpToDate", Convert.ToDateTime(dtpToDate));
+					}
+
+					using (OleDbDataReader reader = comm.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							object[] values = new object[reader.FieldCount];
+							for(int i = 0; i < reader.FieldCount; i++)
+							{
+								object value = reader.GetValue(i);
+								if (value is DateTime)
+								{
+									values[i] = ((DateTime)value).ToString("dd.MM.yyyy");
+								}
+								else
+								{
+									values[i] = value.ToString();
+								}
+							}
+							dataGridView1.Rows.Add(values);
+						}
+					}
+				}
+			}
+			//dataGridView1.Columns.Add("ID_supply", "ID_supply");
+			//dataGridView1.Columns["ID_supply"].Visible = false;
+			//dataGridView1.Columns.Add("ID_product", "idpr");
+			//dataGridView1.Columns["ID_product"].Visible = false;
+			//dataGridView1.Columns.Add("Manufacturer", "Manufacturer");
+			//dataGridView1.Columns.Add("PrName", "Name of product");
+			//dataGridView1.Columns.Add("Proc", "%");
+			//dataGridView1.Columns.Add("Weight", "Weight/Volume");
+			//dataGridView1.Columns.Add("Price", "Price for 1 product");
+			//dataGridView1.Columns.Add("Amount", "Amount");
+			//dataGridView1.Columns.Add("Date", "Date of production");
+			//dataGridView1.Columns.Add("ID_employee", "ID_employee");
+			//dataGridView1.Columns["ID_employee"].Visible = false;
+			//dataGridView1.Columns.Add("Employee", "Employee");
+
+
+			//using (OleDbConnection conn = new OleDbConnection(connectionString))
+			//{
+			//	conn.Open();
+
+			//	string sql = @"select Sp.ID_supply, P.ID_product, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], Sp.[Price], SP.[Count], Date_Production, E.[ID_employee], E.[Full_name]
+			//					from Product as P, Manufacturer as M, Supply as Sp, Employee as E
+			//					where P.ID_manufacturer = M.ID_manufacturer and Sp.ID_product = P.ID_product";
+			//	using (OleDbCommand comm = new OleDbCommand(sql, conn))
+			//	{
+			//		using (OleDbDataReader reader = comm.ExecuteReader())
+			//		{
+			//			int i = 0;
+			//			while (reader.Read())
+			//			{
+			//				dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4), reader.GetString(5), reader.GetDecimal(6), reader.GetInt32(7), reader.GetDateTime(8), reader.GetInt32(9), reader.GetString(10));
+			//				i++;
+			//			}
+			//		}
+
+			//	}
+			//}
 		}
 
 		private string GetFilterValue(string formName, string controlName)
