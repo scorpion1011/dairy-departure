@@ -109,30 +109,7 @@ namespace dairy_departure
 			dataGridView1.Columns.Add("Amount", "Sell amount");
 			dataGridView1.Columns.Add("DateFr", "Date from");
 			dataGridView1.Columns.Add("DateTo", "Date to");
-
-			
-			using (OleDbConnection conn = new OleDbConnection(connectionString))
-			{
-				conn.Open();
-
-				string sql = @"select Sp.[ID_plan], SpP.ID_product, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], SpP.Amount, Sp.[Date_from], Sp.[Date_to]
-								from Product as P, Selles_plan as Sp, SellesPlan_Product as SpP, Manufacturer as M
-								where Sp.ID_plan = SpP.ID_plan and P.ID_product = SpP.ID_product and P.ID_manufacturer = M.ID_manufacturer
-";
-				using (OleDbCommand comm = new OleDbCommand(sql, conn))
-				{
-					using (OleDbDataReader reader = comm.ExecuteReader())
-					{
-						int i = 0;
-						while (reader.Read())
-						{
-							dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4), reader.GetString(5), reader.GetInt32(6), reader.GetDateTime(7).Date, reader.GetDateTime(8).Date);
-							i++;
-						}
-					}
-
-				}
-			}
+			FillInSellingPlanGrid();
 		}
 
         public void productsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -152,28 +129,7 @@ namespace dairy_departure
 			dataGridView1.Columns.Add("Weight", "Weight/Volume");
 			dataGridView1.Columns.Add("ShelfLife", "Shelf Life");
 
-			
-			using (OleDbConnection conn = new OleDbConnection(connectionString))
-			{
-				conn.Open();
-
-				string sql = @"select P.ID_product, M.ID_manufacturer, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], P.[ShelfLife]
-								from Product as P, Manufacturer as M
-								where P.ID_manufacturer = M.ID_manufacturer";
-				using (OleDbCommand comm = new OleDbCommand(sql, conn))
-				{
-					using (OleDbDataReader reader = comm.ExecuteReader())
-					{
-						int i = 0;
-						while (reader.Read())
-						{
-							dataGridView1.Rows.Add(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4), reader.GetString(5), reader.GetInt32(6));
-							i++;
-						}
-					}
-
-				}
-			}
+			FillInProductGrid();
 		}
 
 		private void addToolStripMenuItem_Click(object sender, EventArgs e)
@@ -350,6 +306,8 @@ namespace dairy_departure
 		{
 			hideFilterForm();
 			EnableMenuItems(sender);
+
+			FillInPlanStatisticGrid();
 		}
 
 		private void statisticsSuppliesItem_Click(object sender, EventArgs e)
@@ -435,12 +393,15 @@ namespace dairy_departure
                 }
 				if (!sellingPlansToolStripMenuItem.Enabled)
 				{
+					showFilterForm(new Filters.SellingPlanFilter());
 				}
 				if (!productsToolStripMenuItem.Enabled)
 				{
+					showFilterForm(new Filters.ProductFilter());
 				}
 				if (!statisticsSellingPlansItem.Enabled)
 				{
+					showFilterForm(new Filters.SellingPlanStatisticFilter());
 				}
 				if (!statisticsSuppliesItem.Enabled)
 				{
@@ -450,7 +411,6 @@ namespace dairy_departure
 
         private void showSearchForm(Form sf)
         {
-            //sf = new Filters.StatisticsSellsForm();
             sf.TopLevel = false;
             pnSearch.Controls.Add(sf);
             sf.Show();
@@ -458,7 +418,6 @@ namespace dairy_departure
 
         private void showFilterForm(Form sf)
 		{
-            //sf = new Filters.StatisticsSellsForm();
             sf.TopLevel = false;
             pnFilter.Controls.Add(sf);
 			sf.Show();
@@ -475,9 +434,9 @@ namespace dairy_departure
 		public void FillInSellGrid()
 		{
 			ClearGrid();
-
-			string sql = @" FROM Product AS P, Manufacturer AS M, Sells AS S, Supply AS Sp, Employee AS E
-							WHERE P.ID_manufacturer = M.ID_manufacturer AND S.ID_supply = Sp.ID_supply AND Sp.ID_product = P.ID_product";
+			string sql = @" FROM Product AS P, Manufacturer AS M, Sells AS S, Supply AS Sp, Employee AS E, Employee_Position as Ep
+							WHERE P.ID_manufacturer = M.ID_manufacturer AND S.ID_supply = Sp.ID_supply AND Sp.ID_product = P.ID_product
+							and S.ID_employee_position = Ep.ID_employee_position and Ep.ID_employee = E.ID_employee";
 
 			string dtpFromDate = GetFilterValue("StatisticsSellsForm", "dtpFromDate");
 			if (dtpFromDate != string.Empty)
@@ -487,7 +446,7 @@ namespace dairy_departure
 			string dtpToDate = GetFilterValue("StatisticsSellsForm", "dtpToDate");
 			if (dtpToDate != string.Empty)
 			{
-				sql += " AND S.Date_sell <= @dtpFromDate";
+				sql += " AND S.Date_sell <= @dtpToDate";
 			}
 			string cbGroupBy = GetFilterValue("StatisticsSellsForm", "cbGroupBy");
 			switch (cbGroupBy)
@@ -543,11 +502,11 @@ namespace dairy_departure
 				{
 					if (dtpFromDate != string.Empty)
 					{
-						comm.Parameters.AddWithValue("@dtpFromDate", dtpFromDate);
+						comm.Parameters.AddWithValue("@dtpFromDate", Convert.ToDateTime(dtpFromDate));
 					}
 					if (dtpToDate != string.Empty)
 					{
-						comm.Parameters.AddWithValue("@dtpToDate", dtpToDate);
+						comm.Parameters.AddWithValue("@dtpToDate", Convert.ToDateTime(dtpToDate));
 					}
 
 					using (OleDbDataReader reader = comm.ExecuteReader())
@@ -557,7 +516,15 @@ namespace dairy_departure
 							object[] values = new object[reader.FieldCount];
 							for(int i = 0; i < reader.FieldCount; i++)
 							{
-								values[i] = reader.GetValue(i).ToString();
+								object value = reader.GetValue(i);
+								if (value is DateTime)
+								{
+									values[i] = ((DateTime)value).ToString("dd.MM.yyyy");
+								}
+								else
+								{
+									values[i] = value.ToString();
+								}
 							}
 							dataGridView1.Rows.Add(values);
 						}
@@ -646,7 +613,224 @@ where e.ID_employee = ep.ID_employee and p.ID_position = ep.ID_position and EP.D
             }
         }
 
-        private string GetFilterValue(string formName, string controlName)
+		public void FillInProductGrid()
+		{
+			dataGridView1.Rows.Clear();
+			dataGridView1.Refresh();
+
+			string sql = @"select P.ID_product, M.ID_manufacturer, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], P.[ShelfLife]
+								from Product as P, Manufacturer as M
+								where P.ID_manufacturer = M.ID_manufacturer";
+
+			string dtpMass = GetFilterValue("ProductFilter", "cbGroupBy");
+			string dtpManufacturer = GetFilterValue("ProductFilter", "comboBox1");
+
+			if (dtpMass != string.Empty)
+			{
+				sql += " and P.[Mass/volume] = '" + dtpMass + "'";
+			}
+			if (dtpManufacturer != string.Empty)
+			{
+				sql += " and M.Name_manufacturer = '" + dtpManufacturer + "'";
+			}
+
+			using (OleDbConnection conn = new OleDbConnection(connectionString))
+			{
+				conn.Open();
+
+				using (OleDbCommand comm = new OleDbCommand(sql, conn))
+				{
+					using (OleDbDataReader reader = comm.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							object[] values = new object[reader.FieldCount];
+							for (int i = 0; i < reader.FieldCount; i++)
+							{
+								values[i] = reader.GetValue(i).ToString();
+							}
+							dataGridView1.Rows.Add(values);
+						}
+					}
+				}
+			}
+		}
+
+		public void FillInSellingPlanGrid()
+		{
+			dataGridView1.Rows.Clear();
+			dataGridView1.Refresh();
+
+			string sql = @"select Sp.[ID_plan], SpP.ID_product, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], SpP.Amount, Sp.[Date_from], Sp.[Date_to]
+								from Product as P, Selles_plan as Sp, SellesPlan_Product as SpP, Manufacturer as M
+								where Sp.ID_plan = SpP.ID_plan and P.ID_product = SpP.ID_product and P.ID_manufacturer = M.ID_manufacturer";
+
+			string dtpFrom = GetFilterValue("SellingPlanFilter", "dtpFromDate");
+			string dtpTo = GetFilterValue("SellingPlanFilter", "dtpToDate");
+			string dtpManufacturer = GetFilterValue("SellingPlanFilter", "cbGroupBy");
+
+			if (dtpFrom != string.Empty)
+			{
+				sql += " and Sp.[Date_from] >= #" + Convert.ToDateTime(dtpFrom) + "#";
+			}
+			if (dtpTo != string.Empty)
+			{
+				sql += " and Sp.[Date_to] <= #" + Convert.ToDateTime(dtpTo) + "#";
+			}
+			if (dtpManufacturer != string.Empty)
+			{
+				sql += " and M.Name_manufacturer = '" + dtpManufacturer + "'";
+			}
+
+			using (OleDbConnection conn = new OleDbConnection(connectionString))
+			{
+				conn.Open();
+
+				using (OleDbCommand comm = new OleDbCommand(sql, conn))
+				{
+					using (OleDbDataReader reader = comm.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							object[] values = new object[reader.FieldCount];
+							for (int i = 0; i < reader.FieldCount; i++)
+							{
+								values[i] = reader.GetValue(i).ToString();
+							}
+							dataGridView1.Rows.Add(values);
+						}
+					}
+				}
+			}
+		}
+
+		public void FillInPlanStatisticGrid()
+		{
+			ClearGrid();
+
+			dataGridView1.Columns.Add("ID_plan", "id");
+			dataGridView1.Columns["ID_plan"].Visible = false;
+			dataGridView1.Columns.Add("ID_product", "idpr");
+			dataGridView1.Columns["ID_product"].Visible = false;
+			dataGridView1.Columns.Add("Manufacturer", "Manufacturer");
+			dataGridView1.Columns.Add("PrName", "Name of product");
+			dataGridView1.Columns.Add("Proc", "%");
+			dataGridView1.Columns.Add("Weight", "Weight/Volume");
+			dataGridView1.Columns.Add("Amount", "Amount to sell");
+			dataGridView1.Columns.Add("DateFr", "Date from");
+			dataGridView1.Columns.Add("DateTo", "Date to");
+			dataGridView1.Columns.Add("ProcCompl", "% of completing");
+
+
+			string sql = @"select Sp.[ID_plan], SpP.ID_product, M.Name_manufacturer, P.Name_product, P.[%-fat], P.[Mass/volume], SpP.Amount, Sp.[Date_from], Sp.[Date_to]
+								from Product as P, Selles_plan as Sp, SellesPlan_Product as SpP, Manufacturer as M
+								where Sp.ID_plan = SpP.ID_plan and P.ID_product = SpP.ID_product and P.ID_manufacturer = M.ID_manufacturer";
+			
+			Control[] controls = this.Controls.Find("SellingPlanStatisticFilter", true);
+			bool actual;
+			if (controls.Count() > 0)
+			{
+				actual = ((CheckBox)(controls[0] as Form).Controls["checkBox1"]).Checked;
+			}
+			else
+			{
+				actual = false;
+			}
+
+			if (actual)
+			{
+				sql += " and Sp.[Date_from] > Date() and Sp.[Date_to] < Date()";
+			}
+			using (OleDbConnection conn = new OleDbConnection(connectionString))
+			{
+				conn.Open();
+
+				using (OleDbCommand comm = new OleDbCommand(sql, conn))
+				{
+
+					using (OleDbDataReader reader = comm.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							object[] values = new object[reader.FieldCount];
+							for (int i = 0; i < reader.FieldCount; i++)
+							{
+								values[i] = reader.GetValue(i).ToString();
+							}
+							dataGridView1.Rows.Add(values);
+						}
+					}
+				}
+			}
+			bool completedOff;
+			if (controls.Count() > 0)
+			{
+				completedOff = ((CheckBox)(controls[0] as Form).Controls["checkBox2"]).Checked;
+			}
+			else
+			{
+				completedOff = false;
+			}
+			string procFrom = GetFilterValue("SellingPlanStatisticFilter", "from");
+			string procTo = GetFilterValue("SellingPlanStatisticFilter", "to");
+			for (int i = 0; i < dataGridView1.Rows.Count; i++)
+			{
+				int planID = Int32.Parse(dataGridView1.Rows[i].Cells["ID_plan"].Value.ToString());
+				int productID = Int32.Parse(dataGridView1.Rows[i].Cells["ID_product"].Value.ToString());
+
+				sql = @" select iif((Sum(sl.[Count])/MIN(SpP.Amount)*100) is null, 0, (Sum(sl.[Count])/MIN(SpP.Amount)*100)) AS Procent 
+						from Selles_plan as sp, SellesPlan_Product as spp, Sells as sl, Supply as s
+						where sp.ID_plan = spp.ID_plan and sp.ID_plan = @plan and spp.ID_product = @product and sl.ID_supply = s.ID_supply and s.ID_product = @product and sl.Date_sell > sp.Date_from and sl.Date_sell < sp.Date_to
+						having 1 = 1 ";
+
+				if (procFrom != string.Empty)
+				{
+					sql += " and Sum(sl.[Count])/MIN(SpP.Amount)*100 >= @procFrom";
+				}
+				if (procTo != string.Empty)
+				{
+					sql += " and iif((Sum(sl.[Count])/MIN(SpP.Amount)*100) is null, 0, (Sum(sl.[Count])/MIN(SpP.Amount)*100)) <= " + procTo;
+				}
+				if (completedOff)
+				{
+					sql += " and iif((Sum(sl.[Count])/MIN(SpP.Amount)*100) is null, 0, (Sum(sl.[Count])/MIN(SpP.Amount)*100)) < 100";
+				}
+				using (OleDbConnection conn = new OleDbConnection(connectionString))
+				{
+					conn.Open();
+
+					using (OleDbCommand comm = new OleDbCommand(sql, conn))
+					{
+						comm.Parameters.AddWithValue("@plan", planID);
+						comm.Parameters.AddWithValue("@product", productID);
+						comm.Parameters.AddWithValue("@procFrom", procFrom);
+						using (OleDbDataReader reader = comm.ExecuteReader())
+						{
+							double proc = -1;
+							if (reader.Read())
+							{
+								proc = Math.Round(reader.GetDouble(0));
+							}
+							dataGridView1.Rows[i].Cells["ProcCompl"].Value = proc;
+							if (proc > 100)
+							{
+								dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.MediumAquamarine;
+							}
+							else if (proc < 30)
+							{
+								dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.Salmon;
+							}
+						}
+					}
+				}
+				if (DateTime.Now > DateTime.Parse(dataGridView1.Rows[i].Cells["DateTo"].Value.ToString()) || DateTime.Now < DateTime.Parse(dataGridView1.Rows[i].Cells["DateFr"].Value.ToString()))
+				{
+					dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
+				}
+			}
+		}
+
+		private string GetFilterValue(string formName, string controlName)
 		{
 			Control[] controls = this.Controls.Find(formName, true);
 			if(controls.Count() > 0)

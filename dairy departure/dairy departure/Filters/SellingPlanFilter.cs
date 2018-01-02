@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace dairy_departure.Filters
 {
-	public partial class StatisticsSellsForm : Form
+	public partial class SellingPlanFilter : Form
 	{
-		public StatisticsSellsForm()
+		public SellingPlanFilter()
 		{
 			InitializeComponent();
 			dtpFromDate.CustomFormat = " ";
@@ -21,43 +21,29 @@ namespace dairy_departure.Filters
 
 		private void btnFilter_Click(object sender, EventArgs e)
 		{
-			(this.Parent.Parent.Parent as Director).FillInSellGrid();
+			(this.Parent.Parent.Parent as Director).FillInSellingPlanGrid();
 		}
 
 		private void btnClear_Click(object sender, EventArgs e)
 		{
-			// reset controls
 			dtpFromDate.Format = DateTimePickerFormat.Custom;
 			dtpFromDate.CustomFormat = " ";
 			dtpToDate.Format = DateTimePickerFormat.Custom;
 			dtpToDate.CustomFormat = " ";
 			cbGroupBy.SelectedIndex = 0;
 
-			(this.Parent.Parent.Parent as Director).FillInSellGrid();
+			(this.Parent.Parent.Parent as Director).FillInSellingPlanGrid();
 		}
 
-		private void dateTimePicker_ValueChanged(object sender, EventArgs e)
+		private void dtpToDate_ValueChanged(object sender, EventArgs e)
 		{
 			(sender as DateTimePicker).Format = DateTimePickerFormat.Short;
-		}
-
-		private void cbGroupBy_SelectedIndexChanged(object sender, EventArgs e)
-		{
 
 		}
 
-		private void label3_Click(object sender, EventArgs e)
+		private void dtpFromDate_ValueChanged(object sender, EventArgs e)
 		{
-
-		}
-
-		private void label2_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void label1_Click(object sender, EventArgs e)
-		{
+			(sender as DateTimePicker).Format = DateTimePickerFormat.Short;
 
 		}
 	}

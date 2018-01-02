@@ -118,6 +118,24 @@
     <Compile Include="Filters\PositionFilter.Designer.cs">
       <DependentUpon>PositionFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filters\ProductFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filters\ProductFilter.Designer.cs">
+      <DependentUpon>ProductFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\SellingPlanFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filters\SellingPlanFilter.Designer.cs">
+      <DependentUpon>SellingPlanFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\SellingPlanStatisticFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filters\SellingPlanStatisticFilter.Designer.cs">
+      <DependentUpon>SellingPlanStatisticFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filters\StatisticsSellsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -213,6 +231,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\PositionFilter.resx">
       <DependentUpon>PositionFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\ProductFilter.resx">
+      <DependentUpon>ProductFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\SellingPlanFilter.resx">
+      <DependentUpon>SellingPlanFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\SellingPlanStatisticFilter.resx">
+      <DependentUpon>SellingPlanStatisticFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filters\StatisticsSellsForm.resx">
       <DependentUpon>StatisticsSellsForm.cs</DependentUpon>

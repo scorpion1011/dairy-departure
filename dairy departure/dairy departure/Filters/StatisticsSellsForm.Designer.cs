@@ -46,6 +46,7 @@
 			this.label1.Size = new System.Drawing.Size(49, 13);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Between";
+			this.label1.Click += new System.EventHandler(this.label1_Click);
 			// 
 			// dtpFromDate
 			// 
@@ -64,6 +65,7 @@
 			this.label2.Size = new System.Drawing.Size(25, 13);
 			this.label2.TabIndex = 2;
 			this.label2.Text = "and";
+			this.label2.Click += new System.EventHandler(this.label2_Click);
 			// 
 			// dtpToDate
 			// 
@@ -82,6 +84,7 @@
 			this.label3.Size = new System.Drawing.Size(50, 13);
 			this.label3.TabIndex = 4;
 			this.label3.Text = "Group by";
+			this.label3.Click += new System.EventHandler(this.label3_Click);
 			// 
 			// cbGroupBy
 			// 
@@ -95,6 +98,7 @@
 			this.cbGroupBy.Name = "cbGroupBy";
 			this.cbGroupBy.Size = new System.Drawing.Size(121, 21);
 			this.cbGroupBy.TabIndex = 5;
+			this.cbGroupBy.SelectedIndexChanged += new System.EventHandler(this.cbGroupBy_SelectedIndexChanged);
 			// 
 			// btnFilter
 			// 

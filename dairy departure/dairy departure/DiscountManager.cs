@@ -14,7 +14,6 @@ namespace dairy_departure
 
 		public decimal Calculate(DateTime production, int IDprod)
 		{
-            //return Round(Convert.ToDecimal(getrandom.Next(3, 7) + getrandom.NextDouble()));
             decimal completedProcent = 0;
             int shelfLife = 0;
 
