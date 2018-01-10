@@ -12,7 +12,7 @@ namespace dairy_departure
 	{
 
 		private static readonly Random getrandom = new Random();
-        decimal completedProcent = 0;
+        decimal completedProcent = 100;
         int shelfLife = 0;
         decimal lifeProcent;
         int idPlan = 0;
@@ -20,32 +20,43 @@ namespace dairy_departure
 
         public decimal Calculate(DateTime production, int IDprod, DateTime dateSell)
 		{
-            
+            idPlan = 0;
+            completedProcent = 100;
 
             string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
 
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
                 conn.Open();
-                string sql = @"SELECT TOP 1 cccc.id_plan, (cccc.AMONT + cccc.[Time]) / 2 as VVVV
+                string sql = @"SELECT TOP 1 ID_plan, rate
 FROM (
-SELECT Sp.id_plan, (Sum([Sl.Count])/MIN(SpP.Amount)*100) as AMONT, ((Sp.Date_to-Date())/(Sp.Date_to-Sp.Date_from)*100) AS [Time]
+  SELECT Sp.ID_plan, 
+        (
+                       select Sum(Sl.[Count]) as amount
 
-FROM Sells AS Sl, Supply AS S, Selles_plan AS Sp, SellesPlan_Product AS SpP
+                       FROM (SellesPlan_Product AS SpP1 INNER JOIN Supply AS S ON S.ID_product = SpP1.ID_product)
+                                Left Join Sells as Sl On S.ID_supply = Sl.ID_supply
 
-WHERE Sl.ID_supply=[S].[ID_supply] AND Sl.[Date_sell]>Sp.Date_from And Sl.[Date_sell]<Sp.Date_to AND S.ID_product=[SpP].[ID_product] AND Sp.ID_plan=[SpP].[ID_plan]
-AND S.ID_product = @ID_product
+                        where SpP1.ID_plan = SpP.ID_plan and SpP.ID_product = @product and (Sl.ID_sell IS NULL OR Sl.Date_sell >= Sp.[Date_from] and Sl.Date_sell < @Date)
 
-GROUP BY Sp.id_plan, Sp.Date_to, Sp.Date_from
+                        group by SpP1.ID_plan
+         ) AS sold_amount_temp ,
+         IIF(sold_amount_temp is null, 0, sold_amount_temp) as sold_amount,
+        ((sold_amount/SpP.[Amount]*100) + ((Sp.Date_to-Date())/(Sp.Date_to-Sp.Date_from)*100))/2 as rate
 
-Having (Sum([Sl.Count]/SpP.Amount)*100) <100
-) as cccc
+  FROM Selles_plan AS Sp
+        INNER JOIN SellesPlan_Product AS SpP ON [Sp].[ID_plan]=[SpP].[ID_plan]
 
-ORDER BY (cccc.AMONT + cccc.[Time]) / 2;";
+  WHERE Sp.[Date_from] <= @Date and Sp.[Date_to] > @Date
+     and SpP.ID_product = @product
+
+) tbl
+ORDER BY rate";
 
                 using (OleDbCommand comm = new OleDbCommand(sql, conn))
                 {
-                    comm.Parameters.AddWithValue("@ID_product", IDprod);
+                    comm.Parameters.AddWithValue("@product", IDprod);
+                    comm.Parameters.AddWithValue("@Date", dateSell.Date);
 
                     using (OleDbDataReader reader = comm.ExecuteReader())
                     {
@@ -89,7 +100,7 @@ ORDER BY (cccc.AMONT + cccc.[Time]) / 2;";
             {
                 planProcent = 30 - completedProcent;
             }
-            lifeProcent = (decimal)((dateSell - production).TotalDays / shelfLife * 30);
+            lifeProcent = (decimal)((dateSell.Date - production).TotalDays / shelfLife * 30);
 
             return Math.Round(planProcent + lifeProcent);
         }

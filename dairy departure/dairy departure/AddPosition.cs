@@ -15,18 +15,17 @@ namespace dairy_departure
     public partial class AddPosition : Form
     {
         Director parent;
-        int id;
-        public AddPosition(Director parent, int id)
+        DataGridViewRow row;
+        public AddPosition(Director parent, DataGridViewRow row = null)
         {
             this.parent = parent;
-            this.id = id;
+            this.row = row;
             InitializeComponent();
 
 
             
-            if (id != -1)
+            if (row != null)
             {
-                DataGridViewRow row = (parent.Controls.Find("dataGridView1", true)[0] as DataGridView).Rows[id];
                 maskedTextBox1.Text = row.Cells["PosName"].Value.ToString();
                 maskedTextBox2.Text = row.Cells["Payment"].Value.ToString();
             }
@@ -34,7 +33,8 @@ namespace dairy_departure
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (id == -1)
+            Director f = (Director)this.parent;
+            if (row == null)
             {
                 try
                 {
@@ -54,7 +54,7 @@ namespace dairy_departure
                         }
                     }
                     MessageBox.Show("Position successfully added");
-                    parent.positionsToolStripMenuItem_Click(this, e);
+                    f.positionsToolStripMenuItem_Click(f.GetToolStripMenuItem("positionsToolStripMenuItem"), e);
                     this.Close();
                 }
                 catch (Exception)
@@ -66,9 +66,6 @@ namespace dairy_departure
             {
                 try
                 {
-
-                    DataGridViewRow row = ((DataGridView)(parent.Controls["dataGridView1"])).Rows[id];
-
                     int posID = Int32.Parse(row.Cells["ID_position"].Value.ToString());
                     string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
 
@@ -89,14 +86,14 @@ namespace dairy_departure
                     }
                     MessageBox.Show("Position successfully updated");
                     this.Close();
-                parent.positionsToolStripMenuItem_Click(this, e);
-            }
-                catch (Exception)
-            {
+                    f.positionsToolStripMenuItem_Click(f.GetToolStripMenuItem("positionsToolStripMenuItem"), e);
+                }
+                    catch (Exception)
+                {
                 MessageBox.Show("Invalid input");
             }
         }
-        }
+    }
 
         private void button2_Click(object sender, EventArgs e)
         {

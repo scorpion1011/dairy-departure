@@ -27,6 +27,22 @@ namespace dairy_departure
 			employeeToolStripMenuItem_Click(employeeToolStripMenuItem, null);
         }
 
+        public System.Windows.Forms.ToolStripMenuItem GetToolStripMenuItem(string name)
+        {
+            switch(name)
+            {
+                case "employeeToolStripMenuItem":
+                    return employeeToolStripMenuItem;
+                case "positionsToolStripMenuItem":
+                    return positionsToolStripMenuItem;
+                case "sellingPlansToolStripMenuItem":
+                    return sellingPlansToolStripMenuItem;
+                case "productsToolStripMenuItem":
+                    return productsToolStripMenuItem;
+            }
+            throw new Exception("Wrong menu item name {" + name + "}");
+        }
+
         private void Director_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
@@ -141,22 +157,22 @@ namespace dairy_departure
 		{
 			if (!employeeToolStripMenuItem.Enabled)
             {
-                AddEmployee f = new AddEmployee(this, -1);
+                AddEmployee f = new AddEmployee(this);
                 f.ShowDialog();
             }
             if (!positionsToolStripMenuItem.Enabled)
             {
-                AddPosition f = new AddPosition(this, -1);
+                AddPosition f = new AddPosition(this);
                 f.ShowDialog();
             }
             if (!sellingPlansToolStripMenuItem.Enabled)
             {
-                AddPlan f = new AddPlan(this, -1);
+                AddPlan f = new AddPlan(this);
                 f.ShowDialog();
             }
             if (!productsToolStripMenuItem.Enabled)
             {
-                AddProduct f = new AddProduct(this, -1);
+                AddProduct f = new AddProduct(this);
                 f.ShowDialog();
             }
             //if (!sellsToolStripMenuItem.Enabled)
@@ -175,22 +191,22 @@ namespace dairy_departure
         {
             if (!employeeToolStripMenuItem.Enabled)
             {
-                AddEmployee f = new AddEmployee(this, dataGridView1.SelectedRows[0].Index);
+                AddEmployee f = new AddEmployee(this, dataGridView1.SelectedRows[0]);
                 f.ShowDialog();
             }
             if (!positionsToolStripMenuItem.Enabled)
             {
-                AddPosition f = new AddPosition(this, dataGridView1.SelectedRows[0].Index);
+                AddPosition f = new AddPosition(this, dataGridView1.SelectedRows[0]);
                 f.ShowDialog();
             }
             if (!sellingPlansToolStripMenuItem.Enabled)
             {
-                AddPlan f = new AddPlan(this, dataGridView1.SelectedRows[0].Index);
+                AddPlan f = new AddPlan(this, dataGridView1.SelectedRows[0]);
                 f.ShowDialog();
             }
             if (!productsToolStripMenuItem.Enabled)
             {
-                AddProduct f = new AddProduct(this, dataGridView1.SelectedRows[0].Index);
+                AddProduct f = new AddProduct(this, dataGridView1.SelectedRows[0]);
                 f.ShowDialog();
             }
             //if (!sellsToolStripMenuItem.Enabled)
@@ -243,9 +259,9 @@ namespace dairy_departure
 						}
 					}
 					MessageBox.Show("Employee successfully deleted");
-					dataGridView1.Rows.Clear();
-					dataGridView1.Refresh();
-					employeeToolStripMenuItem_Click(this, e);
+					//dataGridView1.Rows.Clear();
+					//dataGridView1.Refresh();
+					employeeToolStripMenuItem_Click(GetToolStripMenuItem("employeeToolStripMenuItem"), e);
 				}
 				if (!positionsToolStripMenuItem.Enabled)
 				{
@@ -265,7 +281,7 @@ namespace dairy_departure
 					MessageBox.Show("Position successfully deleted");
 					dataGridView1.Rows.Clear();
 					dataGridView1.Refresh();
-					positionsToolStripMenuItem_Click(this, e);
+					positionsToolStripMenuItem_Click(GetToolStripMenuItem("positionsToolStripMenuItem"), e);
 				}
 				if (!sellingPlansToolStripMenuItem.Enabled)
 				{
@@ -276,16 +292,30 @@ namespace dairy_departure
 						conn.Open();
 						string sql = @"Delete from SellesPlan_Product
                                         where ID_plan = @planID and ID_product = @productID";
+                        
 						using (OleDbCommand comm = new OleDbCommand(sql, conn))
 						{
-
 							comm.Parameters.AddWithValue("@planID", dataGridView1.SelectedRows[0].Cells["ID_plan"].Value.ToString());
-							comm.Parameters.AddWithValue("@planID", dataGridView1.SelectedRows[0].Cells["ID_product"].Value.ToString());
+							comm.Parameters.AddWithValue("@ID_product", dataGridView1.SelectedRows[0].Cells["ID_product"].Value.ToString());
 							comm.ExecuteNonQuery();
-						}
-					}
-					MessageBox.Show("Plan successfully deleted");
-					sellingPlansToolStripMenuItem_Click(this, e);
+                        }
+
+
+                        sql = @"Delete from Selles_Plan
+                                        where ID_plan = @planID 
+                                        and 0 = (select Count(SellesPlan_Product.ID_plan) from SellesPlan_Product where SellesPlan_Product.ID_plan = Selles_Plan.ID_plan)";
+
+                        using (OleDbCommand comm = new OleDbCommand(sql, conn))
+                        {
+
+                            comm.Parameters.AddWithValue("@planID", dataGridView1.SelectedRows[0].Cells["ID_plan"].Value.ToString());
+                            comm.ExecuteNonQuery();
+                        }
+                    }
+
+
+                    MessageBox.Show("Plan successfully deleted");
+					sellingPlansToolStripMenuItem_Click(GetToolStripMenuItem("sellingPlansToolStripMenuItem"), e);
 				}
 				if (!productsToolStripMenuItem.Enabled)
 				{
@@ -302,7 +332,7 @@ namespace dairy_departure
 						}
 					}
 					MessageBox.Show("Product successfully deleted");
-					productsToolStripMenuItem_Click(this, e);
+					productsToolStripMenuItem_Click(GetToolStripMenuItem("productsToolStripMenuItem"), e);
 				}
 			}
         }
@@ -719,7 +749,7 @@ where e.ID_employee = ep.ID_employee and p.ID_position = ep.ID_position and EP.D
 
 			if (actual)
 			{
-				sql += " and Sp.[Date_from] > Date() and Sp.[Date_to] < Date()";
+				sql += " and Sp.[Date_from] >= Date() and Sp.[Date_to] < Date()";
 			}
 			using (OleDbConnection conn = new OleDbConnection(connectionString))
 			{
@@ -760,7 +790,7 @@ where e.ID_employee = ep.ID_employee and p.ID_position = ep.ID_position and EP.D
 
 				sql = @" select iif((Sum(sl.[Count])/MIN(SpP.Amount)*100) is null, 0, (Sum(sl.[Count])/MIN(SpP.Amount)*100)) AS Procent 
 						from Selles_plan as sp, SellesPlan_Product as spp, Sells as sl, Supply as s
-						where sp.ID_plan = spp.ID_plan and sp.ID_plan = @plan and spp.ID_product = @product and sl.ID_supply = s.ID_supply and s.ID_product = @product and sl.Date_sell > sp.Date_from and sl.Date_sell < sp.Date_to";
+						where sp.ID_plan = spp.ID_plan and sp.ID_plan = @plan and spp.ID_product = @product and sl.ID_supply = s.ID_supply and s.ID_product = @product and sl.Date_sell >= sp.Date_from and sl.Date_sell < sp.Date_to";
 
 				
 				using (OleDbConnection conn = new OleDbConnection(connectionString))

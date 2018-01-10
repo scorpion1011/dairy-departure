@@ -29,7 +29,7 @@ namespace dairy_departure
             section.PageSetup.StartingNumber = 1;
 
             HeaderFooter header = section.Headers.Primary;
-            header.AddParagraph("\tOdd Page Header");
+            header.AddParagraph("\tCheck");
 
             header = section.Headers.EvenPage;
             header.AddParagraph("Even Page Header");

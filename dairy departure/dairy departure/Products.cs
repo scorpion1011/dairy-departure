@@ -55,18 +55,19 @@ namespace dairy_departure
                 conn.Open();
 
                 string sql = @"select Name_manufacturer from Manufacturer where ID_manufacturer = @ID_manufacturer";
-                using (OleDbCommand comm = new OleDbCommand(sql, conn))
+                
+                for (int index = 0; index < productDataGridView.Rows.Count; index++)
                 {
-                    for (int index = 0; index < productDataGridView.Rows.Count; index++)
+                    using (OleDbCommand comm = new OleDbCommand(sql, conn))
                     {
-                        comm.Parameters.AddWithValue("@ID_manufacturer", Int32.Parse(productDataGridView.Rows[index].Cells[3].Value.ToString()));
+                    comm.Parameters.AddWithValue("@ID_manufacturer", Int32.Parse(productDataGridView.Rows[index].Cells["iDmanufacturerDataGridViewTextBoxColumn"].Value.ToString()));
 
                         using (OleDbDataReader reader = comm.ExecuteReader())
                         {
 
                             if (reader.Read())
                             {
-                                productDataGridView.Rows[index].Cells[2].Value = reader.GetString(0);
+                                productDataGridView.Rows[index].Cells["namemanufacturerDataGridViewTextBoxColumn"].Value = reader.GetString(0);
                             }
                         }
                     }
@@ -119,7 +120,16 @@ namespace dairy_departure
 
         private void GetSupplies()
         {
-            int prod_id = Int32.Parse(productDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            int prod_id = 0;
+            try
+            {
+                prod_id = Int32.Parse(productDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No product selected");
+                return;
+            }
             //int manuf_id = Int32.Parse(productDataGridView.SelectedRows[0].Cells[2].Value.ToString());
 
             string connectionString = ConfigurationManager.ConnectionStrings["DairyDepartureConnectionString"].ConnectionString;
