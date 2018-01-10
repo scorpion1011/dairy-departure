@@ -46,8 +46,6 @@
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.diagramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnSearch = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -148,21 +146,21 @@
             // statisticsSellingPlansItem
             // 
             this.statisticsSellingPlansItem.Name = "statisticsSellingPlansItem";
-            this.statisticsSellingPlansItem.Size = new System.Drawing.Size(152, 22);
+            this.statisticsSellingPlansItem.Size = new System.Drawing.Size(140, 22);
             this.statisticsSellingPlansItem.Text = "Selling plans";
             this.statisticsSellingPlansItem.Click += new System.EventHandler(this.statisticsSellingPlansItem_Click);
             // 
             // statisticsSellsItem
             // 
             this.statisticsSellsItem.Name = "statisticsSellsItem";
-            this.statisticsSellsItem.Size = new System.Drawing.Size(152, 22);
+            this.statisticsSellsItem.Size = new System.Drawing.Size(140, 22);
             this.statisticsSellsItem.Text = "Sells";
             this.statisticsSellsItem.Click += new System.EventHandler(this.statisticsSellsItem_Click);
             // 
             // statisticsSuppliesItem
             // 
             this.statisticsSuppliesItem.Name = "statisticsSuppliesItem";
-            this.statisticsSuppliesItem.Size = new System.Drawing.Size(152, 22);
+            this.statisticsSuppliesItem.Size = new System.Drawing.Size(140, 22);
             this.statisticsSuppliesItem.Text = "Supplies";
             this.statisticsSuppliesItem.Click += new System.EventHandler(this.statisticsSuppliesItem_Click);
             // 
@@ -174,8 +172,6 @@
             this.addToolStripMenuItem,
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem,
-            this.gridToolStripMenuItem,
-            this.diagramToolStripMenuItem,
             this.exportToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 24);
             this.menuStrip2.Name = "menuStrip2";
@@ -217,18 +213,6 @@
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
-            // 
-            // gridToolStripMenuItem
-            // 
-            this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
-            this.gridToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.gridToolStripMenuItem.Text = "Grid";
-            // 
-            // diagramToolStripMenuItem
-            // 
-            this.diagramToolStripMenuItem.Name = "diagramToolStripMenuItem";
-            this.diagramToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.diagramToolStripMenuItem.Text = "Diagram";
             // 
             // exportToolStripMenuItem
             // 
@@ -307,8 +291,6 @@
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gridToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem diagramToolStripMenuItem;
         private System.Windows.Forms.Panel pnSearch;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;

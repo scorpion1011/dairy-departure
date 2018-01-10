@@ -85,18 +85,12 @@ namespace dairy_departure
 				addToolStripMenuItem.Visible = false;
 				editToolStripMenuItem.Visible = false;
 				deleteToolStripMenuItem.Visible = false;
-
-				gridToolStripMenuItem.Visible = true;
-				diagramToolStripMenuItem.Visible = true;
 			}
 			else
 			{
 				addToolStripMenuItem.Visible = true;
 				editToolStripMenuItem.Visible = true;
 				deleteToolStripMenuItem.Visible = true;
-
-				gridToolStripMenuItem.Visible = false;
-				diagramToolStripMenuItem.Visible = false;
 			}
 		}
 
